@@ -1,0 +1,884 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tvorba webu na míru — demo zdarma do 24 h | Jan Červinka{% endblock %}
+
+{% block stylesheets %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Weby a e-shopy na míru. Fixní cena, demo zdarma do 24 h, platíš až po schválení návrhu. Každý projekt dělám osobně.">
+<link rel="canonical" href="{{ app.request.schemeAndHttpHost }}/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ app.request.schemeAndHttpHost }}/">
+<meta property="og:title" content="Tvorba webu na míru — demo zdarma do 24 h | Jan Červinka">
+<meta property="og:description" content="Weby a e-shopy na míru. Fixní cena, demo zdarma do 24 h, platíš až po schválení návrhu. Každý projekt dělám osobně.">
+<meta property="og:image" content="{{ app.request.schemeAndHttpHost }}{{ asset('images/jan-cervinka.webp') }}">
+<meta property="og:locale" content="cs_CZ">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tvorba webu na míru — demo zdarma do 24 h | Jan Červinka">
+<meta name="twitter:description" content="Weby a e-shopy na míru. Fixní cena, demo zdarma do 24 h, platíš až po schválení návrhu. Každý projekt dělám osobně.">
+<meta name="twitter:image" content="{{ app.request.schemeAndHttpHost }}{{ asset('images/jan-cervinka.webp') }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Jan Červinka — tvorba webu",
+  "url": "{{ app.request.schemeAndHttpHost }}/",
+  "description": "Weby a e-shopy na míru pro podnikatele a živnostníky. Fixní cena, demo zdarma do 24 h.",
+  "founder": {
+    "@type": "Person",
+    "name": "Jan Červinka",
+    "jobTitle": "Webový vývojář a designér",
+    "url": "{{ app.request.schemeAndHttpHost }}/",
+    "image": "{{ app.request.schemeAndHttpHost }}{{ asset('images/jan-cervinka.webp') }}",
+    "knowsLanguage": "cs"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Česká republika"
+  },
+  "serviceType": ["Tvorba webu", "Tvorba e-shopu", "Webový design", "Programování na míru"],
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "CZ"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+
+:root{
+  --bg:#0B0B0A;
+  --bg2:#141413;
+  --bg3:#1C1C1A;
+  --text:#F0EBE0;
+  --muted:rgba(240,235,224,0.42);
+  --accent:#DFFF00;
+  --border:rgba(240,235,224,0.08);
+  --borderm:rgba(240,235,224,0.16);
+  --ff:'Syne',sans-serif;
+  --mono:'DM Mono',monospace;
+  --max:1280px;
+  --pad:clamp(1.25rem,4vw,3rem);
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--ff);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{cursor:pointer;font-family:var(--ff);border:none;background:none;color:inherit}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.accent{color:var(--accent)}
+
+.label{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.tag::before{content:'';display:block;width:1.5rem;height:1px;background:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.75rem;font-family:var(--ff);font-weight:700;font-size:.9rem;letter-spacing:.01em;transition:all .2s ease;border:1.5px solid transparent;border-radius:2px;cursor:pointer;white-space:nowrap}
+.btn--accent{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.btn--accent:hover{background:transparent;color:var(--accent)}
+.btn--outline{background:transparent;color:var(--text);border-color:var(--borderm)}
+.btn--outline:hover{border-color:var(--text)}
+.btn--lg{padding:1.1rem 2.25rem;font-size:1rem}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 0;transition:background .3s,padding .3s}
+.nav.scrolled{background:rgba(11,11,10,.93);backdrop-filter:blur(12px);padding:.75rem 0;border-bottom:1px solid var(--border)}
+.nav__inner{display:flex;align-items:center;gap:2rem}
+.nav__logo{font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-right:auto}
+.nav__links{display:flex;align-items:center;gap:2rem}
+.nav__links a{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav__links a:hover{color:var(--text)}
+.nav__toggle{display:none;flex-direction:column;gap:5px;padding:.5rem}
+.nav__toggle span{display:block;width:24px;height:1.5px;background:var(--text);transition:all .3s}
+.nav__mobile{display:none;flex-direction:column;padding:1.5rem var(--pad);background:var(--bg2);border-top:1px solid var(--border)}
+.nav__mobile a{padding:.75rem 0;font-weight:600;font-size:1.1rem;border-bottom:1px solid var(--border)}
+.nav__mobile .btn{margin-top:1rem;width:100%;justify-content:center}
+
+@media(max-width:768px){
+  .nav__links,.nav__cta{display:none}
+  .nav__toggle{display:flex}
+  .nav__mobile.open{display:flex}
+}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;padding-top:6rem;position:relative;overflow:hidden;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,var(--border) 80px)}
+.hero__inner{flex:1;display:grid;grid-template-columns:1fr 1.05fr;gap:0;align-items:stretch;min-height:calc(100vh - 6rem)}
+
+/* Photo column */
+.hero__photo{position:relative;overflow:hidden;border-right:1px solid var(--border)}
+.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;filter:grayscale(15%)}
+.hero__pholder{width:100%;height:100%;min-height:520px;background:var(--bg2);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;position:relative;border-right:1px solid var(--border)}
+.hero__pholder::before{content:'';position:absolute;inset:0;border:1.5px dashed rgba(223,255,0,.2);margin:1rem;pointer-events:none}
+.hero__pholder-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.hero__pholder-label::before{content:'';width:1rem;height:1px;background:var(--accent)}
+.hero__pholder-prompt{font-family:var(--mono);font-size:.68rem;line-height:1.6;color:rgba(240,235,224,.35);max-width:42ch}
+.hero__pholder-corner{position:absolute;top:1.75rem;right:1.75rem;font-family:var(--mono);font-size:.6rem;color:rgba(240,235,224,.2);letter-spacing:.08em}
+
+/* Text column */
+.hero__text{display:flex;flex-direction:column;justify-content:center;padding:clamp(2.5rem,5vw,5rem) clamp(2rem,4vw,4rem);gap:2rem}
+.hero__name{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero__h1{font-weight:800;font-size:clamp(2.8rem,6vw,6.5rem);line-height:.92;letter-spacing:-.04em;text-transform:uppercase}
+.hero__intro{font-size:clamp(.95rem,1.5vw,1.1rem);color:var(--muted);max-width:38ch;line-height:1.6;border-left:2px solid var(--accent);padding-left:1rem}
+.hero__cta-group{display:flex;flex-direction:column;gap:1rem}
+.hero__checks{display:flex;flex-direction:column;gap:.4rem}
+.hero__checks li{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+
+.hero__niches{border-top:1px solid var(--border);padding:1.5rem 0}
+.niche-strip{display:flex;align-items:center;gap:clamp(1.5rem,3vw,3.5rem);flex-wrap:wrap;margin-top:.85rem}
+.niche-strip span{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.2);white-space:nowrap}
+
+@media(max-width:900px){
+  .hero__inner{grid-template-columns:1fr;min-height:auto}
+  .hero__photo{min-height:55vw;border-right:none;border-bottom:1px solid var(--border)}
+  .hero__pholder{min-height:55vw}
+  .hero__text{padding:2.5rem var(--pad)}
+}
+
+/* ── ABOUT ── */
+.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,6rem);align-items:center}
+.about__h2{font-weight:800;font-size:clamp(2.25rem,5vw,4.5rem);letter-spacing:-.04em;line-height:.95;text-transform:uppercase;margin-bottom:1.75rem}
+.about__p{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:42ch;margin-bottom:1rem}
+.about__facts{display:flex;flex-direction:column;gap:.6rem;margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--border)}
+.about__facts li{font-family:var(--mono);font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:.6rem}
+.about__facts li .accent{font-weight:700;font-size:1rem}
+.about__photos{display:grid;grid-template-rows:1.6fr 1fr;gap:1rem;height:clamp(480px,55vw,680px)}
+.about__photo{overflow:hidden;border-radius:2px;position:relative}
+.about__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(10%);transition:transform .6s ease}
+.about__photo:hover img{transform:scale(1.03)}
+
+/* Shared placeholder styles */
+.pholder{width:100%;height:100%;background:var(--bg2);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;position:relative}
+.pholder::before{content:'';position:absolute;inset:0;border:1.5px dashed rgba(223,255,0,.18);margin:.75rem;pointer-events:none}
+.pholder__tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;display:block}
+.pholder__prompt{font-family:var(--mono);font-size:.63rem;line-height:1.55;color:rgba(240,235,224,.3)}
+
+@media(max-width:900px){
+  .about__grid{grid-template-columns:1fr}
+  .about__photos{height:auto;grid-template-rows:auto;grid-template-columns:1fr 1fr}
+  .about__photo{min-height:240px}
+}
+@media(max-width:560px){
+  .about__photos{grid-template-columns:1fr}
+}
+
+/* ── SECTION COMMON ── */
+.section{padding:clamp(5rem,10vw,9rem) 0}
+.section__hd{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:clamp(3rem,6vw,5rem);padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.section__h2{font-weight:800;font-size:clamp(2.25rem,5.5vw,5rem);letter-spacing:-.04em;line-height:.95;text-transform:uppercase}
+
+@media(max-width:768px){.section__hd{flex-direction:column;align-items:flex-start}}
+
+/* ── SERVICES ── */
+.services__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.svc{background:var(--bg);padding:clamp(2rem,4vw,3.5rem);display:flex;flex-direction:column;gap:1.5rem;transition:background .3s}
+.svc:hover{background:var(--bg3)}
+.svc__num{font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:.1em}
+.svc__title{font-weight:800;font-size:clamp(1.5rem,2.5vw,2.25rem);letter-spacing:-.02em;line-height:1.1}
+.svc__desc{color:var(--muted);font-size:.88rem;line-height:1.6;flex:1}
+.svc__link{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:.4rem;transition:gap .2s}
+.svc:hover .svc__link{gap:.8rem}
+
+@media(max-width:640px){.services__grid{grid-template-columns:1fr}}
+
+/* ── PRICING ── */
+.pricing__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.pcard{padding:clamp(2rem,3vw,2.75rem);border:1px solid var(--border);border-radius:2px;display:flex;flex-direction:column;gap:2rem;position:relative;transition:border-color .3s}
+.pcard:hover{border-color:var(--borderm)}
+.pcard--feat{background:var(--bg2);border-color:var(--accent)}
+.pcard--feat:hover{border-color:var(--accent)}
+.pcard__badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .75rem;font-weight:500;border-radius:0 0 2px 2px;white-space:nowrap}
+.pcard__tier{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.pcard__price{font-weight:800;font-size:clamp(2rem,3.5vw,2.75rem);letter-spacing:-.04em;line-height:1}
+.pcard__price-suffix{font-size:.85rem;font-weight:400;color:var(--muted);letter-spacing:0;margin-left:.1em}
+.pcard__for{font-size:.82rem;color:var(--muted);margin-top:-.5rem}
+.pcard__features{display:flex;flex-direction:column;gap:.65rem;flex:1}
+.pcard__features li{font-size:.83rem;display:flex;align-items:flex-start;gap:.6rem;line-height:1.4}
+.pcard__features li::before{content:'—';font-family:var(--mono);color:var(--accent);flex-shrink:0}
+
+@media(max-width:900px){.pricing__grid{grid-template-columns:1fr;max-width:480px}}
+
+/* ── DEMO USP ── */
+.demo{background:var(--accent);color:var(--bg);padding:clamp(5rem,10vw,9rem) 0;position:relative;overflow:hidden}
+.demo__inner{position:relative;z-index:1}
+.demo__h2{font-weight:800;font-size:clamp(2.5rem,7vw,7rem);letter-spacing:-.04em;line-height:.95;text-transform:uppercase;max-width:16ch}
+.demo__sub{font-size:clamp(1rem,1.5vw,1.2rem);margin-top:2rem;max-width:45ch;opacity:.65}
+.demo__cta{margin-top:3rem;display:inline-flex;align-items:center;gap:.6rem;background:var(--bg);color:var(--accent);padding:1rem 2.25rem;font-weight:700;font-size:1rem;border-radius:2px;transition:opacity .2s}
+.demo__cta:hover{opacity:.85}
+.demo__bgtext{position:absolute;right:-.04em;top:50%;transform:translateY(-50%);font-weight:800;font-size:28vw;line-height:1;color:rgba(0,0,0,.055);pointer-events:none;user-select:none}
+
+/* ── PROCESS ── */
+.process__steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.process__steps::before{content:'';position:absolute;top:1.4rem;left:12%;right:12%;height:1px;background:var(--borderm)}
+.pstep{padding:0 1.5rem;position:relative;z-index:1}
+.pstep:first-child{padding-left:0}
+.pstep:last-child{padding-right:0}
+.pstep__dot{width:3rem;height:3rem;border:1.5px solid var(--borderm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:var(--bg);margin-bottom:1.5rem;transition:all .3s}
+.pstep:hover .pstep__dot{border-color:var(--accent);color:var(--accent)}
+.pstep__title{font-weight:800;font-size:1.1rem;letter-spacing:-.01em;margin-bottom:.4rem}
+.pstep__desc{font-size:.83rem;color:var(--muted);line-height:1.5}
+
+@media(max-width:768px){
+  .process__steps{grid-template-columns:repeat(2,1fr);gap:2.5rem}
+  .process__steps::before{display:none}
+  .pstep{padding:0}
+}
+
+/* ── GUARANTEES ── */
+.guar__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.guar__card{background:var(--bg);padding:clamp(2rem,3vw,2.75rem);display:flex;flex-direction:column;gap:1.5rem;transition:background .3s}
+.guar__card:hover{background:var(--bg3)}
+.guar__num{font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:.1em}
+.guar__title{font-weight:800;font-size:clamp(1.1rem,1.8vw,1.5rem);letter-spacing:-.02em;line-height:1.1;text-transform:uppercase}
+.guar__desc{font-size:.83rem;color:var(--muted);line-height:1.6}
+@media(max-width:768px){.guar__grid{grid-template-columns:1fr}}
+
+/* ── FAQ ── */
+.faq__list{display:flex;flex-direction:column}
+details.faqitem{border-bottom:1px solid var(--border)}
+details.faqitem:first-child{border-top:1px solid var(--border)}
+summary.faqitem__q{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;font-weight:700;font-size:clamp(.92rem,1.4vw,1.05rem);cursor:pointer;list-style:none;gap:1rem;transition:color .2s}
+summary.faqitem__q::-webkit-details-marker{display:none}
+summary.faqitem__q:hover{color:var(--accent)}
+.faqitem__ico{flex-shrink:0;width:1.5rem;height:1.5rem;border:1px solid var(--borderm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;color:var(--muted);transition:all .3s}
+details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);color:var(--bg);transform:rotate(45deg)}
+.faqitem__a{padding:0 0 1.5rem;color:var(--muted);font-size:.88rem;line-height:1.7;max-width:65ch}
+
+/* ── FORM ── */
+.formsec{background:var(--bg2);padding:clamp(5rem,10vw,9rem) 0}
+.formwrap{max-width:720px;margin:0 auto}
+.form__steplbl{display:flex;justify-content:space-between;margin-bottom:.65rem}
+.form__prog{height:2px;background:var(--border);border-radius:2px;margin-bottom:3rem;overflow:hidden}
+.form__progbar{height:100%;background:var(--accent);border-radius:2px;transition:width .4s cubic-bezier(.16,1,.3,1);width:25%}
+.form__step{display:none}
+.form__step.active{display:block;animation:fadeUp .4s cubic-bezier(.16,1,.3,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.form__stitle{font-weight:800;font-size:clamp(1.5rem,3vw,2.25rem);letter-spacing:-.03em;margin-bottom:.4rem}
+.form__ssub{color:var(--muted);font-size:.88rem;margin-bottom:2rem}
+.rcards{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.rcard{position:relative}
+.rcard input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+.rcard label{display:flex;flex-direction:column;gap:.35rem;padding:1.25rem 1.5rem;border:1.5px solid var(--border);border-radius:2px;cursor:pointer;transition:all .2s}
+.rcard input:checked+label{border-color:var(--accent);background:rgba(223,255,0,.06)}
+.rcard label:hover{border-color:var(--borderm)}
+.rcard__title{font-weight:700;font-size:.93rem}
+.rcard__desc{font-size:.78rem;color:var(--muted)}
+.ffield{margin-bottom:1.25rem}
+.ffield label{display:block;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.ffield input,.ffield select,.ffield textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);color:var(--text);padding:.85rem 1rem;font-family:var(--ff);font-size:1rem;border-radius:2px;transition:border-color .2s;outline:none;-webkit-appearance:none;appearance:none}
+.ffield input:focus,.ffield select:focus,.ffield textarea:focus{border-color:var(--accent)}
+.ffield select option{background:var(--bg2)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fchk{display:flex;align-items:center;gap:.75rem;cursor:pointer;font-size:.88rem;margin-bottom:1rem}
+.fchk input{display:none}
+.fchk__box{width:1.25rem;height:1.25rem;border:1.5px solid var(--borderm);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.fchk input:checked~.fchk__box{background:var(--accent);border-color:var(--accent)}
+.fchk input:checked~.fchk__box::after{content:'✓';font-size:.68rem;color:var(--bg);font-weight:700}
+.form__nav{display:flex;align-items:center;justify-content:space-between;margin-top:2.5rem;gap:1rem}
+.form__back{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .2s;padding:.5rem 0}
+.form__back:hover{color:var(--text)}
+.form__success{display:none;text-align:center;padding:3rem 0}
+.form__success.show{display:block}
+.form__success-ico{font-size:3rem;margin-bottom:1rem}
+.form__success h3{font-weight:800;font-size:2rem;letter-spacing:-.03em;margin-bottom:.75rem}
+.form__success p{color:var(--muted);font-size:.9rem}
+
+@media(max-width:480px){
+  .rcards{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--border);padding:4rem 0 2.5rem}
+.footer__top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;padding-bottom:3rem;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.footer__logo{font-weight:800;font-size:1.5rem;letter-spacing:-.03em;margin-bottom:.75rem}
+.footer__tagline{font-size:.83rem;color:var(--muted);max-width:30ch;line-height:1.6}
+.footer__coltitle{font-family:var(--mono);font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+.footer__links{display:flex;flex-direction:column;gap:.6rem}
+.footer__links a{font-size:.88rem;color:rgba(240,235,224,.6);transition:color .2s}
+.footer__links a:hover{color:var(--text)}
+.footer__bottom{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.footer__copy{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.05em}
+
+@media(max-width:768px){.footer__top{grid-template-columns:1fr;gap:2rem}}
+
+/* ── STICKY MOBILE CTA ── */
+.sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;padding:.75rem var(--pad);background:rgba(11,11,10,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border)}
+.sticky .btn{width:100%;justify-content:center}
+@media(max-width:768px){.sticky{display:block};body{padding-bottom:5rem}}
+</style>
+{% endblock %}
+
+{% block body %}
+
+{# ── NAV ── #}
+<nav class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo">JC<span class="accent">.</span></a>
+    <ul class="nav__links">
+      <li><a href="#sluzby">Služby</a></li>
+      <li><a href="#cenik">Ceník</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#kontakt" class="btn btn--accent nav__cta">Nezávazná nabídka</a>
+    <button class="nav__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__mobile" id="navMobile">
+    <a href="#sluzby">Služby</a>
+    <a href="#cenik">Ceník</a>
+    <a href="#faq">FAQ</a>
+    <a href="#kontakt" class="btn btn--accent">Nezávazná nabídka</a>
+  </div>
+</nav>
+
+{# ── HERO ── #}
+<section class="hero" id="hero">
+  <div class="hero__inner">
+
+    <div class="hero__photo">
+      <img src="{{ asset('images/jan-cervinka.webp') }}" alt="Jan Červinka — programátor a webdesignér">
+    </div>
+
+    <div class="hero__text">
+      <p class="hero__name">Jan Červinka — programátor &amp; webdesignér</p>
+      <h1 class="hero__h1">Web na míru<span class="accent">.</span><br>Demo dřív<br>než smlouva.</h1>
+      <p class="hero__intro">Weby a e-shopy pro podnikatele a živnostníky. Ukážu ti design do 24 h — platíš až po schválení.</p>
+      <div class="hero__cta-group">
+        <a href="#kontakt" class="btn btn--accent btn--lg">Získat demo zdarma →</a>
+        <ul class="hero__checks">
+          <li>✓ Bez závazku</li>
+          <li>✓ Odpověď do 24 h</li>
+          <li>✓ Platíš až po schválení návrhu</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero__niches">
+    <div class="wrap">
+      <p class="label">Pracuji s podnikateli z celé ČR</p>
+      <div class="niche-strip">
+        <span>Kavárny</span>
+        <span>Fotografové</span>
+        <span>Koučové</span>
+        <span>Fitness trenéři</span>
+        <span>Řemeslníci</span>
+        <span>IT freelanceři</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── KDO JSEM ── #}
+<section class="section about" id="o-mne">
+  <div class="wrap">
+    <div class="about__grid">
+
+      <div class="about__text reveal">
+        <div class="tag">Kdo jsem</div>
+        <h2 class="about__h2">Programátor,<br>ne agentura<span class="accent">.</span></h2>
+        <p class="about__p">Jsem Jan Červinka. Stavím weby a e-shopy pro podnikatele a živnostníky — kavárny, fotografy, kouče, IT freelancery. Každý projekt dělám osobně od prvního hovoru po spuštění.</p>
+        <p class="about__p">Žádní account manažeři, žádný outsourcing. Mluvíš přímo s člověkem, který bude psát tvůj kód.</p>
+        <ul class="about__facts">
+          <li><span class="accent">24 h</span> — odpovím do jednoho pracovního dne</li>
+          <li><span class="accent">100 %</span> — zdrojáky a přístupy předám vždy</li>
+          <li><span class="accent">Fixní cena</span> — co vidíš v ceníku, to zaplatíš</li>
+        </ul>
+      </div>
+
+      <div class="about__photos">
+        <div class="about__photo about__photo--main reveal d1">
+          <img src="{{ asset('images/jan-cervinka-workspace.webp') }}" alt="Jan Červinka při práci">
+        </div>
+        <div class="about__photo about__photo--secondary reveal d2">
+          <img src="{{ asset('images/jan-cervinka-detail.webp') }}" alt="Jan Červinka — detail">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{# ── SERVICES ── #}
+<section class="section" id="sluzby">
+  <div class="wrap">
+    <div class="section__hd reveal">
+      <div>
+        <div class="tag">Služby</div>
+        <h2 class="section__h2">Co<br>dělám</h2>
+      </div>
+      <p style="color:var(--muted);font-size:.88rem;max-width:36ch;line-height:1.6">Každý projekt od základu s ohledem na konverze a výkon — žádné šablony z roku 2018.</p>
+    </div>
+    <div class="services__grid">
+      <div class="svc reveal">
+        <span class="svc__num">01</span>
+        <h3 class="svc__title">Tvorba webu</h3>
+        <p class="svc__desc">Firemní weby a portfolio stránky na míru. WordPress nebo vlastní řešení. Hosting a doména vždy pod tvou kontrolou.</p>
+        <a href="#kontakt" class="svc__link">Zjistit více →</a>
+      </div>
+      <div class="svc reveal d1">
+        <span class="svc__num">02</span>
+        <h3 class="svc__title">Tvorba e-shopu</h3>
+        <p class="svc__desc">Shoptet, Upgates nebo e-shop na míru s napojením na Fakturoid, GoPay, Zásilkovnu a Heureku.</p>
+        <a href="#kontakt" class="svc__link">Zjistit více →</a>
+      </div>
+      <div class="svc reveal d2">
+        <span class="svc__num">03</span>
+        <h3 class="svc__title">Programování na míru</h3>
+        <p class="svc__desc">Rezervační systémy, Stripe checkout, custom CRM, API integrace. Tam, kde šablona nestačí.</p>
+        <a href="#kontakt" class="svc__link">Zjistit více →</a>
+      </div>
+      <div class="svc reveal d3">
+        <span class="svc__num">04</span>
+        <h3 class="svc__title">Správa webu</h3>
+        <p class="svc__desc">Měsíční retainer — hosting, zálohy, aktualizace, předplacené hodiny. Od 990 Kč/měs.</p>
+        <a href="#kontakt" class="svc__link">Zjistit více →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── PRICING ── #}
+<section class="section" id="cenik">
+  <div class="wrap">
+    <div class="section__hd reveal">
+      <div>
+        <div class="tag">Ceník</div>
+        <h2 class="section__h2">Fixní<br>cena</h2>
+      </div>
+      <p style="color:var(--muted);font-size:.88rem;max-width:36ch;line-height:1.6">Žádné „kontaktujte nás pro cenu". Přesně víš, co dostaneš a za kolik.</p>
+    </div>
+    <div class="pricing__grid">
+      <div class="pcard reveal">
+        <div>
+          <p class="pcard__tier">Start</p>
+          <p class="pcard__price">14 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__for">Začínající podnikatel, vizitka</p>
+        </div>
+        <ul class="pcard__features">
+          <li>Jednostránkový web</li>
+          <li>Responzivní design</li>
+          <li>Základní SEO</li>
+          <li>Kontaktní formulář</li>
+          <li>1 kolo revizí</li>
+          <li>Dodání 7–14 dní</li>
+          <li>1. rok hosting + SSL zdarma</li>
+          <li>Garance 14 dní</li>
+        </ul>
+        <a href="#kontakt" class="btn btn--outline">Mám zájem</a>
+      </div>
+      <div class="pcard pcard--feat reveal d1">
+        <div class="pcard__badge">Doporučuji</div>
+        <div>
+          <p class="pcard__tier">Business</p>
+          <p class="pcard__price">29 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__for">Etablovaný podnikatel / firma</p>
+        </div>
+        <ul class="pcard__features">
+          <li>Web do 5 stránek</li>
+          <li>Polo-custom design</li>
+          <li>Pokročilé on-page SEO</li>
+          <li>Multi-step formulář</li>
+          <li>2 kola revizí</li>
+          <li>Dodání 3–4 týdny</li>
+          <li>1. rok hosting + SSL zdarma</li>
+          <li>Garance 14 dní</li>
+        </ul>
+        <a href="#kontakt" class="btn btn--accent">Mám zájem</a>
+      </div>
+      <div class="pcard reveal d2">
+        <div>
+          <p class="pcard__tier">Premium</p>
+          <p class="pcard__price">59 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__for">Rostoucí firma, e-shop</p>
+        </div>
+        <ul class="pcard__features">
+          <li>Neomezený počet stránek</li>
+          <li>Plně custom design + UX wireframe</li>
+          <li>Pokročilé SEO + GEO/AEO</li>
+          <li>CRM integrace (Fakturoid, Stripe, GoPay)</li>
+          <li>Profi copywriting (3–5 stránek)</li>
+          <li>Neomezené revize</li>
+          <li>Dodání 6–8 týdnů</li>
+          <li>Garance 30 dní</li>
+        </ul>
+        <a href="#kontakt" class="btn btn--outline">Mám zájem</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── DEMO USP ── #}
+<section class="demo">
+  <div class="wrap demo__inner reveal">
+    <div class="tag" style="color:var(--bg);opacity:.5">Jak to funguje</div>
+    <h2 class="demo__h2">Demo<br>zdarma<br>do 24 h<span style="color:rgba(0,0,0,.35)">.</span></h2>
+    <p class="demo__sub">Přijď na hovor. Do 24 h pošlu návrh. Platíš až ve chvíli, kdy řekneš „jo, tohle chci".</p>
+    <a href="#kontakt" class="demo__cta">Získat demo zdarma →</a>
+  </div>
+  <div class="demo__bgtext" aria-hidden="true">24h</div>
+</section>
+
+{# ── PROCESS ── #}
+<section class="section">
+  <div class="wrap">
+    <div class="section__hd reveal">
+      <div>
+        <div class="tag">Jak pracuji</div>
+        <h2 class="section__h2">Proces</h2>
+      </div>
+    </div>
+    <div class="process__steps">
+      <div class="pstep reveal">
+        <div class="pstep__dot">01</div>
+        <h3 class="pstep__title">Brief</h3>
+        <p class="pstep__desc">30minutový hovor. Zjistím co potřebuješ, pro koho a do kdy. Bezplatně, bez závazku.</p>
+      </div>
+      <div class="pstep reveal d1">
+        <div class="pstep__dot">02</div>
+        <h3 class="pstep__title">Demo</h3>
+        <p class="pstep__desc">Do 24 h dostaneš návrh designu. Platíš až po schválení — ne dříve.</p>
+      </div>
+      <div class="pstep reveal d2">
+        <div class="pstep__dot">03</div>
+        <h3 class="pstep__title">Vývoj</h3>
+        <p class="pstep__desc">Programuji, testuji, optimalizuji. Průběžné aktualizace o stavu projektu.</p>
+      </div>
+      <div class="pstep reveal d3">
+        <div class="pstep__dot">04</div>
+        <h3 class="pstep__title">Předání</h3>
+        <p class="pstep__desc">Spuštění, předám přístupy ke všemu — hosting, doména, zdrojáky. 30 dní podpora zdarma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── GUARANTEES ── #}
+<section class="section">
+  <div class="wrap">
+    <div class="section__hd reveal">
+      <div>
+        <div class="tag">Záruky</div>
+        <h2 class="section__h2">Co konkrétně<br>slibuju</h2>
+      </div>
+      <p style="color:var(--muted);font-size:.88rem;max-width:32ch;line-height:1.6">Ne marketingové fráze — konkrétní věci, které si dej klidně do smlouvy.</p>
+    </div>
+    <div class="guar__grid">
+      <div class="guar__card reveal">
+        <span class="guar__num">01</span>
+        <h3 class="guar__title">Demo před zaplacením</h3>
+        <p class="guar__desc">Ukážu návrh designu do 24 h od hovoru. Pokud se ti nelíbí, neplatíš nic a rozejdeme se v pohodě.</p>
+      </div>
+      <div class="guar__card reveal d1">
+        <span class="guar__num">02</span>
+        <h3 class="guar__title">Fixní cena, nic navíc</h3>
+        <p class="guar__desc">Cena z ceníku je finální. Žádné „a ještě by bylo dobře přidat..." za příplatek v průběhu projektu.</p>
+      </div>
+      <div class="guar__card reveal d2">
+        <span class="guar__num">03</span>
+        <h3 class="guar__title">Termín ve smlouvě</h3>
+        <p class="guar__desc">Datum spuštění je součástí smlouvy. Pokud nestihnu termín z mé strany, vracím zálohu.</p>
+      </div>
+      <div class="guar__card reveal">
+        <span class="guar__num">04</span>
+        <h3 class="guar__title">Zdrojáky jsou tvoje</h3>
+        <p class="guar__desc">Po předání dostaneš kompletní zdrojové soubory. Web je tvůj — přesunout, upravit, předat jinému vývojáři.</p>
+      </div>
+      <div class="guar__card reveal d1">
+        <span class="guar__num">05</span>
+        <h3 class="guar__title">Všechny přístupy předám</h3>
+        <p class="guar__desc">Hosting, doména, CMS, FTP — vše dostaneš na tác. Žádná závislost na mně po skončení projektu.</p>
+      </div>
+      <div class="guar__card reveal d2">
+        <span class="guar__num">06</span>
+        <h3 class="guar__title">30 dní podpora zdarma</h3>
+        <p class="guar__desc">Po spuštění jsem dostupný 30 dní na drobné úpravy a otázky. Bez příplatku.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── FAQ ── #}
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section__hd reveal">
+      <div>
+        <div class="tag">Časté otázky</div>
+        <h2 class="section__h2">FAQ</h2>
+      </div>
+    </div>
+    <div class="faq__list reveal">
+      <details class="faqitem">
+        <summary class="faqitem__q">Kolik stojí web?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">Weby dělám za fixní ceny: START 14 990 Kč (one-page), BUSINESS 29 990 Kč (do 5 stránek) a PREMIUM 59 990 Kč (neomezeno + e-shop). Co je v ceníku, to platíš.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Jak funguje demo zdarma?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">Po úvodním hovoru připravím návrh designu do 24 hodin. Teprve po tvém schválení podepisujeme smlouvu a přijímám zálohu. Pokud se ti návrh nelíbí, neplatíš nic.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Jak dlouho trvá výroba?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">START balíček dodám za 7–14 dní, BUSINESS za 3–4 týdny, PREMIUM za 6–8 týdnů. Termín je součástí smlouvy.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Budu web vlastnit?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">Ano. Po dokončení dostaneš kompletní zdrojové soubory, přístupy k hostingu, doméně i CMS. Web je tvůj a můžeš ho kdykoli přesunout nebo předat jinému vývojáři.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Na jaké platformě weby stavíš?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">WordPress, Shoptet, Upgates nebo vlastní řešení. Volím platformu podle tvých potřeb — ne podle mé preference.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Nabízíš správu a aktualizace?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">Ano, měsíční retainer od 990 Kč/měs (hosting, SSL, zálohy, aktualizace). GROW balíček za 2 490 Kč/měs zahrnuje 2 předplacené hodiny práce a 24h reaction time.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Jaká je garance vrácení peněz?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">START a BUSINESS mají 14denní garanci, PREMIUM 30denní. Pokud nejsi spokojený s výsledkem, vracím celou zálohu bez otázek.</p>
+      </details>
+      <details class="faqitem">
+        <summary class="faqitem__q">Pracuješ i mimo Prahu?<span class="faqitem__ico">+</span></summary>
+        <p class="faqitem__a">Pracuji plně online — klienty mám v Praze, Brně, Ostravě i v zahraničí. Videohovor nahrazuje schůzku a šetří čas oběma stranám.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+{# ── FORM ── #}
+<section class="formsec" id="kontakt">
+  <div class="wrap formwrap">
+    <div class="tag reveal">Kontakt</div>
+    <h2 class="section__h2 reveal" style="margin-bottom:3rem">Získat<br>nabídku</h2>
+    <div id="formContainer">
+      <div class="form__steplbl">
+        <span class="label" id="stepLabel">Krok 1 ze 4</span>
+        <span class="label" id="stepPct">25 %</span>
+      </div>
+      <div class="form__prog"><div class="form__progbar" id="progBar"></div></div>
+
+      <div class="form__step active" id="step1">
+        <h3 class="form__stitle">Co potřebuješ?</h3>
+        <p class="form__ssub">Vyber typ projektu.</p>
+        <div class="rcards">
+          <div class="rcard">
+            <input type="radio" name="type" id="t1" value="web">
+            <label for="t1"><span class="rcard__title">Tvorba webu</span><span class="rcard__desc">Firemní web, portfolio, landing page</span></label>
+          </div>
+          <div class="rcard">
+            <input type="radio" name="type" id="t2" value="eshop">
+            <label for="t2"><span class="rcard__title">Tvorba e-shopu</span><span class="rcard__desc">Shoptet, vlastní e-shop, migrace</span></label>
+          </div>
+          <div class="rcard">
+            <input type="radio" name="type" id="t3" value="programovani">
+            <label for="t3"><span class="rcard__title">Programování na míru</span><span class="rcard__desc">Integrace, systémy, API</span></label>
+          </div>
+          <div class="rcard">
+            <input type="radio" name="type" id="t4" value="konzultace">
+            <label for="t4"><span class="rcard__title">Konzultace</span><span class="rcard__desc">Audit webu, poradenství</span></label>
+          </div>
+        </div>
+        <div class="form__nav">
+          <span></span>
+          <button class="btn btn--accent" onclick="nextStep(1)">Pokračovat →</button>
+        </div>
+      </div>
+
+      <div class="form__step" id="step2">
+        <h3 class="form__stitle">Rozpočet a termín</h3>
+        <p class="form__ssub">Pomůže mi připravit relevantní nabídku.</p>
+        <div class="ffield">
+          <label for="budget">Orientační rozpočet</label>
+          <select id="budget" name="budget">
+            <option value="">Vyber rozsah</option>
+            <option>Do 15 000 Kč</option>
+            <option>15 000 – 30 000 Kč</option>
+            <option>30 000 – 60 000 Kč</option>
+            <option>60 000 Kč a více</option>
+            <option>Zatím nevím</option>
+          </select>
+        </div>
+        <div class="ffield">
+          <label for="deadline">Požadovaný termín spuštění</label>
+          <select id="deadline" name="deadline">
+            <option value="">Vyber termín</option>
+            <option>Do 2 týdnů</option>
+            <option>Do 1 měsíce</option>
+            <option>Do 3 měsíců</option>
+            <option>Bez pevného termínu</option>
+          </select>
+        </div>
+        <div class="form__nav">
+          <button class="form__back" onclick="prevStep(2)">← Zpět</button>
+          <button class="btn btn--accent" onclick="nextStep(2)">Pokračovat →</button>
+        </div>
+      </div>
+
+      <div class="form__step" id="step3">
+        <h3 class="form__stitle">Tvůj současný web</h3>
+        <p class="form__ssub">Nepovinné, ale pomůže mi připravit lepší demo.</p>
+        <div class="ffield">
+          <label for="url">URL současného webu (pokud existuje)</label>
+          <input type="url" id="url" name="url" placeholder="https://">
+        </div>
+        <label class="fchk">
+          <input type="checkbox" id="hasBranding" name="hasBranding">
+          <span class="fchk__box"></span>
+          Mám logo a grafický manuál
+        </label>
+        <label class="fchk">
+          <input type="checkbox" id="hasTexts" name="hasTexts">
+          <span class="fchk__box"></span>
+          Mám připravené texty
+        </label>
+        <div class="form__nav">
+          <button class="form__back" onclick="prevStep(3)">← Zpět</button>
+          <button class="btn btn--accent" onclick="nextStep(3)">Pokračovat →</button>
+        </div>
+      </div>
+
+      <div class="form__step" id="step4">
+        <h3 class="form__stitle">Kontaktní údaje</h3>
+        <p class="form__ssub">Ozvu se do 24 h.</p>
+        <div class="frow">
+          <div class="ffield">
+            <label for="fname">Jméno</label>
+            <input type="text" id="fname" name="fname" placeholder="Jan Novák" required>
+          </div>
+          <div class="ffield">
+            <label for="company">Firma / projekt</label>
+            <input type="text" id="company" name="company" placeholder="Novák s.r.o.">
+          </div>
+        </div>
+        <div class="ffield">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" placeholder="jan@firma.cz" required>
+        </div>
+        <div class="ffield">
+          <label for="phone">Telefon (nepovinné)</label>
+          <input type="tel" id="phone" name="phone" placeholder="+420 777 000 000">
+        </div>
+        <div class="form__nav">
+          <button class="form__back" onclick="prevStep(4)">← Zpět</button>
+          <button class="btn btn--accent btn--lg" onclick="submitForm()">Odeslat a získat nabídku →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form__success" id="formSuccess">
+      <div class="form__success-ico">✓</div>
+      <h3>Odesláno<span class="accent">.</span></h3>
+      <p>Ozvu se do 24 hodin.</p>
+    </div>
+  </div>
+</section>
+
+{# ── FOOTER ── #}
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <div class="footer__logo">JC<span class="accent">.</span></div>
+        <p class="footer__tagline">Weby a e-shopy na míru. Osobně, od A do Z.</p>
+      </div>
+      <div>
+        <p class="footer__coltitle">Služby</p>
+        <ul class="footer__links">
+          <li><a href="#sluzby">Tvorba webu</a></li>
+          <li><a href="#sluzby">Tvorba e-shopu</a></li>
+          <li><a href="#sluzby">Programování na míru</a></li>
+          <li><a href="#sluzby">Správa webu</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__coltitle">Kontakt</p>
+        <ul class="footer__links">
+          <li><a href="mailto:jan@cervinkaweb.cz">jan@cervinkaweb.cz</a></li>
+          <li><a href="tel:+420777000000">+420 777 000 000</a></li>
+          <li><a href="https://www.linkedin.com/in/jan-cervinka" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2026 Jan Červinka — IČO 000 00 000 — Praha</span>
+      <span class="footer__copy">Demo zdarma<span class="accent">.</span> Platíš až pak.</span>
+    </div>
+  </div>
+</footer>
+
+{# ── STICKY MOBILE ── #}
+<div class="sticky">
+  <a href="#kontakt" class="btn btn--accent">Získat demo zdarma →</a>
+</div>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, {passive:true});
+
+  var toggle = document.getElementById('navToggle');
+  var mobile = document.getElementById('navMobile');
+  toggle.addEventListener('click', function(){
+    var open = mobile.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  mobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ mobile.classList.remove('open'); });
+  });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  function show(n){
+    [1,2,3,4].forEach(function(i){
+      var el = document.getElementById('step'+i);
+      if(el) el.classList.toggle('active', i===n);
+    });
+    var pct = Math.round((n/4)*100);
+    document.getElementById('progBar').style.width = pct + '%';
+    document.getElementById('stepLabel').textContent = 'Krok ' + n + ' ze 4';
+    document.getElementById('stepPct').textContent = pct + ' %';
+  }
+
+  window.nextStep = function(from){
+    if(from === 1){
+      if(!document.querySelector('input[name="type"]:checked')){ alert('Vyber typ projektu.'); return; }
+    }
+    show(from + 1);
+  };
+
+  window.prevStep = function(from){
+    if(from > 1) show(from - 1);
+  };
+
+  window.submitForm = function(){
+    if(!document.getElementById('email').value){ alert('Vyplň e-mail.'); return; }
+    document.getElementById('formContainer').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  };
+})();
+</script>
+
+{% endblock %}

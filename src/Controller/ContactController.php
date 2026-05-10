@@ -36,7 +36,7 @@ final class ContactController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address($this->senderEmail, 'Web Jan Červinka'))
+            ->from(new Address($this->senderEmail, 'Penzion Tesák-Čerňava'))
             ->to($this->recipientEmail)
             ->replyTo(new Address($formData->email, $formData->name))
             ->subject('Nová poptávka — ' . $formData->name)
@@ -46,9 +46,9 @@ final class ContactController extends AbstractController
         $this->mailer->send($email);
 
         $confirmation = (new TemplatedEmail())
-            ->from(new Address($this->senderEmail, 'Jan Červinka'))
+            ->from(new Address($this->senderEmail, 'Penzion Tesák-Čerňava'))
             ->to(new Address($formData->email, $formData->name))
-            ->subject('Dostal jsem tvoji poptávku — ozvu se do 24 h')
+            ->subject('Potvrzení poptávky — Penzion Tesák-Čerňava')
             ->htmlTemplate('email/contact_confirmation.html.twig')
             ->context(['data' => $formData]);
 

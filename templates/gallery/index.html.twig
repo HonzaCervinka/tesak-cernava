@@ -1,0 +1,271 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie | Tesák-Čerňava – Penzion v Hostýnských vrších{% endblock %}
+{% block description %}Fotogalerie penzionu Tesák-Čerňava: pokoje, jídelna, zahrada, příroda Hostýnských vrchů. Podívejte se, jak to u nás vypadá.{% endblock %}
+{% block og_title %}Galerie | Tesák-Čerňava{% endblock %}
+{% block og_description %}Prohlédněte si fotogalerii penzionu Tesák-Čerňava – prostory, přírodu a okolí.{% endblock %}
+
+{% block head_extra %}
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+  @media (min-width: 640px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    background: var(--color-surface-muted);
+  }
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    transition: transform 300ms ease;
+  }
+  .gallery-item:hover img,
+  .gallery-item:focus img {
+    transform: scale(1.05);
+  }
+  .gallery-item:focus {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+  .gallery-item__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-2) var(--space-3);
+    background: linear-gradient(transparent, rgba(25,18,16,.7));
+    color: #fff;
+    font-size: var(--text-sm);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+  .gallery-item:hover .gallery-item__caption,
+  .gallery-item:focus .gallery-item__caption {
+    opacity: 1;
+  }
+  .gallery-item--wide {
+    grid-column: span 2;
+  }
+  .gallery-item--wide img {
+    aspect-ratio: 2/1;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+    <header class="page-header">
+      <img class="page-header__bg"
+        src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001019-d8eded8ee0/IMG_20250802_102215.jpeg?ph=9291f65e3a"
+        alt="" loading="eager" aria-hidden="true">
+      <div class="container">
+        <div class="page-header__content">
+          <span class="page-header__eyebrow">Galerie</span>
+          <h1 class="page-header__title">Naše okolí a jak to vypadá u nás</h1>
+          <p class="page-header__lead">Prohlédněte si penzion, pokoje, kuchyni, zahradu a krásnou přírodu Hostýnských vrchů.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" aria-labelledby="gallery-exterior-heading">
+      <div class="container">
+        <h2 id="gallery-exterior-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-6)">Exteriér a okolí</h2>
+        <div class="gallery-grid" role="list">
+
+          <div class="gallery-item gallery-item--wide" role="listitem" tabindex="0" aria-label="Letecký pohled na penzion – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000261-155d4155d5/DJI_0097.JPG?ph=9291f65e3a"
+              alt="Letecký pohled na penzion Tesák-Čerňava v Hostýnských vrších"
+              loading="lazy">
+            <span class="gallery-item__caption">Letecký pohled – dron</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Exteriér penzionu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000072-45b1745b19/IMG20220528194536%20-%20kopie%20%282%29.jpg?ph=9291f65e3a"
+              alt="Exteriér penzionu Tesák-Čerňava a okolní příroda"
+              loading="lazy">
+            <span class="gallery-item__caption">Exteriér a zahrada</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Turistická křižovatka – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001031-53f1953f1a/IMG_20250802_102255-1.jpeg?ph=9291f65e3a"
+              alt="Turistická křižovatka v blízkosti penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Turistická křižovatka</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Výhledy do krajiny – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001073-5229f522a0/IMG20220525204625%20-%20kopie.jpeg?ph=9291f65e3a"
+              alt="Krásné výhledy do krajiny z Hostýnských vrchů u penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Výhledy do krajiny</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Pohled na chatu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000401-1a24d1a24f/IMG20231006100649.jpeg?ph=9291f65e3a"
+              alt="Penzion Tesák-Čerňava – pohled na chatu v Hostýnských vrších"
+              loading="lazy">
+            <span class="gallery-item__caption">Chata v říjnu</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" aria-labelledby="gallery-interior-heading">
+      <div class="container">
+        <h2 id="gallery-interior-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-6)">Interiér – pokoje a společné prostory</h2>
+        <div class="gallery-grid" role="list">
+
+          <div class="gallery-item gallery-item--wide" role="listitem" tabindex="0" aria-label="Společenská místnost s krbem – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000319-819c9819cb/IMG20240126193956.jpeg?ph=9291f65e3a"
+              alt="Útulná společenská místnost s krbem v penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Společenská místnost s krbem</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Kuchyně – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001069-96e6396e65/P1055117-HDR.jpeg?ph=9291f65e3a"
+              alt="Plně vybavená kuchyně penzionu Tesák-Čerňava pro skupinové vaření"
+              loading="lazy">
+            <span class="gallery-item__caption">Kuchyně</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Jídelna – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001081-450d5450d8/P1055164-HDR.jpeg?ph=9291f65e3a"
+              alt="Prostorná jídelna penzionu Tesák-Čerňava pro skupinové stravování"
+              loading="lazy">
+            <span class="gallery-item__caption">Jídelna</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Jídelna u krbu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001087-ea0c9ea0cb/P1055135-HDR.jpeg?ph=9291f65e3a"
+              alt="Posezení u krbu v jídelně penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Posezení u krbu</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="gallery-rooms-heading">
+      <div class="container">
+        <h2 id="gallery-rooms-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-6)">Pokoje a apartmány</h2>
+        <div class="gallery-grid" role="list">
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Kuchyňka v apartmánu 1. patro – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001066-9169e916a0/P1055293-HDR.jpeg?ph=9291f65e3a"
+              alt="Kuchyňka v apartmánu v prvním patře penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Kuchyňka – 1. patro</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Koupelna v apartmánu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001057-c4eadc4eaf/P1055266-HDR.jpeg?ph=9291f65e3a"
+              alt="Koupelna se sprchovým koutem v apartmánu penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Koupelna se sprchovým koutem</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Kuchyňka v přízemí – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001050-2e0942e096/P1055260-HDR.jpeg?ph=9291f65e3a"
+              alt="Kuchyňka v prostorném apartmánu v přízemí penzionu Tesák-Čerňava"
+              loading="lazy">
+            <span class="gallery-item__caption">Apartmán – přízemí</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Kuchyňky na chodbách – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000693-c44d8c44da/IMG_3300-5.jpeg?ph=9291f65e3a"
+              alt="Kuchyňka na chodbě penzionu Tesák-Čerňava dostupná pro všechny hosty"
+              loading="lazy">
+            <span class="gallery-item__caption">Kuchyňky na chodbách</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" aria-labelledby="gallery-summer-heading">
+      <div class="container">
+        <h2 id="gallery-summer-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-6)">Léto v Hostýnských vrších</h2>
+        <div class="gallery-grid" role="list">
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Úvodní fotka penzionu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000679-cce3bcce3e/700/IMG_3217-1.jpeg?ph=9291f65e3a"
+              alt="Hlavní úvodní fotografie penzionu Tesák-Čerňava v letním období"
+              loading="lazy">
+            <span class="gallery-item__caption">Penzion v létě</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Penzion léto – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000764-06f7f06f82/IMG_3199-6.jpeg?ph=9291f65e3a"
+              alt="Penzion Tesák-Čerňava v letním prostředí Hostýnských vrchů"
+              loading="lazy">
+            <span class="gallery-item__caption">Letní prostředí</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Turistická křižovatka v létě – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001021-cd8aacd8ac/IMG_20250802_102255.jpeg?ph=9291f65e3a"
+              alt="Turistická křižovatka v blízkosti penzionu Tesák v Hostýnských vrších"
+              loading="lazy">
+            <span class="gallery-item__caption">Turistická křižovatka</span>
+          </div>
+
+          <div class="gallery-item" role="listitem" tabindex="0" aria-label="Okolí penzionu – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001023-4811048111/IMG_20250802_101926.jpeg?ph=9291f65e3a"
+              alt="Okolí penzionu Tesák-Čerňava s turistickými trasami v Hostýnských vrších"
+              loading="lazy">
+            <span class="gallery-item__caption">Okolí penzionu</span>
+          </div>
+
+          <div class="gallery-item gallery-item--wide" role="listitem" tabindex="0" aria-label="Fotografie z galerie – zvětšit fotografii">
+            <img
+              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000950-0630406309/700/IMG20220625095749.jpeg?ph=9291f65e3a"
+              alt="Fotografie z galerie penzionu Tesák-Čerňava, Hostýnské vrchy, léto 2022"
+              loading="lazy">
+            <span class="gallery-item__caption">Léto 2022</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-gallery-heading">
+      <div class="container">
+        <h2 id="cta-gallery-heading">Líbí se Vám to u nás?</h2>
+        <p>Přijeďte se přesvědčit osobně. Rádi Vám rezervujeme pobyt.</p>
+        <a href="{{ path('app_contact') }}" class="btn btn--primary">Poslat poptávku</a>
+      </div>
+    </section>
+
+{% endblock %}

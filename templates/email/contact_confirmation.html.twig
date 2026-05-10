@@ -10,25 +10,24 @@
   th { text-align: left; width: 40%; color: #666; font-weight: normal; padding: .4rem 0; border-bottom: 1px solid #eee; font-size: .85rem; }
   td { padding: .4rem 0; border-bottom: 1px solid #eee; }
   .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; color: #999; font-size: .8rem; }
-  .accent { color: #16a34a; }
+  .accent { color: #22603c; }
 </style>
 </head>
 <body>
-<h2>Díky za poptávku, {{ data.name }}!</h2>
-<p class="muted">Ozvu se do 24 hodin. Tady je shrnutí toho, co jsi vyplnil:</p>
+<h2>Děkujeme za Vaši poptávku, {{ data.name }}!</h2>
+<p class="muted">Ozveme se Vám co nejdříve. Zde je přehled Vaší poptávky:</p>
 
 <table>
-  <tr><th>Typ projektu</th><td>{{ data.type }}</td></tr>
-  {% if data.budget %}<tr><th>Rozpočet</th><td>{{ data.budget }}</td></tr>{% endif %}
-  {% if data.deadline %}<tr><th>Termín</th><td>{{ data.deadline }}</td></tr>{% endif %}
-  {% if data.url %}<tr><th>Současný web</th><td>{{ data.url }}</td></tr>{% endif %}
-  {% if data.company %}<tr><th>Firma</th><td>{{ data.company }}</td></tr>{% endif %}
-  {% if data.phone %}<tr><th>Telefon</th><td>{{ data.phone }}</td></tr>{% endif %}
-  {% if data.note %}<tr><th>Poznámka</th><td style="white-space:pre-wrap">{{ data.note }}</td></tr>{% endif %}
+  <tr><th>Typ pobytu</th><td>{{ data.stayType }}</td></tr>
+  <tr><th>Příjezd</th><td>{{ data.dateFrom }}</td></tr>
+  <tr><th>Odjezd</th><td>{{ data.dateTo }}</td></tr>
+  {% if data.adults is not null %}<tr><th>Dospělí</th><td>{{ data.adults }}</td></tr>{% endif %}
+  {% if data.children is not null %}<tr><th>Děti</th><td>{{ data.children }}</td></tr>{% endif %}
+  {% if data.message %}<tr><th>Zpráva</th><td style="white-space:pre-wrap">{{ data.message }}</td></tr>{% endif %}
 </table>
 
-<p>Pokud máš mezitím dotaz, napiš mi na <a href="mailto:jan@cervinkaweb.cz" class="accent">jan@cervinkaweb.cz</a>.</p>
+<p>Máte-li dotaz, kontaktujte nás na <a href="mailto:tesakcernava@seznam.cz" class="accent">tesakcernava@seznam.cz</a> nebo na tel. <strong>+420 725 963 166</strong>.</p>
 
-<div class="footer">Jan Červinka — weby a e-shopy na míru</div>
+<div class="footer">Penzion Tesák-Čerňava · Chvalčov · Hostýnské vrchy</div>
 </body>
 </html>

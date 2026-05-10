@@ -1,3 +1,8 @@
+setup:
+	docker compose up -d --build
+	docker compose run --rm php composer install
+	docker compose restart php worker
+
 up:
 	docker compose up -d
 

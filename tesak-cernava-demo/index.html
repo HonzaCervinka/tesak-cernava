@@ -1,35 +1,96 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesák-Čerňava – Penzion v Hostýnských vrších</title>
+  <meta name="description" content="Horský penzion v přírodní rezervaci Tesák, 690 m n. m. Školy v přírodě, rodinné pobyty, wellness a masáže. Hostýnské vrchy, Chvalčov.">
+  <meta property="og:title" content="Tesák-Čerňava – Penzion v Hostýnských vrších">
+  <meta property="og:description" content="Horský penzion v přírodní rezervaci Tesák. Školy v přírodě, rodinné pobyty, wellness a masáže.">
+  <meta property="og:image" content="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000679-cce3bcce3e/700/IMG_3217-1.jpeg?ph=9291f65e3a">
+  <meta property="og:site_name" content="Tesák-Čerňava">
+  <link rel="canonical" href="index.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Penzion Tesák-Čerňava",
+    "description": "Horský penzion v přírodní rezervaci Tesák v Hostýnských vrších.",
+    "url": "https://tesak-cernava.cz",
+    "telephone": "+420775727306",
+    "email": "tesakcernava@seznam.cz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Chvalčov 253",
+      "postalCode": "768 72",
+      "addressLocality": "Chvalčov",
+      "addressCountry": "CZ"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 49.3670216, "longitude": 17.775705 },
+    "vatID": "CZ44348649"
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Přeskočit na obsah</a>
 
-{% block title %}Tesák-Čerňava – Penzion v Hostýnských vrších{% endblock %}
-{% block description %}Horský penzion v přírodní rezervaci Tesák, 690 m n. m. Školy v přírodě, rodinné pobyty, wellness a masáže. Hostýnské vrchy, Chvalčov.{% endblock %}
-{% block og_title %}Tesák-Čerňava – Penzion v Hostýnských vrších{% endblock %}
-{% block og_description %}Horský penzion v přírodní rezervaci Tesák. Školy v přírodě, rodinné pobyty, wellness a masáže.{% endblock %}
+  <!-- NAVIGACE -->
+  <nav class="nav" aria-label="Hlavní navigace">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Tesák-Čerňava</a>
+      <ul class="nav__menu" role="list">
+        <li><a href="index.html" class="nav__link">Úvod</a></li>
+        <li><a href="ubytovani.html" class="nav__link">Ubytování</a></li>
+        <li><a href="pro-skupiny.html" class="nav__link">Pro skupiny</a></li>
+        <li><a href="wellness.html" class="nav__link">Wellness</a></li>
+        <li><a href="cenik.html" class="nav__link">Ceník</a></li>
+        <li><a href="galerie.html" class="nav__link">Galerie</a></li>
+        <li><a href="okoli.html" class="nav__link">Okolí</a></li>
+        <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="tel:+420775727306" class="nav__phone" aria-label="Zavolejte nám">+420 775 727 306</a>
+        <a href="kontakt.html" class="btn btn--primary btn--sm">Rezervovat</a>
+      </div>
+      <button class="nav__hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Otevřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
 
-{% block head_extra %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LodgingBusiness",
-  "name": "Penzion Tesák-Čerňava",
-  "description": "Horský penzion v přírodní rezervaci Tesák v Hostýnských vrších.",
-  "url": "https://tesak-cernava.cz",
-  "telephone": "+420775727306",
-  "email": "tesakcernava@seznam.cz",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Chvalčov 253",
-    "postalCode": "768 72",
-    "addressLocality": "Chvalčov",
-    "addressCountry": "CZ"
-  },
-  "geo": { "@type": "GeoCoordinates", "latitude": 49.3670216, "longitude": 17.775705 },
-  "vatID": "CZ44348649"
-}
-</script>
-{% endblock %}
+  <!-- MOBILNÍ DRAWER -->
+  <div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+    <div class="nav__overlay"></div>
+    <div class="nav__panel" role="dialog" aria-modal="true" aria-label="Navigační menu">
+      <button class="nav__panel-close" id="nav-close" aria-label="Zavřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <a href="index.html" class="nav__panel-link">Úvod</a>
+      <a href="ubytovani.html" class="nav__panel-link">Ubytování</a>
+      <a href="pro-skupiny.html" class="nav__panel-link">Pro skupiny</a>
+      <a href="wellness.html" class="nav__panel-link">Wellness</a>
+      <a href="cenik.html" class="nav__panel-link">Ceník</a>
+      <a href="galerie.html" class="nav__panel-link">Galerie</a>
+      <a href="okoli.html" class="nav__panel-link">Okolí a aktivity</a>
+      <a href="kontakt.html" class="nav__panel-link">Kontakt</a>
+      <div class="nav__panel-cta">
+        <a href="kontakt.html" class="btn btn--primary btn--full">Rezervovat pobyt</a>
+        <p style="text-align:center;margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);">
+          <a href="tel:+420775727306" style="color:var(--color-text-secondary);font-weight:500;">+420 775 727 306</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
-{% block body %}
+  <main id="main">
 
+    <!-- HERO -->
     <section class="hero" aria-label="Uvítací sekce">
       <img class="hero__bg"
         src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000679-cce3bcce3e/700/IMG_3217-1.jpeg?ph=9291f65e3a"
@@ -42,8 +103,8 @@
           <h1 class="hero__title">U nás jako doma, uprostřed přírody</h1>
           <p class="hero__lead">Horský penzion v přírodní rezervaci Tesák. Ideální pro školy v přírodě, rodinné pobyty i wellness. Bukové lesy, křižovatka turistických tras, domácí strava.</p>
           <div class="btn-group">
-            <a href="{{ path('app_contact') }}" class="btn btn--primary">Rezervovat pobyt</a>
-            <a href="{{ path('app_accommodation') }}" class="btn btn--outline-white">Zjistit více</a>
+            <a href="kontakt.html" class="btn btn--primary">Rezervovat pobyt</a>
+            <a href="ubytovani.html" class="btn btn--outline-white">Zjistit více</a>
           </div>
         </div>
       </div>
@@ -52,6 +113,7 @@
       </div>
     </section>
 
+    <!-- PRO KOHO JSME -->
     <section class="section" aria-labelledby="segments-heading">
       <div class="container">
         <div class="section-header">
@@ -60,7 +122,7 @@
           <p>Od škol v přírodě po romantické víkendy — penzion Tesák-Čerňava má co nabídnout každému.</p>
         </div>
         <div class="segments">
-          <a href="{{ path('app_groups') }}" class="segment-card">
+          <a href="pro-skupiny.html" class="segment-card">
             <div class="segment-card__icon" aria-hidden="true">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
@@ -68,7 +130,7 @@
             <p class="segment-card__desc">Plná penze, ubytování až 51 dětí, dětské hřiště a voliéra. Zkušenosti s dětmi všech věků.</p>
             <span class="segment-card__arrow">Více informací →</span>
           </a>
-          <a href="{{ path('app_accommodation') }}" class="segment-card">
+          <a href="ubytovani.html" class="segment-card">
             <div class="segment-card__icon" aria-hidden="true">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </div>
@@ -76,7 +138,7 @@
             <p class="segment-card__desc">Zahrada s trampolínou, voliéra se zvířátky, kocour Garfield. Útočiště od obrazovek.</p>
             <span class="segment-card__arrow">Ubytování →</span>
           </a>
-          <a href="{{ path('app_contact') }}" class="segment-card">
+          <a href="kontakt.html" class="segment-card">
             <div class="segment-card__icon" aria-hidden="true">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             </div>
@@ -84,7 +146,7 @@
             <p class="segment-card__desc">Teambuildingové pobyty a setkání v klidném přírodním prostředí mimo city.</p>
             <span class="segment-card__arrow">Poptat akci →</span>
           </a>
-          <a href="{{ path('app_area') }}" class="segment-card">
+          <a href="okoli.html" class="segment-card">
             <div class="segment-card__icon" aria-hidden="true">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M21 21H3"/></svg>
             </div>
@@ -96,6 +158,7 @@
       </div>
     </section>
 
+    <!-- O PENZIONU -->
     <section class="section section--muted" aria-labelledby="about-heading">
       <div class="container">
         <div class="grid-2" style="align-items:center;gap:var(--space-16)">
@@ -104,7 +167,7 @@
             <h2 id="about-heading" style="font-size:var(--text-xl);margin-top:var(--space-3);margin-bottom:var(--space-5)">Retro objekt s duší, modernizovaný srdcem</h2>
             <p style="color:var(--color-text-secondary);margin-bottom:var(--space-5)">Chata Tesák-Čerňava stojí na kopci Tesák v nadmořské výšce 690 m n. m. v přírodní rezervaci v Hostýnských vrších. Kompletně zrekonstruována v roce 2012, zachovala si útulný retro charakter s moderními pokoji.</p>
             <p style="color:var(--color-text-secondary);margin-bottom:var(--space-8)">Obklopena bukovými lesy, zahradou s dětským hřištěm, trampolínou a voliérou se zvířátky. U nás si zasnít při pohledu do velkého krbu z pohodlné sedačky.</p>
-            <a href="{{ path('app_accommodation') }}" class="btn btn--outline">Prohlédnout ubytování</a>
+            <a href="ubytovani.html" class="btn btn--outline">Prohlédnout ubytování</a>
           </div>
           <div>
             <img
@@ -117,6 +180,7 @@
       </div>
     </section>
 
+    <!-- BENEFITY -->
     <section class="section" aria-labelledby="benefits-heading">
       <div class="container">
         <div class="section-header">
@@ -164,6 +228,7 @@
       </div>
     </section>
 
+    <!-- POKOJE preview -->
     <section class="section section--muted" aria-labelledby="rooms-heading">
       <div class="container">
         <div class="section-header">
@@ -201,7 +266,7 @@
               </div>
               <p class="room-card__discount">2 400 Kč za jednu noc</p>
               <div class="room-card__cta">
-                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Poptat pokoj</a>
+                <a href="kontakt.html" class="btn btn--primary btn--full">Poptat pokoj</a>
               </div>
             </div>
           </article>
@@ -234,7 +299,7 @@
               </div>
               <p class="room-card__discount">1 100 Kč za jednu noc</p>
               <div class="room-card__cta">
-                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Poptat pokoj</a>
+                <a href="kontakt.html" class="btn btn--primary btn--full">Poptat pokoj</a>
               </div>
             </div>
           </article>
@@ -267,17 +332,18 @@
               </div>
               <p class="room-card__discount">780 Kč za jednu noc</p>
               <div class="room-card__cta">
-                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Poptat pokoj</a>
+                <a href="kontakt.html" class="btn btn--primary btn--full">Poptat pokoj</a>
               </div>
             </div>
           </article>
         </div>
         <p class="text-center mt-8">
-          <a href="{{ path('app_accommodation') }}" class="btn btn--outline">Zobrazit všechna ubytování</a>
+          <a href="ubytovani.html" class="btn btn--outline">Zobrazit všechna ubytování</a>
         </p>
       </div>
     </section>
 
+    <!-- KUCHYNĚ -->
     <section class="section" aria-labelledby="kitchen-heading">
       <div class="container">
         <div class="grid-2" style="align-items:center;gap:var(--space-16)">
@@ -294,12 +360,13 @@
             <h2 id="kitchen-heading" style="font-size:var(--text-xl);margin-top:var(--space-3);margin-bottom:var(--space-5)">Domácí strava bez kompromisů</h2>
             <p style="color:var(--color-text-secondary);margin-bottom:var(--space-4)">Kuchyně je pro Vás k dispozici, může se stát i vaší. Vaříme z čerstvých potravin — žádné průmyslové náhražky ani polotovary.</p>
             <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6)">Náš personál má bohaté zkušenosti s pobyty dětí různých věkových kategorií a jejich stravováním. Skupinám nabízíme 3× denně jídlo + 2× svačinu + pitný režim.</p>
-            <a href="{{ path('app_groups') }}" class="btn btn--outline">Skupinové stravování →</a>
+            <a href="pro-skupiny.html" class="btn btn--outline">Skupinové stravování →</a>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- OKOLÍ -->
     <section class="section section--muted" aria-labelledby="area-heading">
       <div class="container">
         <div class="grid-2" style="align-items:center;gap:var(--space-16)">
@@ -321,7 +388,7 @@
                 <span style="font-size:var(--text-base)">Lyžování — v zimní sezóně</span>
               </li>
             </ul>
-            <a href="{{ path('app_area') }}" class="btn btn--primary">Aktivity v okolí</a>
+            <a href="okoli.html" class="btn btn--primary">Aktivity v okolí</a>
           </div>
           <div>
             <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001031-53f1953f1a/IMG_20250802_102255-1.jpeg?ph=9291f65e3a"
@@ -332,6 +399,7 @@
       </div>
     </section>
 
+    <!-- TESTIMONIALS -->
     <section class="section" aria-labelledby="testimonials-heading">
       <div class="container">
         <div class="section-header">
@@ -373,15 +441,84 @@
       </div>
     </section>
 
+    <!-- CTA BAND -->
     <section class="cta-band" aria-labelledby="cta-heading">
       <div class="container">
         <h2 id="cta-heading">Těšíme se na Vaši návštěvu</h2>
         <p>Rezervujte termín nebo nám napište — odpovíme do 24 hodin.</p>
         <div class="btn-group" style="justify-content:center">
-          <a href="{{ path('app_contact') }}" class="btn btn--primary">Rezervovat pobyt</a>
-          <a href="{{ path('app_groups') }}" class="btn btn--outline-white">Školy v přírodě</a>
+          <a href="kontakt.html" class="btn btn--primary">Rezervovat pobyt</a>
+          <a href="pro-skupiny.html" class="btn btn--outline-white">Školy v přírodě</a>
         </div>
       </div>
     </section>
 
-{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Tesák-Čerňava</a>
+          <p class="footer__tagline">Horský penzion v přírodní rezervaci Tesák, Hostýnské vrchy. 690 m n. m.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Stránky</p>
+          <nav class="footer__nav" aria-label="Patičková navigace">
+            <a href="ubytovani.html" class="footer__link">Ubytování</a>
+            <a href="pro-skupiny.html" class="footer__link">Pro skupiny</a>
+            <a href="wellness.html" class="footer__link">Wellness</a>
+            <a href="cenik.html" class="footer__link">Ceník</a>
+            <a href="galerie.html" class="footer__link">Galerie</a>
+            <a href="okoli.html" class="footer__link">Okolí a aktivity</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Informace</p>
+          <nav class="footer__nav" aria-label="Informační navigace">
+            <a href="kontakt.html" class="footer__link">Kontakt</a>
+            <a href="kontakt.html" class="footer__link">Rezervace</a>
+            <a href="cenik.html" class="footer__link">Ceník ubytování</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Kontakt</p>
+          <address style="font-style:normal">
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.49 2 2 0 0 1 3.55 1.35h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.1 6.1l.9-.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16.92z"/></svg>
+              <a href="tel:+420775727306">+420 775 727 306</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:tesakcernava@seznam.cz">tesakcernava@seznam.cz</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Chvalčov 253, 768 72 Chvalčov</span>
+            </div>
+          </address>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <p>© <span id="year"></span> Penzion Tesák-Čerňava · Pavel Dobiáš · IČO: 44348649</p>
+        <div class="footer__legal">
+          <span>Přezůvky s sebou!</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX (nepoužívá se na homepage, ale CSS/JS je globální) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek">
+    <button class="lightbox__close" id="lb-close" aria-label="Zavřít obrázek">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

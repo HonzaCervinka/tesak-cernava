@@ -1,24 +1,137 @@
 <!DOCTYPE html>
 <html lang="cs">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Tesák-Čerňava – Penzion v Hostýnských vrších{% endblock %}</title>
+  <meta name="description" content="{% block description %}Horský penzion v přírodní rezervaci Tesák, 690 m n. m. Školy v přírodě, rodinné pobyty, wellness a masáže. Hostýnské vrchy, Chvalčov.{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}Tesák-Čerňava – Penzion v Hostýnských vrších{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Horský penzion v přírodní rezervaci Tesák. Školy v přírodě, rodinné pobyty, wellness a masáže.{% endblock %}">
+  <meta property="og:site_name" content="Tesák-Čerňava">
+  <link rel="canonical" href="{{ app.request.uri }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  {% block head_extra %}{% endblock %}
+  {% block stylesheets %}{% endblock %}
+  {% block javascripts %}{{ importmap('app') }}{% endblock %}
+</head>
+<body>
+  <a href="#main" class="skip-nav">Přeskočit na obsah</a>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+  {% set route = app.request.attributes.get('_route') %}
 
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+  <nav class="nav" aria-label="Hlavní navigace">
+    <div class="nav__inner">
+      <a href="{{ path('app_home') }}" class="nav__logo">Tesák-Čerňava</a>
+      <ul class="nav__menu" role="list">
+        <li><a href="{{ path('app_home') }}" class="nav__link{{ route == 'app_home' ? ' active' : '' }}">Úvod</a></li>
+        <li><a href="{{ path('app_accommodation') }}" class="nav__link{{ route == 'app_accommodation' ? ' active' : '' }}">Ubytování</a></li>
+        <li><a href="{{ path('app_groups') }}" class="nav__link{{ route == 'app_groups' ? ' active' : '' }}">Pro skupiny</a></li>
+        <li><a href="{{ path('app_wellness') }}" class="nav__link{{ route == 'app_wellness' ? ' active' : '' }}">Wellness</a></li>
+        <li><a href="{{ path('app_pricing') }}" class="nav__link{{ route == 'app_pricing' ? ' active' : '' }}">Ceník</a></li>
+        <li><a href="{{ path('app_gallery') }}" class="nav__link{{ route == 'app_gallery' ? ' active' : '' }}">Galerie</a></li>
+        <li><a href="{{ path('app_area') }}" class="nav__link{{ route == 'app_area' ? ' active' : '' }}">Okolí</a></li>
+        <li><a href="{{ path('app_contact') }}" class="nav__link{{ route == 'app_contact' ? ' active' : '' }}">Kontakt</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="tel:+420775727306" class="nav__phone" aria-label="Zavolejte nám">+420 775 727 306</a>
+        <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+      </div>
+      <button class="nav__hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Otevřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+    <div class="nav__overlay"></div>
+    <div class="nav__panel" role="dialog" aria-modal="true" aria-label="Navigační menu">
+      <button class="nav__panel-close" id="nav-close" aria-label="Zavřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <a href="{{ path('app_home') }}" class="nav__panel-link{{ route == 'app_home' ? ' active' : '' }}">Úvod</a>
+      <a href="{{ path('app_accommodation') }}" class="nav__panel-link{{ route == 'app_accommodation' ? ' active' : '' }}">Ubytování</a>
+      <a href="{{ path('app_groups') }}" class="nav__panel-link{{ route == 'app_groups' ? ' active' : '' }}">Pro skupiny</a>
+      <a href="{{ path('app_wellness') }}" class="nav__panel-link{{ route == 'app_wellness' ? ' active' : '' }}">Wellness</a>
+      <a href="{{ path('app_pricing') }}" class="nav__panel-link{{ route == 'app_pricing' ? ' active' : '' }}">Ceník</a>
+      <a href="{{ path('app_gallery') }}" class="nav__panel-link{{ route == 'app_gallery' ? ' active' : '' }}">Galerie</a>
+      <a href="{{ path('app_area') }}" class="nav__panel-link{{ route == 'app_area' ? ' active' : '' }}">Okolí a aktivity</a>
+      <a href="{{ path('app_contact') }}" class="nav__panel-link{{ route == 'app_contact' ? ' active' : '' }}">Kontakt</a>
+      <div class="nav__panel-cta">
+        <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Rezervovat pobyt</a>
+        <p style="text-align:center;margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);">
+          <a href="tel:+420775727306" style="color:var(--color-text-secondary);font-weight:500;">+420 775 727 306</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    {% block body %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="{{ path('app_home') }}" class="footer__logo">Tesák-Čerňava</a>
+          <p class="footer__tagline">Horský penzion v přírodní rezervaci Tesák, Hostýnské vrchy. 690 m n. m.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Stránky</p>
+          <nav class="footer__nav" aria-label="Patičková navigace">
+            <a href="{{ path('app_accommodation') }}" class="footer__link">Ubytování</a>
+            <a href="{{ path('app_groups') }}" class="footer__link">Pro skupiny</a>
+            <a href="{{ path('app_wellness') }}" class="footer__link">Wellness</a>
+            <a href="{{ path('app_pricing') }}" class="footer__link">Ceník</a>
+            <a href="{{ path('app_gallery') }}" class="footer__link">Galerie</a>
+            <a href="{{ path('app_area') }}" class="footer__link">Okolí a aktivity</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Informace</p>
+          <nav class="footer__nav" aria-label="Informační navigace">
+            <a href="{{ path('app_contact') }}" class="footer__link">Kontakt</a>
+            <a href="{{ path('app_contact') }}" class="footer__link">Rezervace</a>
+            <a href="{{ path('app_pricing') }}" class="footer__link">Ceník ubytování</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Kontakt</p>
+          <address style="font-style:normal">
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.49 2 2 0 0 1 3.55 1.35h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.1 6.1l.9-.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16.92z"/></svg>
+              <a href="tel:+420775727306">+420 775 727 306</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:tesakcernava@seznam.cz">tesakcernava@seznam.cz</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Chvalčov 253, 768 72 Chvalčov</span>
+            </div>
+          </address>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <p>© {{ "now"|date("Y") }} Penzion Tesák-Čerňava · Pavel Dobiáš · IČO: 44348649</p>
+        <div class="footer__legal">
+          <span>Přezůvky s sebou!</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek">
+    <button class="lightbox__close" id="lb-close" aria-label="Zavřít obrázek">
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <img id="lb-img" src="" alt="">
+  </div>
+</body>
 </html>

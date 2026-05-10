@@ -8,37 +8,35 @@ final readonly class ContactFormData
 {
     public function __construct(
         #[Assert\NotBlank]
-        #[Assert\Choice(choices: ['web', 'eshop', 'programovani', 'konzultace'])]
-        public string  $type,
-        public ?string $budget,
-        public ?string $deadline,
-        public ?string $url,
-        public bool    $hasLogo,
-        public bool    $hasTexts,
-        #[Assert\NotBlank]
         public string  $name,
-        public ?string $company,
         #[Assert\NotBlank]
         #[Assert\Email]
         public string  $email,
-        public ?string $phone,
-        public ?string $note,
+        #[Assert\NotBlank]
+        public string  $phone,
+        #[Assert\NotBlank]
+        public string  $stayType,
+        #[Assert\NotBlank]
+        public string  $dateFrom,
+        #[Assert\NotBlank]
+        public string  $dateTo,
+        public ?int    $adults,
+        public ?int    $children,
+        public ?string $message,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            type: (string) ($data['type'] ?? ''),
-            budget: $data['budget'] ?: null,
-            deadline: $data['deadline'] ?: null,
-            url: $data['url'] ?: null,
-            hasLogo: (bool) ($data['hasLogo'] ?? false),
-            hasTexts: (bool) ($data['hasTexts'] ?? false),
             name: (string) ($data['name'] ?? ''),
-            company: $data['company'] ?: null,
             email: (string) ($data['email'] ?? ''),
-            phone: $data['phone'] ?: null,
-            note: $data['note'] ?: null,
+            phone: (string) ($data['phone'] ?? ''),
+            stayType: (string) ($data['stayType'] ?? ''),
+            dateFrom: (string) ($data['dateFrom'] ?? ''),
+            dateTo: (string) ($data['dateTo'] ?? ''),
+            adults: isset($data['adults']) && $data['adults'] !== '' ? (int) $data['adults'] : null,
+            children: isset($data['children']) && $data['children'] !== '' ? (int) $data['children'] : null,
+            message: $data['message'] ?: null,
         );
     }
 }

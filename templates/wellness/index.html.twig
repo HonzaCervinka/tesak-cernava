@@ -1,0 +1,254 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wellness a masáže | Tesák-Čerňava – Hostýnské vrchy{% endblock %}
+{% block description %}Profesionální masáže a wellness procedury v penzionu Tesák-Čerňava. Klasická masáž, horké kameny, Reiki, jóga. Zkušený terapeut s praxí z lázeňských center.{% endblock %}
+{% block og_title %}Wellness a masáže | Tesák-Čerňava{% endblock %}
+{% block og_description %}Masáže a wellness procedury od zkušeného terapeuta s praxí z Mariánských Lázní, Františkových Lázní a Karlových Varů.{% endblock %}
+
+{% block body %}
+
+    <header class="page-header">
+      <img class="page-header__bg"
+        src="https://duyn491kcolsw.cloudfront.net/files/1w/1w4/1w4se3.jpg?ph=9291f65e3a"
+        alt="" loading="eager" aria-hidden="true">
+      <div class="container">
+        <div class="page-header__content">
+          <span class="page-header__eyebrow">Wellness</span>
+          <h1 class="page-header__title">Péče o tělo i ducha</h1>
+          <p class="page-header__lead">Profesionální masáže a wellness procedury v klidném prostředí Hostýnských vrchů. Dostupné i bez ubytování.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" aria-labelledby="therapist-heading">
+      <div class="container">
+        <div class="grid-2" style="align-items:center;gap:var(--space-16)">
+          <div>
+            <span class="eyebrow">Váš terapeut</span>
+            <h2 id="therapist-heading" style="font-size:var(--text-xl);margin:var(--space-3) 0 var(--space-6)">Odborná péče s lázeňskou tradicí</h2>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-4)">
+              V rámci Vašeho ubytování u nás, ale i mimo něj, poskytujeme rehabilitace ve formě masáží a dalších wellness a léčebných technik.
+            </p>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+              Zkušený terapeut, masér a učitel jógy s dlouholetou praxí z Mariánských Lázní, Františkových Lázní a Karlových Varů Vám nabízí odbornou péči v klidném horském prostředí.
+            </p>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface-primary-light);border-radius:var(--radius-lg)">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-600)" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span style="font-size:var(--text-sm);color:var(--color-text-secondary)">Mariánské Lázně · Františkovy Lázně · Karlovy Vary</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface-primary-light);border-radius:var(--radius-lg)">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-600)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:var(--text-sm);color:var(--color-text-secondary)">Masér, terapeut, učitel jógy</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface-primary-light);border-radius:var(--radius-lg)">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-600)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:var(--text-sm);color:var(--color-text-secondary)">Masáže dětí a těhotných žen</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-surface-primary-light);border-radius:var(--radius-lg)">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-600)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:var(--text-sm);color:var(--color-text-secondary)">Dostupné i bez ubytování v penzionu</span>
+              </div>
+            </div>
+          </div>
+          <figure style="margin:0">
+            <img
+              src="https://duyn491kcolsw.cloudfront.net/files/1w/1w4/1w4se3.jpg?ph=9291f65e3a"
+              alt="Wellness a masážní prostředí v penzionu Tesák-Čerňava, Hostýnské vrchy"
+              style="width:100%;border-radius:var(--radius-xl);max-height:480px;object-fit:cover"
+              loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Ceník procedur</span>
+          <h2 id="services-heading">Naše wellness služby</h2>
+          <p>Rezervaci sjednejte telefonicky nebo e-mailem. Ceny platné pro sezonu 2026.</p>
+        </div>
+
+        <div class="wellness-list">
+          <div class="wellness-item">
+            <span class="wellness-item__name">Klasická masáž</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Zábal z nahřátých obilných zrn <small style="font-weight:400;color:var(--color-text-muted)">(předehřátí před masáží)</small></span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>250 Kč</strong><span>20 min</span></div>
+              <div class="wellness-item__price"><strong>450 Kč</strong><span>40 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Horké kameny</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>700 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 400 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Baňkování</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>300 Kč</strong><span>20 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Reflexní masáž plosky nohou</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Masáže dětí a těhotných žen</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Sportovní masáž</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>500 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 000 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Akupresurní odblokování krční páteře</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Měkké stabilizační techniky</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Energetická masáž Reiki</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Jógovo-rehabilitační cvičení</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:var(--space-8);padding:var(--space-4) var(--space-6);background:var(--color-info-bg);border:1px solid var(--color-info-border);border-radius:var(--radius-lg)">
+          <p style="font-size:var(--text-sm);color:var(--color-info-text)">
+            <strong>Kombinace procedur:</strong> Zábal z nahřátých obilných zrn (zahřátí svalů) + klasická masáž tvoří oblíbenou kombinaci pro maximální relaxaci. Doporučujeme domluvit dopředu telefonicky.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="booking-heading">
+      <div class="container" style="max-width:680px">
+        <div class="section-header">
+          <span class="eyebrow">Rezervace</span>
+          <h2 id="booking-heading">Objednat masáž</h2>
+          <p>Vyplňte poptávku a ozveme se Vám co nejdříve. Nebo zavolejte přímo: <a href="tel:+420775727306">+420 775 727 306</a></p>
+        </div>
+
+        <div id="wellness-form-container">
+          <form id="wellness-form" novalidate>
+            <div style="display:grid;gap:var(--space-5)">
+
+              <div class="form-group">
+                <label class="form-label" for="w-name">Jméno a příjmení <span class="form-required" aria-hidden="true">*</span></label>
+                <input class="form-input" type="text" id="w-name" name="name"
+                  autocomplete="name" required aria-required="true"
+                  aria-describedby="w-name-err">
+                <span class="form-error" id="w-name-err" hidden>Vyplňte prosím své jméno.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="w-phone">Telefon <span class="form-required" aria-hidden="true">*</span></label>
+                <input class="form-input" type="tel" id="w-phone" name="phone"
+                  autocomplete="tel" inputmode="tel" required aria-required="true"
+                  aria-describedby="w-phone-err" placeholder="+420 xxx xxx xxx">
+                <span class="form-error" id="w-phone-err" hidden>Vyplňte prosím telefonní číslo.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="w-service">Procedura <span class="form-required" aria-hidden="true">*</span></label>
+                <select class="form-input" id="w-service" name="service" required aria-required="true" aria-describedby="w-service-err">
+                  <option value="">— vyberte proceduru —</option>
+                  <option>Klasická masáž – 30 min (400 Kč)</option>
+                  <option>Klasická masáž – 60 min (800 Kč)</option>
+                  <option>Zábal z nahřátých obilných zrn – 20 min (250 Kč)</option>
+                  <option>Zábal z nahřátých obilných zrn – 40 min (450 Kč)</option>
+                  <option>Horké kameny – 30 min (700 Kč)</option>
+                  <option>Horké kameny – 60 min (1 400 Kč)</option>
+                  <option>Baňkování – 20 min (300 Kč)</option>
+                  <option>Reflexní masáž plosky nohou – 30 min (600 Kč)</option>
+                  <option>Reflexní masáž plosky nohou – 60 min (1 200 Kč)</option>
+                  <option>Masáže dětí a těhotných žen – 30 min (400 Kč)</option>
+                  <option>Masáže dětí a těhotných žen – 60 min (800 Kč)</option>
+                  <option>Sportovní masáž – 30 min (500 Kč)</option>
+                  <option>Sportovní masáž – 60 min (1 000 Kč)</option>
+                  <option>Akupresurní odblokování krční páteře – 30 min (600 Kč)</option>
+                  <option>Akupresurní odblokování krční páteře – 60 min (1 200 Kč)</option>
+                  <option>Měkké stabilizační techniky – 30 min (400 Kč)</option>
+                  <option>Energetická masáž Reiki – 30 min (600 Kč)</option>
+                  <option>Energetická masáž Reiki – 60 min (1 200 Kč)</option>
+                  <option>Jógovo-rehabilitační cvičení – 30 min (400 Kč)</option>
+                </select>
+                <span class="form-error" id="w-service-err" hidden>Vyberte prosím proceduru.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="w-date">Preferovaný termín</label>
+                <input class="form-input" type="date" id="w-date" name="date">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="w-note">Poznámka</label>
+                <textarea class="form-input" id="w-note" name="note" rows="3"
+                  placeholder="Zdravotní omezení, preference, dotazy..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-check">
+                  <input type="checkbox" name="gdpr" required aria-required="true" aria-describedby="w-gdpr-err">
+                  <span>Souhlasím se zpracováním osobních údajů pro účely vyřízení mé poptávky. <span class="form-required" aria-hidden="true">*</span></span>
+                </label>
+                <span class="form-error" id="w-gdpr-err" hidden>Souhlas se zpracováním je povinný.</span>
+              </div>
+
+              <button type="submit" class="btn btn--accent" style="width:100%">Odeslat objednávku</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="wellness-success" hidden tabindex="-1"
+          style="padding:var(--space-8);text-align:center;background:var(--color-success-bg);border:1px solid var(--color-success-border);border-radius:var(--radius-xl)">
+          <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="var(--color-success-text)" stroke-width="1.5" style="margin:0 auto var(--space-4)" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
+          <h3 style="font-size:var(--text-lg);color:var(--color-success-text);margin-bottom:var(--space-2)">Objednávka odeslána</h3>
+          <p style="color:var(--color-text-secondary)">Ozveme se Vám co nejdříve na telefonní číslo, které jste uvedli.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-wellness-heading">
+      <div class="container">
+        <h2 id="cta-wellness-heading">Potřebujete poradit s výběrem procedury?</h2>
+        <p>Zavolejte nám – rádi doporučíme vhodnou kombinaci masáží pro Vaše potřeby.</p>
+        <a href="tel:+420775727306" class="btn btn--primary">+420 775 727 306</a>
+      </div>
+    </section>
+
+{% endblock %}

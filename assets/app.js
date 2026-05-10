@@ -1,10 +1,139 @@
-import './stimulus_bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+/* ---- Navigace – hamburger ---- */
+const hamburger = document.getElementById('nav-hamburger');
+const drawer    = document.getElementById('nav-drawer');
+const overlay   = drawer?.querySelector('.nav__overlay');
+const panelClose = document.getElementById('nav-close');
+
+function openDrawer() {
+  if (!drawer) return;
+  drawer.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+  panelClose?.focus();
+}
+
+function closeDrawer() {
+  if (!drawer) return;
+  drawer.classList.remove('open');
+  hamburger?.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  hamburger?.focus();
+}
+
+hamburger?.addEventListener('click', openDrawer);
+panelClose?.addEventListener('click', closeDrawer);
+overlay?.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
+});
+
+/* ---- Hero scroll hint ---- */
+const scrollHint = document.querySelector('.hero__scroll');
+if (scrollHint) {
+  window.addEventListener('scroll', () => {
+    scrollHint.style.opacity = window.scrollY > 80 ? '0' : '1';
+  }, { passive: true });
+}
+
+/* ---- Sdílená logika formuláře ---- */
+function initForm(formId, containerId, successId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  const dateFrom  = form.querySelector('[name="date_from"]');
+  const dateTo    = form.querySelector('[name="date_to"]');
+  const dateField = form.querySelector('[name="date"]');
+  if (dateFrom)  dateFrom.min  = today;
+  if (dateTo)    dateTo.min    = today;
+  if (dateField) dateField.min = today;
+
+  dateFrom?.addEventListener('change', () => {
+    if (!dateTo) return;
+    dateTo.min = dateFrom.value;
+    if (dateTo.value && dateTo.value < dateFrom.value) dateTo.value = dateFrom.value;
+  });
+
+  const textarea = form.querySelector('[name="message"]');
+  const counter  = document.getElementById('msg-counter');
+  textarea?.addEventListener('input', () => {
+    if (counter) counter.textContent = `${textarea.value.length} / 1000`;
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let valid = true;
+
+    form.querySelectorAll('[required]').forEach(field => {
+      const errId = field.getAttribute('aria-describedby');
+      const errEl = errId ? document.getElementById(errId) : null;
+      const empty = field.type === 'checkbox' ? !field.checked : !field.value.trim();
+      if (empty) {
+        field.classList.add('error');
+        if (errEl) errEl.hidden = false;
+        valid = false;
+      } else {
+        field.classList.remove('error');
+        if (errEl) errEl.hidden = true;
+      }
+    });
+
+    if (!valid) {
+      form.querySelector('.error')?.focus();
+      return;
+    }
+
+    const container = document.getElementById(containerId);
+    const success   = document.getElementById(successId);
+    if (container) container.hidden = true;
+    if (success)   { success.hidden = false; success.focus(); }
+  });
+
+  form.querySelectorAll('[required]').forEach(field => {
+    field.addEventListener('blur', () => {
+      const errId = field.getAttribute('aria-describedby');
+      const errEl = errId ? document.getElementById(errId) : null;
+      const empty = field.type === 'checkbox' ? !field.checked : !field.value.trim();
+      field.classList.toggle('error', empty && field !== document.activeElement);
+      if (errEl) errEl.hidden = !empty;
+    });
+  });
+}
+
+initForm('inquiry-form', 'form-container', 'form-success');
+initForm('wellness-form', 'wellness-form-container', 'wellness-success');
+
+/* ---- Galerie lightbox ---- */
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lb-img');
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const src = item.querySelector('img')?.src;
+    const alt = item.querySelector('img')?.alt || '';
+    if (lightbox && lbImg && src) {
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lightbox.querySelector('.lightbox__close')?.focus();
+    }
+  });
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+  });
+});
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lb-close')?.addEventListener('click', closeLightbox);
+lightbox?.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lightbox?.classList.contains('open')) closeLightbox();
+});

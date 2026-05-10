@@ -6,13 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class WarmController extends AbstractController
+final class PrivacyController extends AbstractController
 {
-    #[Route('/warm', name: 'app_warm')]
+    #[Route('/zasady-ochrany-osobnich-udaju', name: 'app_privacy')]
     public function index(): Response
     {
-        return $this->render('warm/index.html.twig', [
-            'controller_name' => 'WarmController',
-        ]);
+        return $this->render('privacy/index.html.twig');
     }
 }

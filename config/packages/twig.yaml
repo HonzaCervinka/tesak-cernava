@@ -1,5 +1,14 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        business:
+            name: '%business.name%'
+            ico: '%business.ico%'
+            city: '%business.city%'
+            email: '%business.email%'
+            phone: '%business.phone%'
+            phone_display: '%business.phone_display%'
+            linkedin: '%business.linkedin%'
 
 when@test:
     twig:

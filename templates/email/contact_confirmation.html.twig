@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: sans-serif; color: #1a1f1a; font-size: 15px; line-height: 1.6; max-width: 600px; margin: 0 auto; padding: 2rem 1rem; }
+  h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: .5rem; }
+  .muted { color: #666; font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  th { text-align: left; width: 40%; color: #666; font-weight: normal; padding: .4rem 0; border-bottom: 1px solid #eee; font-size: .85rem; }
+  td { padding: .4rem 0; border-bottom: 1px solid #eee; }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; color: #999; font-size: .8rem; }
+  .accent { color: #16a34a; }
+</style>
+</head>
+<body>
+<h2>Díky za poptávku, {{ data.name }}!</h2>
+<p class="muted">Ozvu se do 24 hodin. Tady je shrnutí toho, co jsi vyplnil:</p>
+
+<table>
+  <tr><th>Typ projektu</th><td>{{ data.type }}</td></tr>
+  {% if data.budget %}<tr><th>Rozpočet</th><td>{{ data.budget }}</td></tr>{% endif %}
+  {% if data.deadline %}<tr><th>Termín</th><td>{{ data.deadline }}</td></tr>{% endif %}
+  {% if data.url %}<tr><th>Současný web</th><td>{{ data.url }}</td></tr>{% endif %}
+  {% if data.company %}<tr><th>Firma</th><td>{{ data.company }}</td></tr>{% endif %}
+  {% if data.phone %}<tr><th>Telefon</th><td>{{ data.phone }}</td></tr>{% endif %}
+  {% if data.note %}<tr><th>Poznámka</th><td style="white-space:pre-wrap">{{ data.note }}</td></tr>{% endif %}
+</table>
+
+<p>Pokud máš mezitím dotaz, napiš mi na <a href="mailto:jan@cervinkaweb.cz" class="accent">jan@cervinkaweb.cz</a>.</p>
+
+<div class="footer">Jan Červinka — weby a e-shopy na míru</div>
+</body>
+</html>

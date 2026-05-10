@@ -46,9 +46,14 @@
   }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('/fonts/syne-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('/fonts/syne-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/dmmono-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/dmmono-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/dmmono-500-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/dmmono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth}
@@ -206,7 +211,7 @@ button{cursor:pointer;font-family:var(--ff);border:none;background:none;color:in
 .pcard__tier{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 .pcard__price{font-weight:800;font-size:clamp(2rem,3.5vw,2.75rem);letter-spacing:-.04em;line-height:1}
 .pcard__price-suffix{font-size:.85rem;font-weight:400;color:var(--muted);letter-spacing:0;margin-left:.1em}
-.pcard__for{font-size:.82rem;color:var(--muted);margin-top:-.5rem}
+.pcard__for{font-size:.82rem;color:var(--muted);margin-top:.35rem}
 .pcard__features{display:flex;flex-direction:column;gap:.65rem;flex:1}
 .pcard__features li{font-size:.83rem;display:flex;align-items:flex-start;gap:.6rem;line-height:1.4}
 .pcard__features li::before{content:'—';font-family:var(--mono);color:var(--accent);flex-shrink:0}
@@ -398,7 +403,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
         <p class="about__p">Žádní account manažeři, žádný outsourcing. Mluvíš přímo s člověkem, který bude psát tvůj kód.</p>
         <ul class="about__facts">
           <li><span class="accent">24 h</span> — odpovím do jednoho pracovního dne</li>
-          <li><span class="accent">100 %</span> — zdrojáky a přístupy předám vždy</li>
+          <li><span class="accent">100 %</span> — zdrojáky jsou vždy tvoje, hosting řeším za tebe</li>
           <li><span class="accent">Fixní cena</span> — co vidíš v ceníku, to zaplatíš</li>
         </ul>
       </div>
@@ -430,13 +435,13 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div class="svc reveal">
         <span class="svc__num">01</span>
         <h3 class="svc__title">Tvorba webu</h3>
-        <p class="svc__desc">Firemní weby a portfolio stránky na míru. WordPress nebo vlastní řešení. Hosting a doména vždy pod tvou kontrolou.</p>
+        <p class="svc__desc">Firemní weby a portfolio stránky na míru. Žádný WordPress, žádná nekonečná údržba pluginů — vlastní řešení, které prostě funguje. Hosting řeším za tebe, zdrojáky jsou vždy tvoje.</p>
         <a href="#kontakt" class="svc__link">Zjistit více →</a>
       </div>
       <div class="svc reveal d1">
         <span class="svc__num">02</span>
         <h3 class="svc__title">Tvorba e-shopu</h3>
-        <p class="svc__desc">Shoptet, Upgates nebo e-shop na míru s napojením na Fakturoid, GoPay, Zásilkovnu a Heureku.</p>
+        <p class="svc__desc">Shoptet nebo e-shop na míru s napojením na Fakturoid, GoPay, Zásilkovnu a Heureku.</p>
         <a href="#kontakt" class="svc__link">Zjistit více →</a>
       </div>
       <div class="svc reveal d2">
@@ -469,7 +474,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div class="pcard reveal">
         <div>
           <p class="pcard__tier">Start</p>
-          <p class="pcard__price">14 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__price">9 990<span class="pcard__price-suffix"> Kč</span></p>
           <p class="pcard__for">Začínající podnikatel, vizitka</p>
         </div>
         <ul class="pcard__features">
@@ -488,7 +493,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
         <div class="pcard__badge">Doporučuji</div>
         <div>
           <p class="pcard__tier">Business</p>
-          <p class="pcard__price">29 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__price">14 990<span class="pcard__price-suffix"> Kč</span></p>
           <p class="pcard__for">Etablovaný podnikatel / firma</p>
         </div>
         <ul class="pcard__features">
@@ -505,21 +510,19 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       </div>
       <div class="pcard reveal d2">
         <div>
-          <p class="pcard__tier">Premium</p>
-          <p class="pcard__price">59 990<span class="pcard__price-suffix"> Kč</span></p>
-          <p class="pcard__for">Rostoucí firma, e-shop</p>
+          <p class="pcard__tier">Na míru</p>
+          <p class="pcard__tier" style="margin-top:.15rem">od</p>
+          <p class="pcard__price">39 990<span class="pcard__price-suffix"> Kč</span></p>
+          <p class="pcard__for">Větší projekt, e-shop, integrace</p>
         </div>
         <ul class="pcard__features">
-          <li>Neomezený počet stránek</li>
-          <li>Plně custom design + UX wireframe</li>
-          <li>Pokročilé SEO + GEO/AEO</li>
-          <li>CRM integrace (Fakturoid, Stripe, GoPay)</li>
-          <li>Profi copywriting (3–5 stránek)</li>
-          <li>Neomezené revize</li>
-          <li>Dodání 6–8 týdnů</li>
-          <li>Garance 30 dní</li>
+          <li>E-shop nebo větší web</li>
+          <li>Plně custom design</li>
+          <li>Integrace platební brány, dopravce, fakturace</li>
+          <li>Pokročilé SEO</li>
+          <li>Rozsah a cena podle projektu</li>
         </ul>
-        <a href="#kontakt" class="btn btn--outline">Mám zájem</a>
+        <a href="#kontakt" class="btn btn--outline">Nezávazná poptávka →</a>
       </div>
     </div>
   </div>
@@ -564,7 +567,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div class="pstep reveal d3">
         <div class="pstep__dot">04</div>
         <h3 class="pstep__title">Předání</h3>
-        <p class="pstep__desc">Spuštění, předám přístupy ke všemu — hosting, doména, zdrojáky. 30 dní podpora zdarma.</p>
+        <p class="pstep__desc">Spuštění na mém serveru, zdrojáky předám. 30 dní podpora zdarma.</p>
       </div>
     </div>
   </div>
@@ -589,7 +592,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div class="guar__card reveal d1">
         <span class="guar__num">02</span>
         <h3 class="guar__title">Fixní cena, nic navíc</h3>
-        <p class="guar__desc">Cena z ceníku je finální. Žádné „a ještě by bylo dobře přidat..." za příplatek v průběhu projektu.</p>
+        <p class="guar__desc">Cena platí pro rozsah dohodnutý ve smlouvě. Co si zadáš na začátku, to dostaneš za domluvenou cenu — bez skrytých příplatků. Změny nad rámec řešíme dohodou.</p>
       </div>
       <div class="guar__card reveal d2">
         <span class="guar__num">03</span>
@@ -599,12 +602,12 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div class="guar__card reveal">
         <span class="guar__num">04</span>
         <h3 class="guar__title">Zdrojáky jsou tvoje</h3>
-        <p class="guar__desc">Po předání dostaneš kompletní zdrojové soubory. Web je tvůj — přesunout, upravit, předat jinému vývojáři.</p>
+        <p class="guar__desc">Po předání dostaneš kompletní zdrojový kód (zip nebo git repo). Můžeš ho upravit, předat jinému vývojáři nebo přesunout na vlastní hosting.</p>
       </div>
       <div class="guar__card reveal d1">
         <span class="guar__num">05</span>
-        <h3 class="guar__title">Všechny přístupy předám</h3>
-        <p class="guar__desc">Hosting, doména, CMS, FTP — vše dostaneš na tác. Žádná závislost na mně po skončení projektu.</p>
+        <h3 class="guar__title">Hosting mám na starosti já</h3>
+        <p class="guar__desc">Web běží na mém serveru — řeším techniku, zálohy a dostupnost. Kdykoli můžeš odejít, zdrojáky máš vždy u sebe.</p>
       </div>
       <div class="guar__card reveal d2">
         <span class="guar__num">06</span>
@@ -627,7 +630,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
     <div class="faq__list reveal">
       <details class="faqitem">
         <summary class="faqitem__q">Kolik stojí web?<span class="faqitem__ico">+</span></summary>
-        <p class="faqitem__a">Weby dělám za fixní ceny: START 14 990 Kč (one-page), BUSINESS 29 990 Kč (do 5 stránek) a PREMIUM 59 990 Kč (neomezeno + e-shop). Co je v ceníku, to platíš.</p>
+        <p class="faqitem__a">Weby dělám za fixní ceny: START 9 990 Kč (one-page), BUSINESS 15 990 Kč (do 5 stránek) a PREMIUM 39 990 Kč (neomezeno + e-shop). Cena platí pro rozsah dohodnutý ve smlouvě — bez skrytých příplatků.</p>
       </details>
       <details class="faqitem">
         <summary class="faqitem__q">Jak funguje demo zdarma?<span class="faqitem__ico">+</span></summary>
@@ -639,11 +642,11 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       </details>
       <details class="faqitem">
         <summary class="faqitem__q">Budu web vlastnit?<span class="faqitem__ico">+</span></summary>
-        <p class="faqitem__a">Ano. Po dokončení dostaneš kompletní zdrojové soubory, přístupy k hostingu, doméně i CMS. Web je tvůj a můžeš ho kdykoli přesunout nebo předat jinému vývojáři.</p>
+        <p class="faqitem__a">Ano. Při předání dostaneš kompletní zdrojový kód (zip nebo git repo) — můžeš ho upravit, předat jinému vývojáři nebo přesunout na vlastní hosting. Web běží na mém serveru, techniku řeším za tebe. Kdykoli můžeš odejít, kód máš vždy u sebe.</p>
       </details>
       <details class="faqitem">
         <summary class="faqitem__q">Na jaké platformě weby stavíš?<span class="faqitem__ico">+</span></summary>
-        <p class="faqitem__a">WordPress, Shoptet, Upgates nebo vlastní řešení. Volím platformu podle tvých potřeb — ne podle mé preference.</p>
+        <p class="faqitem__a">Shoptet nebo vlastní řešení na míru. Žádný WordPress — žádná nekonečná údržba pluginů. Platformu volím podle tvých potřeb.</p>
       </details>
       <details class="faqitem">
         <summary class="faqitem__q">Nabízíš správu a aktualizace?<span class="faqitem__ico">+</span></summary>
@@ -655,7 +658,7 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       </details>
       <details class="faqitem">
         <summary class="faqitem__q">Pracuješ i mimo Prahu?<span class="faqitem__ico">+</span></summary>
-        <p class="faqitem__a">Pracuji plně online — klienty mám v Praze, Brně, Ostravě i v zahraničí. Videohovor nahrazuje schůzku a šetří čas oběma stranám.</p>
+        <p class="faqitem__a">Pracuji plně online — klienty mám po celé ČR. Videohovor nahrazuje schůzku a šetří čas oběma stranám.</p>
       </details>
     </div>
   </div>
@@ -774,10 +777,18 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
           <label for="phone">Telefon (nepovinné)</label>
           <input type="tel" id="phone" name="phone" placeholder="+420 777 000 000">
         </div>
+        <div class="ffield">
+          <label for="note">Poznámka (nepovinné)</label>
+          <textarea id="note" name="note" placeholder="Napiš cokoliv — co řešíš, co se ti nelíbí na současném webu, termín, dotazy…" rows="4"></textarea>
+        </div>
         <div class="form__nav">
           <button class="form__back" onclick="prevStep(4)">← Zpět</button>
           <button class="btn btn--accent btn--lg" onclick="submitForm()">Odeslat a získat nabídku →</button>
         </div>
+        <p style="font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-top:1rem;line-height:1.6">
+          Odesláním formuláře souhlasíte se zpracováním osobních údajů za účelem přípravy nabídky.
+          Podrobnosti viz <a href="/zasady-ochrany-osobnich-udaju" style="color:var(--accent)">Zásady ochrany osobních údajů</a>.
+        </p>
       </div>
     </div>
 
@@ -809,15 +820,15 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
       <div>
         <p class="footer__coltitle">Kontakt</p>
         <ul class="footer__links">
-          <li><a href="mailto:jan@cervinkaweb.cz">jan@cervinkaweb.cz</a></li>
-          <li><a href="tel:+420777000000">+420 777 000 000</a></li>
-          <li><a href="https://www.linkedin.com/in/jan-cervinka" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:{{ business.email }}">{{ business.email }}</a></li>
+          <li><a href="tel:{{ business.phone }}">{{ business.phone_display }}</a></li>
+          {% if business.linkedin %}<li><a href="{{ business.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
-      <span class="footer__copy">© 2026 Jan Červinka — IČO 000 00 000 — Praha</span>
-      <span class="footer__copy">Demo zdarma<span class="accent">.</span> Platíš až pak.</span>
+      <span class="footer__copy">© {{ "now"|date("Y") }} {{ business.name }} — IČO {{ business.ico }} — {{ business.city }}</span>
+      <span class="footer__copy"><a href="/zasady-ochrany-osobnich-udaju" style="color:inherit;opacity:.6">Zásady ochrany osobních údajů</a></span>
     </div>
   </div>
 </footer>
@@ -874,9 +885,28 @@ details[open] .faqitem__ico{background:var(--accent);border-color:var(--accent);
   };
 
   window.submitForm = function(){
-    if(!document.getElementById('email').value){ alert('Vyplň e-mail.'); return; }
-    document.getElementById('formContainer').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
+    console.log('[form] submitForm called');
+    var emailVal = document.getElementById('email').value;
+    if(!emailVal){ alert('Vyplň e-mail.'); return; }
+    var btn = document.querySelector('#step4 .btn--accent');
+    btn.disabled = true; btn.textContent = 'Odesílám…';
+    var payload = {
+      type: (document.querySelector('input[name="type"]:checked') || {}).value || '',
+      budget: document.querySelector('select[name="budget"]').value,
+      deadline: document.querySelector('select[name="deadline"]').value,
+      url: document.querySelector('input[name="url"]').value,
+      hasLogo: document.querySelector('input[name="hasBranding"]').checked,
+      hasTexts: document.querySelector('input[name="hasTexts"]').checked,
+      name: document.querySelector('input[name="fname"]').value,
+      company: document.querySelector('input[name="company"]').value,
+      email: emailVal,
+      phone: document.querySelector('input[name="phone"]').value,
+      note: document.querySelector('textarea[name="note"]').value,
+    };
+    console.log('[form] payload', payload);
+    fetch('/api/contact', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)})
+      .then(function(r){ console.log('[form] response', r.status); if(!r.ok) throw new Error(r.status); document.getElementById('formContainer').style.display = 'none'; document.getElementById('formSuccess').classList.add('show'); })
+      .catch(function(e){ console.error('[form] error', e); alert('Nepodařilo se odeslat. Zkus to prosím znovu.'); btn.disabled = false; btn.textContent = 'Odeslat a získat nabídku →'; });
   };
 })();
 </script>

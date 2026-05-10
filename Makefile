@@ -1,2 +1,20 @@
+up:
+	docker compose up -d
+
+down:
+	docker compose down
+
+restart:
+	docker compose down && docker compose up -d
+
+build:
+	docker compose up -d --build
+
+up-prod:
+	docker compose -f compose.yaml -f compose.prod.yaml up -d --build
+
+down-prod:
+	docker compose -f compose.yaml -f compose.prod.yaml down
+
 fix-permissions:
 	docker compose run --rm php chown -R $(shell id -u):$(shell id -g) .

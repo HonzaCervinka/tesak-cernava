@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: sans-serif; color: #1a1f1a; font-size: 15px; line-height: 1.6; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+  th { text-align: left; width: 40%; color: #666; font-weight: normal; padding: .4rem 0; border-bottom: 1px solid #eee; }
+  td { padding: .4rem 0; border-bottom: 1px solid #eee; }
+</style>
+</head>
+<body>
+<h2>Nová poptávka</h2>
+<table>
+  <tr><th>Typ</th><td>{{ data.type }}</td></tr>
+  <tr><th>Jméno</th><td>{{ data.name }}</td></tr>
+  <tr><th>E-mail</th><td><a href="mailto:{{ data.email }}">{{ data.email }}</a></td></tr>
+  {% if data.phone %}<tr><th>Telefon</th><td>{{ data.phone }}</td></tr>{% endif %}
+  {% if data.company %}<tr><th>Firma</th><td>{{ data.company }}</td></tr>{% endif %}
+  {% if data.budget %}<tr><th>Rozpočet</th><td>{{ data.budget }}</td></tr>{% endif %}
+  {% if data.deadline %}<tr><th>Termín</th><td>{{ data.deadline }}</td></tr>{% endif %}
+  {% if data.url %}<tr><th>Současný web</th><td><a href="{{ data.url }}">{{ data.url }}</a></td></tr>{% endif %}
+  <tr><th>Má logo/manuál</th><td>{{ data.hasLogo ? 'Ano' : 'Ne' }}</td></tr>
+  <tr><th>Má texty</th><td>{{ data.hasTexts ? 'Ano' : 'Ne' }}</td></tr>
+  {% if data.note %}<tr><th>Poznámka</th><td style="white-space:pre-wrap">{{ data.note }}</td></tr>{% endif %}
+</table>
+</body>
+</html>

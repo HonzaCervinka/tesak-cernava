@@ -64,3 +64,8 @@
 		hide *.php
 	}
 }
+
+http://adminer.localhost {
+	reverse_proxy adminer:8080
+}
+

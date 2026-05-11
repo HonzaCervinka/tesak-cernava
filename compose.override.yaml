@@ -39,14 +39,14 @@ services:
         target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
-###> symfony/mercure-bundle ###
-###< symfony/mercure-bundle ###
+  ###> symfony/mercure-bundle ###
+  ###< symfony/mercure-bundle ###
 
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database:
     ports:
-      - "5432"
-###< doctrine/doctrine-bundle ###
+      - "3306"
+  ###< doctrine/doctrine-bundle ###
 
   worker:
     image: ${IMAGES_PREFIX:-}app-php-dev
@@ -58,13 +58,13 @@ services:
       - /app/var
     environment:
       APP_ENV: "${APP_ENV:-dev}"
-      DATABASE_URL: "postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-16}&charset=${POSTGRES_CHARSET:-utf8}"
+      DATABASE_URL: "mysql://${MYSQL_USER:-app}:${MYSQL_PASSWORD:-!ChangeMe!}@database:3306/${MYSQL_DATABASE:-app}?serverVersion=${MYSQL_VERSION:-8.0}&charset=${MYSQL_CHARSET:-utf8mb4}"
     command: php bin/console messenger:consume async --time-limit=3600 --memory-limit=128M -vv
     restart: unless-stopped
     depends_on:
       - database
 
-###> symfony/mailer ###
+  ###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:
@@ -73,4 +73,15 @@ services:
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
+  ###< symfony/mailer ###
+
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+      ADMINER_DESIGN: ""
+    depends_on:
+      - database

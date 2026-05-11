@@ -23,3 +23,10 @@ down-prod:
 
 fix-permissions:
 	docker compose run --rm php chown -R $(shell id -u):$(shell id -g) .
+
+upstream-log:
+	git fetch upstream
+	git log --oneline upstream/main --not HEAD
+
+upstream-pick:
+	git cherry-pick $(COMMIT)

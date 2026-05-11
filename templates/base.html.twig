@@ -132,7 +132,14 @@
     <button class="lightbox__close" id="lb-close" aria-label="Zavřít obrázek">
       <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lb-prev" aria-label="Předchozí fotka" hidden>
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
     <img id="lb-img" src="" alt="">
+    <button class="lightbox__nav lightbox__nav--next" id="lb-next" aria-label="Další fotka" hidden>
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <span class="lightbox__counter" id="lb-counter" aria-live="polite"></span>
   </div>
 </body>
 </html>

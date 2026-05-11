@@ -675,6 +675,102 @@ video.hero__bg {
 .room-card__footer { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--color-border-default); }
 .room-card__price-amount { font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 700; color: var(--color-primary-600); }
 
+/* Room card gallery */
+.room-card__gallery { display: flex; flex-direction: column; }
+
+.room-card__main {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-primary-100);
+  cursor: pointer;
+  position: relative;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+.room-card__main img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; display: block; }
+.room-card:hover .room-card__main img { transform: scale(1.04); }
+.room-card__main:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: -2px; }
+
+.room-card__photo-badge {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.room-card__thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 0;
+}
+
+.room-card__thumb {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-primary-100);
+  position: relative;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+.room-card__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; display: block; }
+.room-card__thumb:hover img { transform: scale(1.08); }
+.room-card__thumb:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: -2px; }
+.room-card__thumb--extra { display: none; }
+.room-card__thumb--empty { cursor: default; background: var(--color-neutral-100); }
+
+.room-card__thumb-more {
+  position: absolute;
+  inset: 0;
+  background: rgba(9,18,16,.52);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Lightbox navigation */
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(250,248,245,.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+  z-index: 1;
+}
+.lightbox__nav:hover { background: rgba(250,248,245,.3); }
+.lightbox__nav--prev { left: var(--space-4); }
+.lightbox__nav--next { right: var(--space-4); }
+.lightbox__counter {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(250,248,245,.7);
+  font-size: var(--text-sm);
+  pointer-events: none;
+}
+
 /* ----------------------------------------------------------------
    WELLNESS SERVICE CARD
    ---------------------------------------------------------------- */

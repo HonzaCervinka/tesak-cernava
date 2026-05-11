@@ -9,7 +9,7 @@
 
     <header class="page-header">
       <img class="page-header__bg"
-        src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000764-06f7f06f82/IMG_3199-6.jpeg?ph=9291f65e3a"
+        src="{{ asset('images/rooms/family-double/img_3199-6.webp') }}"
         alt="Exteriér penzionu Tesák-Čerňava – horský penzion v Hostýnských vrších" loading="eager">
       <div class="container">
         <div class="page-header__content">
@@ -60,12 +60,12 @@
           </div>
           <div style="display:flex;flex-direction:column;gap:var(--space-4)">
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000319-819c9819cb/IMG20240126193956.jpeg?ph=9291f65e3a"
+              src="{{ asset('images/facilities/img20240126193956.webp') }}"
               alt="Útulná společenská místnost s krbem v penzionu Tesák-Čerňava"
               style="width:100%;height:280px;object-fit:cover;border-radius:var(--radius-xl)"
               loading="lazy">
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000261-155d4155d5/DJI_0097.JPG?ph=9291f65e3a"
+              src="{{ asset('images/views/dji_0097.webp') }}"
               alt="Letecký pohled na penzion Tesák-Čerňava v Hostýnských vrších"
               style="width:100%;height:220px;object-fit:cover;border-radius:var(--radius-xl)"
               loading="lazy">
@@ -87,8 +87,8 @@
           <article class="room-card">
             <div class="room-card__image">
               <img
-                src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001066-9169e916a0/P1055293-HDR.jpeg?ph=9291f65e3a"
-                alt="Kuchyňka v apartmánu v prvním patře penzionu Tesák-Čerňava"
+                src="{{ asset('images/rooms/double-shared-bath/img_3316-6.webp') }}"
+                alt="Dvoulůžkový pokoj v penzionu Tesák-Čerňava"
                 loading="lazy">
             </div>
             <div class="room-card__body">
@@ -100,7 +100,7 @@
                 </li>
                 <li>
                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna se sprchovým koutem
+                  Sdílená koupelna, balkon
                 </li>
                 <li>
                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -124,8 +124,8 @@
           <article class="room-card">
             <div class="room-card__image">
               <img
-                src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001057-c4eadc4eaf/P1055266-HDR.jpeg?ph=9291f65e3a"
-                alt="Koupelna se sprchovým koutem v apartmánu penzionu Tesák-Čerňava"
+                src="{{ asset('images/rooms/family-large/p1055223-hdr.webp') }}"
+                alt="Velký rodinný pokoj v penzionu Tesák-Čerňava"
                 loading="lazy">
             </div>
             <div class="room-card__body">
@@ -161,8 +161,8 @@
           <article class="room-card">
             <div class="room-card__image">
               <img
-                src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001050-2e0942e096/P1055260-HDR.jpeg?ph=9291f65e3a"
-                alt="Kuchyňka v prostorném apartmánu v přízemí penzionu Tesák-Čerňava"
+                src="{{ asset('images/rooms/apartment-ground/p1055260-hdr.webp') }}"
+                alt="Apartmán v přízemí penzionu Tesák-Čerňava"
                 loading="lazy">
             </div>
             <div class="room-card__body">
@@ -195,6 +195,171 @@
             </div>
           </article>
 
+          <article class="room-card">
+            <div class="room-card__image">
+              <img
+                src="{{ asset('images/rooms/single/img_3217-1.webp') }}"
+                alt="Jednolůžkový pokoj v penzionu Tesák-Čerňava"
+                loading="lazy">
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__name">Jednolůžkové obsazení</h3>
+              <ul class="room-card__features">
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Ubytování pro 1 osobu
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Koupelna, ručníky, WC
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Balkon s výhledem do přírody
+                </li>
+              </ul>
+              <div class="room-card__footer">
+                <div class="room-card__price">
+                  <span class="room-card__price-amount">650 Kč</span>
+                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                </div>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-card__image">
+              <img
+                src="{{ asset('images/rooms/double-ensuite/img_3210-7.webp') }}"
+                alt="Pokoj s manželskou postelí v penzionu Tesák-Čerňava"
+                loading="lazy">
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__name">Pokoj s manželskou postelí</h3>
+              <ul class="room-card__features">
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Manželská postel, TV
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Vlastní koupelna, balkon
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Společná kuchyňka
+                </li>
+              </ul>
+              <div class="room-card__footer">
+                <div class="room-card__price">
+                  <span class="room-card__price-amount">1 100 Kč</span>
+                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                </div>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-card__image">
+              <img
+                src="{{ asset('images/rooms/bunk-4bed/p1055238-hdr.webp') }}"
+                alt="Čtyřlůžkový pokoj s palandou v penzionu Tesák-Čerňava"
+                loading="lazy">
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__name">Čtyřlůžkový pokoj s palandou</h3>
+              <ul class="room-card__features">
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Palanda + 2 lůžka (až 4 osoby)
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Vlastní koupelna, balkon
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Společná kuchyňka
+                </li>
+              </ul>
+              <div class="room-card__footer">
+                <div class="room-card__price">
+                  <span class="room-card__price-amount">1 890 Kč</span>
+                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                </div>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-card__image">
+              <img
+                src="{{ asset('images/rooms/family-double/img_3250-7.webp') }}"
+                alt="Rodinný dvoupokoj v penzionu Tesák-Čerňava"
+                loading="lazy">
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__name">Rodinný dvoupokoj</h3>
+              <ul class="room-card__features">
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Manž. postel + palanda + 2 lůžka, TV
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Vlastní koupelna, balkon
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Dva propojené pokoje
+                </li>
+              </ul>
+              <div class="room-card__footer">
+                <div class="room-card__price">
+                  <span class="room-card__price-amount">2 490 Kč</span>
+                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                </div>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-card__image">
+              <img
+                src="{{ asset('images/rooms/apartment-2bedroom/p1055293-hdr.webp') }}"
+                alt="Apartmán se dvěma ložnicemi v penzionu Tesák-Čerňava"
+                loading="lazy">
+            </div>
+            <div class="room-card__body">
+              <h3 class="room-card__name">Apartmán 2 ložnice</h3>
+              <ul class="room-card__features">
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Až 11 osob, 2× manž. postel, palanda
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  TV, kuchyňský kout, koupelna, balkon
+                </li>
+                <li>
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  2× rozkládací gauč
+                </li>
+              </ul>
+              <div class="room-card__footer">
+                <div class="room-card__price">
+                  <span class="room-card__price-amount">3 990 Kč</span>
+                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                </div>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
+              </div>
+            </div>
+          </article>
+
         </div>
 
         <p style="text-align:center;margin-top:var(--space-8)">
@@ -214,7 +379,7 @@
         <div class="grid-3" style="gap:var(--space-4)">
           <figure style="margin:0">
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001069-96e6396e65/P1055117-HDR.jpeg?ph=9291f65e3a"
+              src="{{ asset('images/facilities/p1055117-hdr.webp') }}"
               alt="Kuchyně penzionu Tesák-Čerňava vybavená pro vaření skupinových pobytů"
               style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-xl)"
               loading="lazy">
@@ -222,7 +387,7 @@
           </figure>
           <figure style="margin:0">
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001081-450d5450d8/P1055164-HDR.jpeg?ph=9291f65e3a"
+              src="{{ asset('images/facilities/p1055164-hdr.webp') }}"
               alt="Jídelna penzionu Tesák-Čerňava pro skupinové stravování"
               style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-xl)"
               loading="lazy">
@@ -230,7 +395,7 @@
           </figure>
           <figure style="margin:0">
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001087-ea0c9ea0cb/P1055135-HDR.jpeg?ph=9291f65e3a"
+              src="{{ asset('images/facilities/p1055135-hdr.webp') }}"
               alt="Útulná společenská místnost s posezením u krbu v penzionu Tesák-Čerňava"
               style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-xl)"
               loading="lazy">
@@ -240,7 +405,7 @@
 
         <div style="margin-top:var(--space-12);display:flex;gap:var(--space-8);align-items:center;flex-wrap:wrap">
           <img
-            src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000693-c44d8c44da/IMG_3300-5.jpeg?ph=9291f65e3a"
+            src="{{ asset('images/facilities/img_3300-5.webp') }}"
             alt="Kuchyňka na chodbě penzionu – dostupná pro hosty na každém patře"
             style="width:min(100%,420px);border-radius:var(--radius-xl);flex-shrink:0"
             loading="lazy">
@@ -301,7 +466,7 @@
             </div>
           </div>
           <img
-            src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001075-167881678a/P1055139-HDR.jpeg?ph=9291f65e3a"
+            src="{{ asset('images/facilities/p1055139-hdr.webp') }}"
             alt="Společenská místnost penzionu Tesák-Čerňava s posezením"
             style="width:100%;border-radius:var(--radius-xl);max-height:480px;object-fit:cover"
             loading="lazy">

@@ -1,6 +1,7 @@
 
 /.idea/
 *.iml
+/tesak-cernava-demo/
 
 ###> symfony/framework-bundle ###
 /.env.local

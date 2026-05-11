@@ -9,7 +9,7 @@
 
     <header class="page-header">
       <img class="page-header__bg"
-        src="https://duyn491kcolsw.cloudfront.net/files/1w/1w4/1w4se3.jpg?ph=9291f65e3a"
+        src="{{ asset('images/wellness/massage-hero.webp') }}"
         alt="" loading="eager" aria-hidden="true">
       <div class="container">
         <div class="page-header__content">
@@ -53,7 +53,7 @@
           </div>
           <figure style="margin:0">
             <img
-              src="https://duyn491kcolsw.cloudfront.net/files/1w/1w4/1w4se3.jpg?ph=9291f65e3a"
+              src="{{ asset('images/wellness/massage-hero.webp') }}"
               alt="Wellness a masážní prostředí v penzionu Tesák-Čerňava, Hostýnské vrchy"
               style="width:100%;border-radius:var(--radius-xl);max-height:480px;object-fit:cover"
               loading="lazy">
@@ -239,6 +239,36 @@
           <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="var(--color-success-text)" stroke-width="1.5" style="margin:0 auto var(--space-4)" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
           <h3 style="font-size:var(--text-lg);color:var(--color-success-text);margin-bottom:var(--space-2)">Objednávka odeslána</h3>
           <p style="color:var(--color-text-secondary)">Ozveme se Vám co nejdříve na telefonní číslo, které jste uvedli.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" aria-labelledby="sauna-heading">
+      <div class="container">
+        <div class="grid-2" style="align-items:center;gap:var(--space-16)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <img
+              src="{{ asset('images/wellness/img_3381---kopie.webp') }}"
+              alt="Sauna v penzionu Tesák-Čerňava"
+              style="width:100%;height:280px;object-fit:cover;border-radius:var(--radius-xl)"
+              loading="lazy">
+            <img
+              src="{{ asset('images/wellness/img_3382---kopie.webp') }}"
+              alt="Sauna – relaxační prostor penzionu Tesák-Čerňava"
+              style="width:100%;height:220px;object-fit:cover;border-radius:var(--radius-xl)"
+              loading="lazy">
+          </div>
+          <div>
+            <span class="eyebrow">Relaxace</span>
+            <h2 id="sauna-heading" style="font-size:var(--text-xl);margin:var(--space-3) 0 var(--space-6)">Infra sauna</h2>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-4)">
+              Doplňte svůj pobyt v Hostýnských vrších o relaxaci v infra sauně. Ideální zakončení po turistice nebo lyžování.
+            </p>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-6)">
+              Infra sauna je dostupná po domluvě s provozem penzionu.
+            </p>
+            <a href="{{ path('app_contact') }}" class="btn btn--outline">Poptat saunu</a>
+          </div>
         </div>
       </div>
     </section>

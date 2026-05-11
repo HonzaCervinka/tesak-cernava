@@ -51,6 +51,15 @@ mode inside a sandboxed environment.
 11. [Troubleshooting](docs/troubleshooting.md)
 12. [Using AI Coding Agents](docs/agents.md)
 
+## Checklist před spuštěním produkce
+
+Před nasazením na produkční/veřejnou URL odstraň následující:
+
+- [ ] `templates/base.html.twig` — smazat řádek `<meta name="robots" content="noindex, nofollow">`
+- [ ] `public/robots.txt` — nahradit produkční verzí (povolit indexování, nebo smazat)
+- [ ] `.env` — aktualizovat `CONTACT_RECIPIENT_EMAIL` a `MAILER_FROM` na produkční emaily
+- [ ] Nastavit produkční `MAILER_DSN` v `.env.local` na serveru
+
 ## License
 
 Symfony Docker is available under the MIT License.

@@ -31,10 +31,13 @@
 {% block body %}
 
     <section class="hero" aria-label="Uvítací sekce">
-      <img class="hero__bg"
-        src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000679-cce3bcce3e/700/IMG_3217-1.jpeg?ph=9291f65e3a"
+      <video class="hero__bg" autoplay muted loop playsinline preload="none" aria-hidden="true">
+        <source src="{{ asset('video/hero.mp4') }}" type="video/mp4">
+      </video>
+      <img class="hero__bg hero__bg--fallback"
+        src="{{ asset('images/views/dji_0097.webp') }}"
         alt="Panorama Hostýnských vrchů s bukovými lesy"
-        loading="eager" width="1400" height="800">
+        loading="eager" width="1400" height="800" aria-hidden="true">
       <div class="hero__overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__content">
@@ -108,7 +111,7 @@
           </div>
           <div>
             <img
-              src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000401-1a24d1a24f/IMG20231006100649.jpeg?ph=9291f65e3a"
+              src="{{ asset('images/views/img20231006100649.webp') }}"
               alt="Exteriér penzionu Tesák-Čerňava v zimě"
               style="border-radius:var(--radius-xl);width:100%;object-fit:cover;aspect-ratio:4/3;"
               loading="lazy" width="800" height="600">
@@ -174,7 +177,7 @@
         <div class="grid-3">
           <article class="room-card" aria-label="Velký rodinný pokoj">
             <div class="room-card__image">
-              <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001066-9169e916a0/P1055293-HDR.jpeg?ph=9291f65e3a"
+              <img src="{{ asset('images/rooms/apartment-2bedroom/p1055293-hdr.webp') }}"
                 alt="Kuchyňka ve velkém rodinném pokoji" loading="lazy" width="800" height="600">
             </div>
             <div class="room-card__body">
@@ -207,7 +210,7 @@
           </article>
           <article class="room-card" aria-label="Dvoulůžkový pokoj">
             <div class="room-card__image">
-              <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001057-c4eadc4eaf/P1055266-HDR.jpeg?ph=9291f65e3a"
+              <img src="{{ asset('images/rooms/apartment-2bedroom/p1055266-hdr.webp') }}"
                 alt="Koupelna ve dvoulůžkovém pokoji" loading="lazy" width="800" height="600">
             </div>
             <div class="room-card__body">
@@ -240,7 +243,7 @@
           </article>
           <article class="room-card" aria-label="Apartmán v přízemí">
             <div class="room-card__image">
-              <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001050-2e0942e096/P1055260-HDR.jpeg?ph=9291f65e3a"
+              <img src="{{ asset('images/rooms/apartment-ground/p1055260-hdr.webp') }}"
                 alt="Kuchyňský kout apartmánu v přízemí" loading="lazy" width="800" height="600">
             </div>
             <div class="room-card__body">
@@ -282,10 +285,10 @@
       <div class="container">
         <div class="grid-2" style="align-items:center;gap:var(--space-16)">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
-            <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001069-96e6396e65/P1055117-HDR.jpeg?ph=9291f65e3a"
+            <img src="{{ asset('images/facilities/p1055117-hdr.webp') }}"
               alt="Kuchyně penzionu" loading="lazy" width="400" height="300"
               style="border-radius:var(--radius-lg);width:100%;aspect-ratio:4/3;object-fit:cover;">
-            <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001081-450d5450d8/P1055164-HDR.jpeg?ph=9291f65e3a"
+            <img src="{{ asset('images/facilities/p1055164-hdr.webp') }}"
               alt="Jídelna penzionu" loading="lazy" width="400" height="300"
               style="border-radius:var(--radius-lg);width:100%;aspect-ratio:4/3;object-fit:cover;margin-top:var(--space-6);">
           </div>
@@ -324,7 +327,7 @@
             <a href="{{ path('app_area') }}" class="btn btn--primary">Aktivity v okolí</a>
           </div>
           <div>
-            <img src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001031-53f1953f1a/IMG_20250802_102255-1.jpeg?ph=9291f65e3a"
+            <img src="{{ asset('images/facilities/img_20250802_102255.webp') }}"
               alt="Křižovatka turistických tras Tesák" loading="lazy" width="800" height="600"
               style="border-radius:var(--radius-xl);width:100%;object-fit:cover;aspect-ratio:4/3;">
           </div>

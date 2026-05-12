@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Okolí a aktivity | Tesák-Čerňava – Turistika v Hostýnských vrších</title>
+  <meta name="description" content="Turistika, cyklistika a výlety v okolí penzionu Tesák-Čerňava. Rozhledna Kelčský Javorník (1,5 h), Maruška (2 h), Sochová (1 h), Svatý Hostýn (4 h). Přírodní rezervace Tesák.">
+  <meta property="og:title" content="Okolí a aktivity | Tesák-Čerňava">
+  <meta property="og:description" content="Jsme křižovatkou turistických tras v Hostýnských vrších. Hodiny pěší chůze v bukovém lese, výhledy, rozhledny.">
+  <meta property="og:image" content="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001073-5229f522a0/IMG20220525204625%20-%20kopie.jpeg?ph=9291f65e3a">
+  <meta property="og:site_name" content="Tesák-Čerňava">
+  <link rel="canonical" href="okoli.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .trail-card {
+      background: var(--color-surface-card);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .trail-card__header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    .trail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .trail-badge--easy    { background: var(--color-success-bg); color: var(--color-success-text); }
+    .trail-badge--medium  { background: var(--color-warning-bg); color: var(--color-warning-text); }
+    .trail-badge--hard    { background: var(--color-error-bg);   color: var(--color-error-text); }
+
+    .trail-card__title { font-family: var(--font-heading); font-size: var(--text-md); font-weight: 600; flex: 1; }
+    .trail-card__meta {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .trail-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .trail-card p {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .activity-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-3);
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-nav">Přeskočit na obsah</a>
+
+  <nav class="nav" aria-label="Hlavní navigace">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Tesák-Čerňava</a>
+      <ul class="nav__menu" role="list">
+        <li><a href="index.html" class="nav__link">Úvod</a></li>
+        <li><a href="ubytovani.html" class="nav__link">Ubytování</a></li>
+        <li><a href="pro-skupiny.html" class="nav__link">Pro skupiny</a></li>
+        <li><a href="wellness.html" class="nav__link">Wellness</a></li>
+        <li><a href="cenik.html" class="nav__link">Ceník</a></li>
+        <li><a href="galerie.html" class="nav__link">Galerie</a></li>
+        <li><a href="okoli.html" class="nav__link">Okolí</a></li>
+        <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="tel:+420775727306" class="nav__phone">+420 775 727 306</a>
+        <a href="kontakt.html" class="btn btn--primary btn--sm">Rezervovat</a>
+      </div>
+      <button class="nav__hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Otevřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer" id="nav-drawer">
+    <div class="nav__overlay"></div>
+    <div class="nav__panel" role="dialog" aria-modal="true" aria-label="Navigační menu">
+      <button class="nav__panel-close" id="nav-close" aria-label="Zavřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <a href="index.html" class="nav__panel-link">Úvod</a>
+      <a href="ubytovani.html" class="nav__panel-link">Ubytování</a>
+      <a href="pro-skupiny.html" class="nav__panel-link">Pro skupiny</a>
+      <a href="wellness.html" class="nav__panel-link">Wellness</a>
+      <a href="cenik.html" class="nav__panel-link">Ceník</a>
+      <a href="galerie.html" class="nav__panel-link">Galerie</a>
+      <a href="okoli.html" class="nav__panel-link">Okolí a aktivity</a>
+      <a href="kontakt.html" class="nav__panel-link">Kontakt</a>
+      <div class="nav__panel-cta">
+        <a href="kontakt.html" class="btn btn--primary btn--full">Rezervovat pobyt</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <header class="page-header">
+      <img class="page-header__bg"
+        src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001073-5229f522a0/IMG20220525204625%20-%20kopie.jpeg?ph=9291f65e3a"
+        alt="Krásné výhledy do krajiny z Hostýnských vrchů" loading="eager">
+      <div class="container">
+        <div class="page-header__content">
+          <span class="page-header__eyebrow">Okolí a aktivity</span>
+          <h1 class="page-header__title">Srdce Hostýnských vrchů</h1>
+          <p class="page-header__lead">Jsme křižovatkou turisticky značených tras. Hodiny pěší chůze v bukovém lese, výhledy, rozhledny a poutní místa – přímo z prahu.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ÚVOD – PŘÍRODNÍ REZERVACE -->
+    <section class="section" aria-labelledby="nature-heading">
+      <div class="container">
+        <div class="grid-2" style="align-items:center;gap:var(--space-16)">
+          <div>
+            <span class="eyebrow">Přírodní rezervace</span>
+            <h2 id="nature-heading" style="font-size:var(--text-xl);margin:var(--space-3) 0 var(--space-6)">Tesák – chráněná příroda</h2>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-4)">
+              Tesák je přírodní rezervace v lokalitě Rajnochovice v okrese Kroměříž. Rezervace leží uvnitř přírodního parku Hostýnské vrchy, který zároveň podléhá ochraně jako <strong>ptačí oblast a evropsky významná lokalita</strong> programu Natura 2000.
+            </p>
+            <p style="color:var(--color-text-secondary);margin-bottom:var(--space-4)">
+              Na kopci Tesák (690 m n. m.) na Vás dýchne klid, příroda, bukové lesy a výhledy do kopcovité krajiny. Jsme křižovatkou a srdcem hostýnských turisticky značených cest.
+            </p>
+            <p style="color:var(--color-text-secondary)">
+              Můžete se hodiny anebo celé dny procházet a nechat na sebe působit blahodárné účinky lesa – tzv. <em>lesní terapii (shinrin-yoku)</em>, o jejíchž přínosech pro zdraví a psychiku svědčí řada vědeckých studií.
+            </p>
+          </div>
+          <img
+            src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001031-53f1953f1a/IMG_20250802_102255-1.jpeg?ph=9291f65e3a"
+            alt="Turistická křižovatka v přírodní rezervaci Tesák v Hostýnských vrších"
+            style="width:100%;border-radius:var(--radius-xl);max-height:480px;object-fit:cover"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- TURISTICKÉ TRASY -->
+    <section class="section section--muted" aria-labelledby="trails-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Pěší turistika</span>
+          <h2 id="trails-heading">Výlety z penzionu</h2>
+          <p>Všechny trasy startují přímo od penzionu. Časy jsou orientační pro průměrné tempo chůze.</p>
+        </div>
+
+        <div class="grid-2" style="gap:var(--space-4)">
+
+          <article class="trail-card">
+            <div class="trail-card__header">
+              <h3 class="trail-card__title">Rozhledna Kelčský Javorník</h3>
+              <span class="trail-badge trail-badge--medium">střední</span>
+            </div>
+            <div class="trail-card__meta">
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                1,5 hodiny tam
+              </div>
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l5-5 4 4 5-6 4 4"/></svg>
+                1116 m n. m.
+              </div>
+            </div>
+            <p>Nejvyšší bod Hostýnských vrchů s rozhlednou a výhledem na celou Moravu. Trasa prochází bukovým lesem s minimálním převýšením v první části, pak stoupá k vrcholu.</p>
+          </article>
+
+          <article class="trail-card">
+            <div class="trail-card__header">
+              <h3 class="trail-card__title">Rozhledna Maruška</h3>
+              <span class="trail-badge trail-badge--medium">střední</span>
+            </div>
+            <div class="trail-card__meta">
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                2 hodiny tam
+              </div>
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l5-5 4 4 5-6 4 4"/></svg>
+                883 m n. m.
+              </div>
+            </div>
+            <p>Oblíbená rozhledna v srdci Hostýnských vrchů. Panoramatický výhled na Beskydy i Jeseníky za jasného počasí. Vhodná jako celodenní výlet s obědem v restauraci u rozhledny.</p>
+          </article>
+
+          <article class="trail-card">
+            <div class="trail-card__header">
+              <h3 class="trail-card__title">Sochová</h3>
+              <span class="trail-badge trail-badge--easy">snadná</span>
+            </div>
+            <div class="trail-card__meta">
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                1 hodina tam
+              </div>
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l5-5 4 4 5-6 4 4"/></svg>
+                výhled na doliny
+              </div>
+            </div>
+            <p>Kratší výlet vhodný i pro menší děti. Lesní cesta s mírnými stoupáními, na vrcholu pěkný výhled do údolí. Ideální odpolední procházka.</p>
+          </article>
+
+          <article class="trail-card">
+            <div class="trail-card__header">
+              <h3 class="trail-card__title">Svatý Hostýn</h3>
+              <span class="trail-badge trail-badge--hard">náročná</span>
+            </div>
+            <div class="trail-card__meta">
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                4 hodiny tam
+              </div>
+              <div class="trail-meta-item">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 17l5-5 4 4 5-6 4 4"/></svg>
+                736 m n. m.
+              </div>
+            </div>
+            <p>Slavné moravské poutní místo s bazilikou Panny Marie. Celodenní výlet přes hřeben Hostýnských vrchů. Kolem baziliky s výhledem, restaurace, studánka. Doporučujeme vzít svačinu.</p>
+          </article>
+
+        </div>
+
+        <div style="margin-top:var(--space-8);padding:var(--space-4) var(--space-6);background:var(--color-primary-50);border:1px solid var(--color-primary-200);border-radius:var(--radius-lg)">
+          <p style="font-size:var(--text-sm);color:var(--color-primary-700)">
+            <strong>Tip:</strong> Turistická mapa Hostýnských vrchů (1:25 000) je dostupná v turistických informačních centrech v Bystřici pod Hostýnem nebo v Rožnově pod Radhoštěm.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOTO OKOLÍ -->
+    <section class="section" aria-labelledby="area-photos-heading">
+      <div class="container">
+        <h2 id="area-photos-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-8)">Výhledy z Hostýnských vrchů</h2>
+        <div class="grid-2" style="gap:var(--space-4)">
+          <img
+            src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200000072-45b1745b19/IMG20220528194536%20-%20kopie%20%282%29.jpg?ph=9291f65e3a"
+            alt="Výhled do krajiny z kopce Tesák v Hostýnských vrších za letního večera"
+            style="width:100%;border-radius:var(--radius-xl);aspect-ratio:4/3;object-fit:cover"
+            loading="lazy">
+          <img
+            src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001073-5229f522a0/IMG20220525204625%20-%20kopie.jpeg?ph=9291f65e3a"
+            alt="Panoramatický výhled z Hostýnských vrchů na kopcovitou krajinu Moravy"
+            style="width:100%;border-radius:var(--radius-xl);aspect-ratio:4/3;object-fit:cover"
+            loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- DALŠÍ AKTIVITY -->
+    <section class="section section--muted" aria-labelledby="activities-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Více aktivit</span>
+          <h2 id="activities-heading">Co dalšího v okolí</h2>
+          <p>Hostýnské vrchy nabízejí celoroční vyžití pro rodiny i sportovce.</p>
+        </div>
+
+        <div class="grid-3" style="gap:var(--space-6)">
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">🚴</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Cyklistika</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              Hostýnské vrchy jsou oblíbenou cyklistickou destinací. Hřebenová trasa podél vrcholů poskytuje výhledy i tréninkový výzvu. V okolí najdete jak přirozené lesní cesty, tak asfaltové silnice s mírným provozem.
+            </p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Úschova kol u penzionu možná</p>
+          </div>
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">⛷️</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Zimní sporty</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              V zimě trasy slouží pro běžkování. Nejbližší lyžařský areál Razula (Velké Karlovice) vzdálen cca 30 km, ski areály v Bílé a na Pustevnách do 40 km. Penzion pořádá lyžařské kurzy pro školy.
+            </p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Vhodné i pro lyžařské kurzy škol</p>
+          </div>
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">🏛️</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Kultura a historie</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              Bystřice pod Hostýnem (7 km) – historické centrum s hradem a galerií. Kroměříž (30 km) – město UNESCO s arcibiskupskou zahradou. Rožnov pod Radhoštěm (35 km) – Valašské muzeum v přírodě.
+            </p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Výlety autem i autobusem</p>
+          </div>
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">🧘</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Wellness v přírodě</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              Bukový les v bezprostředním okolí je ideálním místem pro ranní jógu, meditaci nebo prostou procházku bez cíle. Kombinujte s masáží v penzionu pro kompletní regeneraci.
+            </p>
+            <a href="wellness.html" style="font-size:var(--text-sm);color:var(--color-primary-600);font-weight:500">Zobrazit wellness služby →</a>
+          </div>
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">🐾</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Se psem</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              Lesní trasy jsou ideální pro psy. Čistý vzduch, málo frekventované cesty, plno pachů k prozkoumání. V penzionu jsou psi vítáni (menší plemena do 4 kg, poplatek 150 Kč/noc).
+            </p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Dog-friendly trasy přímo od penzionu</p>
+          </div>
+
+          <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:1px solid var(--color-border-default)">
+            <div class="activity-icon">🌿</div>
+            <h3 style="font-size:var(--text-base);margin-bottom:var(--space-3)">Pozorování přírody</h3>
+            <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-3)">
+              Tesák je ptačí oblastí a evropsky významnou lokalitou. Příhodné pro pozorování lesních ptáků, brouků (endemity) i lesní flóry. Bukový les v různých ročních dobách nabízí nezapomenutelné zážitky.
+            </p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Natura 2000 lokalita</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA POLOHY -->
+    <section class="section" aria-labelledby="map-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Jak se k nám dostat</span>
+          <h2 id="map-heading">Poloha penzionu</h2>
+          <p>Penzion Tesák-Čerňava, Chvalčov 253, 768 72 Chvalčov. GPS: 49.3670216, 17.7757050</p>
+        </div>
+
+        <div style="border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-md)">
+          <iframe
+            title="Poloha penzionu Tesák-Čerňava na mapě"
+            src="https://maps.google.com/maps?q=49.3670216%2C17.775705&z=14&output=embed"
+            width="100%"
+            height="420"
+            style="border:0;display:block"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+        <div style="margin-top:var(--space-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-4)">
+          <div style="padding:var(--space-4);background:var(--color-surface-muted);border-radius:var(--radius-lg)">
+            <p style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Autem z Brna</p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">cca 1:20 hod (110 km) po D1 a R55</p>
+          </div>
+          <div style="padding:var(--space-4);background:var(--color-surface-muted);border-radius:var(--radius-lg)">
+            <p style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Autem z Olomouce</p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">cca 55 min (65 km) přes Kroměříž</p>
+          </div>
+          <div style="padding:var(--space-4);background:var(--color-surface-muted);border-radius:var(--radius-lg)">
+            <p style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Vlakem + autobusem</p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Vlak do Bystřice pod Hostýnem, pak autobus do Chvalčova</p>
+          </div>
+          <div style="padding:var(--space-4);background:var(--color-surface-muted);border-radius:var(--radius-lg)">
+            <p style="font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Parkování</p>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted)">Zdarma u penzionu</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band" aria-labelledby="cta-area-heading">
+      <div class="container">
+        <h2 id="cta-area-heading">Přijďte si to vyzkoušet</h2>
+        <p>Zarezervujte pobyt a objevte Hostýnské vrchy sami. Radi poradíme s výlety.</p>
+        <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+          <a href="kontakt.html" class="btn btn--primary">Rezervovat pobyt</a>
+          <a href="galerie.html" class="btn btn--outline-white">Prohlédnout galerii</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Tesák-Čerňava</a>
+          <p class="footer__tagline">Horský penzion v přírodní rezervaci Tesák, Hostýnské vrchy. 690 m n. m.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Stránky</p>
+          <nav class="footer__nav" aria-label="Patičková navigace">
+            <a href="ubytovani.html" class="footer__link">Ubytování</a>
+            <a href="pro-skupiny.html" class="footer__link">Pro skupiny</a>
+            <a href="wellness.html" class="footer__link">Wellness</a>
+            <a href="cenik.html" class="footer__link">Ceník</a>
+            <a href="galerie.html" class="footer__link">Galerie</a>
+            <a href="okoli.html" class="footer__link">Okolí a aktivity</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Informace</p>
+          <nav class="footer__nav" aria-label="Informační navigace">
+            <a href="kontakt.html" class="footer__link">Kontakt a rezervace</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Kontakt</p>
+          <address style="font-style:normal">
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.49 2 2 0 0 1 3.55 1.35h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.1 6.1l.9-.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16.92z"/></svg>
+              <a href="tel:+420775727306">+420 775 727 306</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:tesakcernava@seznam.cz">tesakcernava@seznam.cz</a>
+            </div>
+          </address>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <p>© <span id="year"></span> Penzion Tesák-Čerňava · Pavel Dobiáš · IČO: 44348649</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek">
+    <button class="lightbox__close" id="lb-close" aria-label="Zavřít obrázek"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="js/main.js"></script>
+</body>
+</html>

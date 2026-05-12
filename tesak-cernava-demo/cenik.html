@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceník ubytování | Tesák-Čerňava</title>
+  <meta name="description" content="Aktuální ceník ubytování, stravování a wellness penzionu Tesák-Čerňava. Hostýnské vrchy, Chvalčov.">
+  <meta property="og:title" content="Ceník | Tesák-Čerňava">
+  <meta property="og:site_name" content="Tesák-Čerňava">
+  <link rel="canonical" href="cenik.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-nav">Přeskočit na obsah</a>
+
+  <nav class="nav" aria-label="Hlavní navigace">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Tesák-Čerňava</a>
+      <ul class="nav__menu" role="list">
+        <li><a href="index.html" class="nav__link">Úvod</a></li>
+        <li><a href="ubytovani.html" class="nav__link">Ubytování</a></li>
+        <li><a href="pro-skupiny.html" class="nav__link">Pro skupiny</a></li>
+        <li><a href="wellness.html" class="nav__link">Wellness</a></li>
+        <li><a href="cenik.html" class="nav__link">Ceník</a></li>
+        <li><a href="galerie.html" class="nav__link">Galerie</a></li>
+        <li><a href="okoli.html" class="nav__link">Okolí</a></li>
+        <li><a href="kontakt.html" class="nav__link">Kontakt</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="tel:+420775727306" class="nav__phone">+420 775 727 306</a>
+        <a href="kontakt.html" class="btn btn--primary btn--sm">Rezervovat</a>
+      </div>
+      <button class="nav__hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Otevřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer" id="nav-drawer">
+    <div class="nav__overlay"></div>
+    <div class="nav__panel" role="dialog" aria-modal="true" aria-label="Navigační menu">
+      <button class="nav__panel-close" id="nav-close" aria-label="Zavřít menu">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <a href="index.html" class="nav__panel-link">Úvod</a>
+      <a href="ubytovani.html" class="nav__panel-link">Ubytování</a>
+      <a href="pro-skupiny.html" class="nav__panel-link">Pro skupiny</a>
+      <a href="wellness.html" class="nav__panel-link">Wellness</a>
+      <a href="cenik.html" class="nav__panel-link">Ceník</a>
+      <a href="galerie.html" class="nav__panel-link">Galerie</a>
+      <a href="okoli.html" class="nav__panel-link">Okolí a aktivity</a>
+      <a href="kontakt.html" class="nav__panel-link">Kontakt</a>
+      <div class="nav__panel-cta">
+        <a href="kontakt.html" class="btn btn--primary btn--full">Rezervovat pobyt</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <header class="page-header">
+      <img class="page-header__bg"
+        src="https://9291f65e3a.clvaw-cdnwnd.com/588a397e9cb4dd01775369d08f85661a/200001021-cd8aacd8ac/IMG_20250802_102255.jpeg?ph=9291f65e3a"
+        alt="" loading="eager" aria-hidden="true">
+      <div class="container">
+        <div class="page-header__content">
+          <span class="page-header__eyebrow">Ceník</span>
+          <h1 class="page-header__title">Ceník ubytování a služeb</h1>
+          <p class="page-header__lead">Aktuální ceny ubytování, stravování, skupinových balíčků a wellness. Ceny jsou platné pro sezonu 2026.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- UBYTOVÁNÍ -->
+    <section class="section" aria-labelledby="price-rooms-heading">
+      <div class="container">
+        <h2 id="price-rooms-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-3)">Ubytování</h2>
+        <p style="color:var(--color-text-secondary);margin-bottom:var(--space-8)">Kapacita: 51 lůžek + přistýlky. Check-in od 14:00 (nebo dle dohody), check-out do 10:00.</p>
+
+        <div class="price-table-wrap">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th scope="col">Typ pokoje</th>
+                <th scope="col">Vybavení</th>
+                <th scope="col">2+ nocí</th>
+                <th scope="col">1 noc</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" style="font-weight:600">Jednolůžkový pokoj</th>
+                <td>Povlečení, koupelna, ručníky, WC, balkon</td>
+                <td class="price-cell">650 Kč</td>
+                <td class="price-cell">950 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Dvoulůžkový (sdílená koupelna)</th>
+                <td>Povlečení, ručníky, WC, balkon, sdílená kuchyňka</td>
+                <td class="price-cell">800 Kč</td>
+                <td class="price-cell">1 100 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Pokoj s manž. postelí, vlastní koupelna</th>
+                <td>TV, vlastní koupelna, ručníky, WC, balkon, sdílená kuchyňka</td>
+                <td class="price-cell">1 100 Kč</td>
+                <td class="price-cell">1 400 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Velký rodinný pokoj (č. 11, 21)</th>
+                <td>Manž. postel + palanda, koupelna, ručníky, WC, balkon, sdílená kuchyňka</td>
+                <td class="price-cell">2 100 Kč</td>
+                <td class="price-cell">2 400 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Palanda + 2 lůžka, vlastní koupelna (č. 16)</th>
+                <td>Vlastní koupelna, ručníky, WC, balkon, sdílená kuchyňka</td>
+                <td class="price-cell">1 890 Kč</td>
+                <td class="price-cell">2 190 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Rodinný dvoupokoj (č. 16+17)</th>
+                <td>1× manž. + 1× palanda + 2× lůžko, TV, vlastní koupelna, balkon</td>
+                <td class="price-cell">2 490 Kč</td>
+                <td class="price-cell">2 690 Kč</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Apartmán přízemí (až 9 osob)</th>
+                <td>3× palanda + jednolůžko + gauč, kuchyňský kout, koupelna s vanou, herna NERF</td>
+                <td class="price-cell">590 Kč/os.</td>
+                <td class="price-cell">780 Kč/os.</td>
+              </tr>
+              <tr>
+                <th scope="row" style="font-weight:600">Apartmán 2 ložnice (až 11 osob)</th>
+                <td>2× manž. postel + palanda + 2× gauč, TV, kuchyňský kout, koupelna, balkon</td>
+                <td class="price-cell">3 990 Kč</td>
+                <td class="price-cell">7 980 Kč</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert--info mt-6">
+          <strong>Přezůvky s sebou.</strong> Malý pes do 4 kg: 150 Kč/noc. Postýlka pro děti do 2 let: zdarma. Ceny se mohou změnit.
+        </div>
+      </div>
+    </section>
+
+    <!-- STRAVOVÁNÍ -->
+    <section class="section section--muted" aria-labelledby="price-food-heading">
+      <div class="container">
+        <h2 id="price-food-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-8)">Stravování</h2>
+        <div class="grid-2" style="gap:var(--space-10)">
+          <div>
+            <h3 style="font-size:var(--text-md);margin-bottom:var(--space-5)">Individuální hosté</h3>
+            <div class="price-table-wrap">
+              <table class="price-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Typ</th>
+                    <th scope="col">Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Snídaně — dítě do 12 let</td>
+                    <td class="price-cell">130 Kč</td>
+                  </tr>
+                  <tr>
+                    <td>Snídaně — dospělý</td>
+                    <td class="price-cell">160 Kč</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:var(--space-3)">Snídaně po dohodě. Možnost vlastního vaření v kuchyňce.</p>
+          </div>
+          <div>
+            <h3 style="font-size:var(--text-md);margin-bottom:var(--space-5)">Skupiny dětí</h3>
+            <div style="background:var(--color-surface-card);border-radius:var(--radius-xl);padding:var(--space-6);border:2px solid var(--color-primary-200)">
+              <div style="display:flex;align-items:baseline;gap:var(--space-2);margin-bottom:var(--space-2)">
+                <span style="font-family:var(--font-heading);font-size:var(--text-2xl);font-weight:700;color:var(--color-primary-600)">748 Kč</span>
+                <span style="color:var(--color-text-muted);font-size:var(--text-sm)">/dítě/den</span>
+              </div>
+              <p style="color:var(--color-success-text);font-weight:500;font-size:var(--text-sm);margin-bottom:var(--space-5)">Pondělí–pátek: 2 990 Kč / dítě</p>
+              <ul style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <li style="font-size:var(--text-sm);display:flex;align-items:center;gap:var(--space-2)">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  3× denně teplé jídlo
+                </li>
+                <li style="font-size:var(--text-sm);display:flex;align-items:center;gap:var(--space-2)">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  2× denně svačina
+                </li>
+                <li style="font-size:var(--text-sm);display:flex;align-items:center;gap:var(--space-2)">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Pitný režim po celý den
+                </li>
+                <li style="font-size:var(--text-sm);display:flex;align-items:center;gap:var(--space-2)">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Na 10 dětí 1 dospělý zdarma (při plném obsazení)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WELLNESS CENÍK -->
+    <section class="section" aria-labelledby="price-wellness-heading">
+      <div class="container">
+        <h2 id="price-wellness-heading" style="font-size:var(--text-xl);margin-bottom:var(--space-3)">Wellness a masáže</h2>
+        <p style="color:var(--color-text-secondary);margin-bottom:var(--space-8)">Zkušený terapeut s praxí z Mariánských Lázní, Františkových Lázní a Karlových Varů. Dostupné i bez ubytování.</p>
+        <div class="wellness-list">
+          <div class="wellness-item">
+            <span class="wellness-item__name">Klasická masáž</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Zábal z nahřátých obilných zrn</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>250 Kč</strong><span>20 min</span></div>
+              <div class="wellness-item__price"><strong>450 Kč</strong><span>40 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Horké kameny</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>700 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 400 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Baňkování</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>300 Kč</strong><span>20 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Reflexní masáž plosky nohou</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Masáže dětí a těhotných žen</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Sportovní masáž</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>500 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 000 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Akupresurní odblokování krční páteře</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Měkké stabilizační techniky</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Energetická masáž Reiki</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
+              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
+            </div>
+          </div>
+          <div class="wellness-item">
+            <span class="wellness-item__name">Jógovo-rehabilitační cvičení</span>
+            <div class="wellness-item__prices">
+              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="mt-6 text-center">
+          <a href="wellness.html" class="btn btn--accent">Rezervovat masáž</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band" aria-labelledby="cta-heading">
+      <div class="container">
+        <h2 id="cta-heading">Máte dotaz k cenám?</h2>
+        <p>Rádi Vám připravíme individuální nabídku na míru.</p>
+        <a href="kontakt.html" class="btn btn--primary">Napsat nám</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Tesák-Čerňava</a>
+          <p class="footer__tagline">Horský penzion v přírodní rezervaci Tesák, Hostýnské vrchy. 690 m n. m.</p>
+        </div>
+        <div>
+          <p class="footer__heading">Stránky</p>
+          <nav class="footer__nav" aria-label="Patičková navigace">
+            <a href="ubytovani.html" class="footer__link">Ubytování</a>
+            <a href="pro-skupiny.html" class="footer__link">Pro skupiny</a>
+            <a href="wellness.html" class="footer__link">Wellness</a>
+            <a href="cenik.html" class="footer__link">Ceník</a>
+            <a href="galerie.html" class="footer__link">Galerie</a>
+            <a href="okoli.html" class="footer__link">Okolí a aktivity</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Informace</p>
+          <nav class="footer__nav" aria-label="Informační navigace">
+            <a href="kontakt.html" class="footer__link">Kontakt a rezervace</a>
+          </nav>
+        </div>
+        <div>
+          <p class="footer__heading">Kontakt</p>
+          <address style="font-style:normal">
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.49 2 2 0 0 1 3.55 1.35h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.1 6.1l.9-.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.72 16.92z"/></svg>
+              <a href="tel:+420775727306">+420 775 727 306</a>
+            </div>
+            <div class="footer__contact-item">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:tesakcernava@seznam.cz">tesakcernava@seznam.cz</a>
+            </div>
+          </address>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__bottom">
+        <p>© <span id="year"></span> Penzion Tesák-Čerňava · Pavel Dobiáš · IČO: 44348649</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšený obrázek">
+    <button class="lightbox__close" id="lb-close" aria-label="Zavřít obrázek"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

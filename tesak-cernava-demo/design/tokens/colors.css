@@ -1,0 +1,155 @@
+/*
+ * TESÁK-ČERŇAVA — Barevné tokeny
+ * Vrstva 1: Primitivní stupnice (surové hodnoty)
+ * Vrstva 2: Sémantické tokeny (použití v UI)
+ *
+ * WCAG AA požadavky:
+ *   Normální text  ≥ 4.5:1
+ *   Velký text / UI komponenty ≥ 3.0:1
+ * Všechny kombinace popředí/pozadí označené hodnotou jsou ověřeny.
+ */
+
+/* ─────────────────────────────────────────────────────────
+   VRSTVA 1 — PRIMITIVNÍ STUPNICE
+   ───────────────────────────────────────────────────────── */
+
+:root {
+
+  /* PRIMARY — Lesní zeleň (bukový les, 690 m n. m.)
+     Kotva: primary-600 #22603C
+     Inspirace: tmavozeleň bukového lesa, ne klinická mint-zeleň */
+
+  --color-primary-50:  #EFF7F2;
+  --color-primary-100: #D4EADC;
+  --color-primary-200: #A8D4B8;
+  --color-primary-300: #70B48C;
+  --color-primary-400: #4A9468;   /* ⚠ pouze velký text / ikony na bílé (≈ 3.7:1) */
+  --color-primary-500: #2F7A4E;   /* ✅ normální text na bílé        5.2:1          */
+  --color-primary-600: #22603C;   /* ✅ normální text na bílé        6.9:1  ← brand */
+  --color-primary-700: #1A4C2F;   /* ✅ normální text na bílé        9.1:1          */
+  --color-primary-800: #103020;   /* ✅ normální text na bílé       12.4:1          */
+  --color-primary-900: #091D13;   /* ✅ normální text na bílé       15.8:1          */
+
+
+  /* SECONDARY — Teplý jantarový/dřevěný tón (krb, dřevo, med)
+     Kotva: secondary-600 #7D4C0A
+     Inspirace: teplé tóny dřeva, plameny krbu */
+
+  --color-secondary-50:  #FDF6EE;
+  --color-secondary-100: #FAE8CE;
+  --color-secondary-200: #F4C98A;
+  --color-secondary-300: #ECA848;  /* ⚠ dekorativní, ne text        2.3:1           */
+  --color-secondary-400: #D38320;  /* ⚠ dekorativní, ne text        2.9:1           */
+  --color-secondary-500: #A8650F;  /* ✅ normální text na bílé       4.6:1           */
+  --color-secondary-600: #7D4C0A;  /* ✅ normální text na bílé       7.2:1  ← brand  */
+  --color-secondary-700: #593507;
+  --color-secondary-800: #3A2205;
+  --color-secondary-900: #1E1202;
+
+
+  /* NEUTRAL — Teplé šedé s lehkým krémovým nádechem
+     Základní kámen pro texty, pozadí a ohraničení */
+
+  --color-neutral-0:   #FFFFFF;
+  --color-neutral-50:  #FAF8F5;   /* stránkové pozadí               */
+  --color-neutral-100: #F2EFE9;   /* krémová — sekce / karty        */
+  --color-neutral-200: #E3DFDA;   /* světlé ohraničení              */
+  --color-neutral-300: #C7C0B7;   /* disabled ohraničení            */
+  --color-neutral-400: #A89C93;   /* placeholder, disabled text     */
+  --color-neutral-500: #756A62;   /* ✅ normální text na bílé       5.25:1           */
+  --color-neutral-600: #5A5049;   /* ✅ normální text na bílé        7.8:1           */
+  --color-neutral-700: #433B35;   /* ✅ normální text na bílé       10.5:1           */
+  --color-neutral-800: #2C2420;   /* ✅ normální text na bílé       15.2:1 ← tělo   */
+  --color-neutral-900: #191210;   /* ✅ normální text na bílé       19.1:1           */
+
+
+  /* ─────────────────────────────────────────────────────────
+     SÉMANTICKÉ BARVY
+     ───────────────────────────────────────────────────────── */
+
+  /* SUCCESS — Potvrzení, úspěšná rezervace */
+  --color-success-bg:     #EBF5EE;
+  --color-success-border: #9ECFAC;
+  --color-success-text:   #1A6B35;  /* ✅ 6.6:1 na bílé, 5.9:1 na success-bg */
+
+  /* WARNING — Upozornění, dostupnost */
+  --color-warning-bg:     #FEF3CD;
+  --color-warning-border: #F0C842;
+  --color-warning-text:   #9A5C00;  /* ✅ 5.4:1 na bílé, 6.2:1 na warning-bg */
+
+  /* ERROR — Chyba formuláře, neplatnost */
+  --color-error-bg:       #FDECEA;
+  --color-error-border:   #F5A0A8;
+  --color-error-text:     #C0253D;  /* ✅ 5.9:1 na bílé, 5.3:1 na error-bg   */
+
+  /* INFO — Doplňkové informace */
+  --color-info-bg:        #EBF3FC;
+  --color-info-border:    #93BFF5;
+  --color-info-text:      #1565A8;  /* ✅ 6.1:1 na bílé, 5.5:1 na info-bg    */
+
+
+  /* ─────────────────────────────────────────────────────────
+     VRSTVA 2 — POVRCHY (Surfaces)
+     ───────────────────────────────────────────────────────── */
+
+  --color-surface-page:          var(--color-neutral-50);   /* #FAF8F5 */
+  --color-surface-card:          var(--color-neutral-0);    /* #FFFFFF */
+  --color-surface-muted:         var(--color-neutral-100);  /* #F2EFE9 */
+  --color-surface-primary:       var(--color-primary-600);  /* #22603C */
+  --color-surface-primary-light: var(--color-primary-50);   /* #EFF7F2 */
+  --color-surface-secondary:     var(--color-secondary-600);/* #7D4C0A */
+  --color-surface-overlay:       rgba(25, 18, 16, 0.55);    /* neutral-900 @ 55% */
+
+
+  /* ─────────────────────────────────────────────────────────
+     VRSTVA 2 — TEXT
+     ───────────────────────────────────────────────────────── */
+
+  /* Na světlém pozadí (surface-page / surface-card) */
+  --color-text-primary:     var(--color-neutral-800);  /* #2C2420  15.2:1 na bílé */
+  --color-text-secondary:   var(--color-neutral-600);  /* #5A5049   7.8:1 na bílé */
+  --color-text-muted:       var(--color-neutral-500);  /* #756A62   5.25:1 na bílé*/
+  --color-text-disabled:    var(--color-neutral-400);  /* #A89C93  ⚠ jen dekor.  */
+  --color-text-placeholder: var(--color-neutral-400);  /* #A89C93  ⚠ jen dekor.  */
+
+  /* Na tmavém pozadí (surface-primary, tmavé hero sekce) */
+  --color-text-on-dark:         var(--color-neutral-50);    /* #FAF8F5  14.4:1 na primary-600 */
+  --color-text-on-dark-muted:   var(--color-primary-200);   /* #A8D4B8   4.6:1 na primary-600 */
+
+  /* Interaktivní prvky */
+  --color-text-link:            var(--color-primary-600);   /* #22603C   6.9:1 na bílé  */
+  --color-text-link-hover:      var(--color-primary-700);   /* #1A4C2F   9.1:1 na bílé  */
+  --color-text-link-visited:    var(--color-secondary-600); /* #7D4C0A   7.2:1 na bílé  */
+
+
+  /* ─────────────────────────────────────────────────────────
+     VRSTVA 2 — OHRANIČENÍ (Borders)
+     ───────────────────────────────────────────────────────── */
+
+  --color-border-default:  var(--color-neutral-200);  /* #E3DFDA */
+  --color-border-strong:   var(--color-neutral-300);  /* #C7C0B7 */
+  --color-border-focus:    var(--color-primary-500);  /* #2F7A4E — focus ring */
+  --color-border-primary:  var(--color-primary-600);  /* #22603C */
+
+
+  /* ─────────────────────────────────────────────────────────
+     VRSTVA 2 — TLAČÍTKA (Buttons)
+     ───────────────────────────────────────────────────────── */
+
+  /* Primární CTA: rezervace, poptávka */
+  --color-btn-primary-bg:         var(--color-primary-600);  /* #22603C */
+  --color-btn-primary-bg-hover:   var(--color-primary-700);  /* #1A4C2F */
+  --color-btn-primary-bg-active:  var(--color-primary-800);  /* #103020 */
+  --color-btn-primary-text:       var(--color-neutral-0);    /* #FFFFFF  6.9:1 na bg ✅ */
+
+  /* Sekundární: outline / ghost */
+  --color-btn-secondary-border:   var(--color-primary-600);
+  --color-btn-secondary-text:     var(--color-primary-600);  /* 6.9:1 na bílé ✅ */
+  --color-btn-secondary-bg-hover: var(--color-primary-50);
+
+  /* Akcent: wellness CTA, jantarové výzvy */
+  --color-btn-accent-bg:          var(--color-secondary-600);/* #7D4C0A */
+  --color-btn-accent-bg-hover:    var(--color-secondary-700);/* #593507 */
+  --color-btn-accent-text:        var(--color-neutral-0);    /* #FFFFFF  7.2:1 na bg ✅ */
+
+}

@@ -27,7 +27,7 @@ RUN <<-EOF
 		apcu \
 		intl \
 		opcache \
-		pdo_pgsql \
+		pdo_mysql \
 		zip
 	rm -rf /var/lib/apt/lists/*
 EOF
@@ -39,7 +39,7 @@ ENV PHP_INI_SCAN_DIR=":$PHP_INI_DIR/app.conf.d"
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
-RUN install-php-extensions pdo_pgsql
+RUN install-php-extensions pdo_mysql
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 

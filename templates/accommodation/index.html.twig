@@ -50,7 +50,7 @@
               </li>
               <li style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text-secondary)">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                Psi vítáni (poplatek 150 Kč/noc pro psy do 4 kg)
+                Psi vítáni (poplatek 190 Kč/noc pro psy do 4 kg)
               </li>
               <li style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text-secondary)">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--color-primary-500)" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -83,490 +83,55 @@
         </div>
 
         <div class="grid-3">
-
+          {% for room in rooms %}
           <article class="room-card">
             <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="double-shared" type="button" aria-label="Dvoulůžkový pokoj – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/double-shared-bath/img_3232---kopie.webp') }}" alt="Dvoulůžkový pokoj v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">11 fotek</span>
+              <button class="room-card__main" data-gallery="{{ room.slug }}" type="button" aria-label="{{ room.name }} – zobrazit fotogalerii">
+                {% set main = room.mainImage %}
+                <img src="{{ main ? main.thumbnail : asset('images/rooms/' ~ room.slug ~ '/placeholder.webp') }}" alt="{{ main and main.alt ? main.alt : room.name }}" loading="lazy">
+                <span class="room-card__photo-badge">{{ room.images|length }} fotek</span>
               </button>
               <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="double-shared" type="button" aria-label="Dvoulůžkový pokoj – fotka 2">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3229---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="double-shared" type="button" aria-label="Dvoulůžkový pokoj – fotka 3">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3320-6.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="double-shared" type="button" aria-label="Dvoulůžkový pokoj – více fotek">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3316-6.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+7</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3085---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3095.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3231---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3232---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3233---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3234-9.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3236---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3283---kopie.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3320-6.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-shared" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-shared-bath/img_3326-5.webp') }}" alt="Dvoulůžkový pokoj" loading="lazy">
-                </button>
+                {% for image in room.images|slice(1, 3) %}
+                  <button class="room-card__thumb" data-gallery="{{ room.slug }}" type="button" aria-label="{{ room.name }} – fotka {{ loop.index + 1 }}">
+                    <img src="{{ image.thumbnail }}" alt="{{ image.alt ?? room.name }}" loading="lazy">
+                    {% if loop.last and room.images|length > 4 %}<span class="room-card__thumb-more" aria-hidden="true">+{{ room.images|length - 4 }}</span>{% endif %}
+                  </button>
+                {% endfor %}
+                {% for image in room.images|slice(4) %}
+                  <button class="room-card__thumb room-card__thumb--extra" data-gallery="{{ room.slug }}" type="button" tabindex="-1" aria-hidden="true">
+                    <img src="{{ image.thumbnail }}" alt="{{ image.alt ?? room.name }}" loading="lazy">
+                  </button>
+                {% endfor %}
               </div>
             </div>
             <div class="room-card__body">
-              <h3 class="room-card__name">Dvoulůžkový pokoj</h3>
+              <h3 class="room-card__name">{{ room.name }}</h3>
               <ul class="room-card__features">
+                {% for feature in room.features %}
                 <li>
                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  2 lůžka (možnost přistýlky)
+                  {{ feature }}
                 </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sdílená koupelna, balkon
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Výhled do přírody
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sdílená kuchyňka na chodbě
-                </li>
+                {% endfor %}
               </ul>
               <div class="room-card__footer">
+                {% if room.priceLabel %}
                 <div class="room-card__price">
-                  <span class="room-card__price-amount">800 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
+                  <span class="room-card__price-amount">{{ room.priceLabel }}</span>
+                  <span class="room-card__price-unit">{{ room.priceUnit }}</span>
                 </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
+                {% endif %}
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
               </div>
             </div>
           </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="family-large" type="button" aria-label="Rodinný pokoj – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/family-large/p1055223-hdr.webp') }}" alt="Velký rodinný pokoj v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">5 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="family-large" type="button" aria-label="Rodinný pokoj – fotka 2">
-                  <img src="{{ asset('images/rooms/family-large/img_3199-6.webp') }}" alt="Rodinný pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="family-large" type="button" aria-label="Rodinný pokoj – fotka 3">
-                  <img src="{{ asset('images/rooms/family-large/img_3246---kopie.webp') }}" alt="Rodinný pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="family-large" type="button" aria-label="Rodinný pokoj – více fotek">
-                  <img src="{{ asset('images/rooms/family-large/p1055224-hdr.webp') }}" alt="Rodinný pokoj" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+1</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="family-large" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/family-large/p1055228-hdr.webp') }}" alt="Rodinný pokoj" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Rodinný pokoj</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vhodný pro rodiny s dětmi
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna se sprchovým koutem
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Postýlka do 2 let zdarma
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Přístup na zahradu s hřištěm
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">2 100 Kč</span>
-                  <span class="room-card__price-unit">/ noc</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="apartment-ground" type="button" aria-label="Velký apartmán – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/apartment-ground/p1055252-hdr.webp') }}" alt="Apartmán v přízemí penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">14 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="apartment-ground" type="button" aria-label="Velký apartmán – fotka 2">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3369-0.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="apartment-ground" type="button" aria-label="Velký apartmán – fotka 3">
-                  <img src="{{ asset('images/rooms/apartment-ground/p1055256-hdr.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="apartment-ground" type="button" aria-label="Velký apartmán – více fotek">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3357-5.webp') }}" alt="Velký apartmán" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+10</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3358-4.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3361-7.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3363---kopie.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3368-7.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3354-0.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3372-5.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3373-7.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/p1055260-hdr.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/img_3355-0.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-ground" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-ground/p1055263-hdr.webp') }}" alt="Velký apartmán" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Velký apartmán</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Až 9 osob
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní kuchyňka i koupelna
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Ideální pro rodiny a malé skupiny
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Přízemí s vlastním vstupem
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">od 590 Kč</span>
-                  <span class="room-card__price-unit">/ osoba / noc</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="single" type="button" aria-label="Jednolůžkové obsazení – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/single/img_3217-1.webp') }}" alt="Jednolůžkový pokoj v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">5 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="single" type="button" aria-label="Jednolůžkový pokoj – fotka 2">
-                  <img src="{{ asset('images/rooms/single/img_3223-5.webp') }}" alt="Jednolůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="single" type="button" aria-label="Jednolůžkový pokoj – fotka 3">
-                  <img src="{{ asset('images/rooms/single/img_3224---kopie.webp') }}" alt="Jednolůžkový pokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="single" type="button" aria-label="Jednolůžkový pokoj – více fotek">
-                  <img src="{{ asset('images/rooms/single/img_3226-9.webp') }}" alt="Jednolůžkový pokoj" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+1</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="single" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/single/img_3227-5.webp') }}" alt="Jednolůžkový pokoj" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Jednolůžkové obsazení</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Ubytování pro 1 osobu
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Koupelna, ručníky, WC
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Balkon s výhledem do přírody
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">650 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="double-ensuite" type="button" aria-label="Pokoj s manželskou postelí – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/double-ensuite/img_3210-7.webp') }}" alt="Pokoj s manželskou postelí v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">7 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="double-ensuite" type="button" aria-label="Pokoj s manželskou postelí – fotka 2">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3085---kopie.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="double-ensuite" type="button" aria-label="Pokoj s manželskou postelí – fotka 3">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3095.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="double-ensuite" type="button" aria-label="Pokoj s manželskou postelí – více fotek">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3234-9.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+3</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-ensuite" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3239-5.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-ensuite" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3262-5.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="double-ensuite" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/double-ensuite/img_3263-6.webp') }}" alt="Pokoj s manželskou postelí" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Pokoj s manželskou postelí</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Manželská postel, TV
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna, balkon
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Společná kuchyňka
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">1 100 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="bunk-4bed" type="button" aria-label="Čtyřlůžkový pokoj s palandou – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/bunk-4bed/p1055238-hdr.webp') }}" alt="Čtyřlůžkový pokoj s palandou v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">3 fotky</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="bunk-4bed" type="button" aria-label="Čtyřlůžkový pokoj – fotka 2">
-                  <img src="{{ asset('images/rooms/bunk-4bed/img_3249---kopie.webp') }}" alt="Čtyřlůžkový pokoj s palandou" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="bunk-4bed" type="button" aria-label="Čtyřlůžkový pokoj – fotka 3">
-                  <img src="{{ asset('images/rooms/bunk-4bed/img_3289-3.webp') }}" alt="Čtyřlůžkový pokoj s palandou" loading="lazy">
-                </button>
-                <div class="room-card__thumb room-card__thumb--empty" aria-hidden="true"></div>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Čtyřlůžkový pokoj s palandou</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Palanda + 2 lůžka (až 4 osoby)
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna, balkon
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Společná kuchyňka
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">1 890 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="family-double" type="button" aria-label="Rodinný dvoupokoj – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/family-double/img_3250-7.webp') }}" alt="Rodinný dvoupokoj v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">7 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="family-double" type="button" aria-label="Rodinný dvoupokoj – fotka 2">
-                  <img src="{{ asset('images/rooms/family-double/img_3199-6.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="family-double" type="button" aria-label="Rodinný dvoupokoj – fotka 3">
-                  <img src="{{ asset('images/rooms/family-double/img_3201-5.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="family-double" type="button" aria-label="Rodinný dvoupokoj – více fotek">
-                  <img src="{{ asset('images/rooms/family-double/img_3251-7.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+3</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="family-double" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/family-double/p1055223-hdr.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="family-double" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/family-double/p1055224-hdr.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="family-double" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/family-double/p1055228-hdr.webp') }}" alt="Rodinný dvoupokoj" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Rodinný dvoupokoj</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Manž. postel + palanda + 2 lůžka, TV
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna, balkon
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Dva propojené pokoje
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">2 490 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="room-card">
-            <div class="room-card__gallery">
-              <button class="room-card__main" data-gallery="apartment-2bedroom" type="button" aria-label="Apartmán 2 ložnice – zobrazit fotogalerii">
-                <img src="{{ asset('images/rooms/apartment-2bedroom/p1055293-hdr.webp') }}" alt="Apartmán se dvěma ložnicemi v penzionu Tesák-Čerňava" loading="lazy">
-                <span class="room-card__photo-badge">8 fotek</span>
-              </button>
-              <div class="room-card__thumbs">
-                <button class="room-card__thumb" data-gallery="apartment-2bedroom" type="button" aria-label="Apartmán 2 ložnice – fotka 2">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/img_3176---kopie.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="apartment-2bedroom" type="button" aria-label="Apartmán 2 ložnice – fotka 3">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055266-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-                <button class="room-card__thumb" data-gallery="apartment-2bedroom" type="button" aria-label="Apartmán 2 ložnice – více fotek">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055271-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                  <span class="room-card__thumb-more" aria-hidden="true">+4</span>
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-2bedroom" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055276-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-2bedroom" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055280-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-2bedroom" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055285-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-                <button class="room-card__thumb room-card__thumb--extra" data-gallery="apartment-2bedroom" type="button" tabindex="-1" aria-hidden="true">
-                  <img src="{{ asset('images/rooms/apartment-2bedroom/p1055289-hdr.webp') }}" alt="Apartmán 2 ložnice" loading="lazy">
-                </button>
-              </div>
-            </div>
-            <div class="room-card__body">
-              <h3 class="room-card__name">Apartmán 2 ložnice</h3>
-              <ul class="room-card__features">
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Až 11 osob, 2× manž. postel, palanda
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  TV, kuchyňský kout, koupelna, balkon
-                </li>
-                <li>
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  2× rozkládací gauč
-                </li>
-              </ul>
-              <div class="room-card__footer">
-                <div class="room-card__price">
-                  <span class="room-card__price-amount">3 990 Kč</span>
-                  <span class="room-card__price-unit">/ noc (2+ noci)</span>
-                </div>
-                <a href="#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
-              </div>
-            </div>
-          </article>
-
+          {% endfor %}
         </div>
 
         <p style="text-align:center;margin-top:var(--space-8)">
           <a href="{{ path('app_pricing') }}" class="btn btn--outline">Zobrazit kompletní ceník</a>
         </p>
-      </div>
-    </section>
-
-    <section class="section" id="kalendar" aria-labelledby="calendar-heading">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Dostupnost</span>
-          <h2 id="calendar-heading">Kalendář volných termínů</h2>
-          <p>Zeleně označené dny jsou již obsazené. Pro rezervaci nás kontaktujte.</p>
-        </div>
-        <div style="max-width:900px;margin:0 auto">
-          <div id="embed-WTM7yv_zhC2-T55divbGs" data-mu-embed-origin="https://www.megaubytko.cz" style="width:100%"><script src="https://www.megaubytko.cz/muEmbed.js" type="text/javascript" async defer onload='muEmbed({embedType:"calendar-widget",accommodationId:14606,token:"54683a25ded73336fe94c9b6d1735b60",settings:{"months_count":6,"zoom":"100%","blocked_intervals_color":"rgba(47,122,78,1)","background_color":"rgba(250,248,245,1)","button_color":"rgba(121,182,137,1)","show_reservation_button":true,"accommodation_unit_id":null}}, "embed-WTM7yv_zhC2-T55divbGs")'></script></div>
-        </div>
       </div>
     </section>
 
@@ -703,7 +268,7 @@
             <h3 style="font-size:var(--text-base);margin-bottom:var(--space-4)">Pravidla pobytu</h3>
             <ul style="display:flex;flex-direction:column;gap:var(--space-2)">
               <li style="font-size:var(--text-sm);color:var(--color-text-secondary)">Přezůvky – nutnost</li>
-              <li style="font-size:var(--text-sm);color:var(--color-text-secondary)">Pes do 4 kg: 150 Kč/noc</li>
+              <li style="font-size:var(--text-sm);color:var(--color-text-secondary)">Pes do 4 kg: 190 Kč/noc</li>
               <li style="font-size:var(--text-sm);color:var(--color-text-secondary)">Postýlka do 2 let: zdarma</li>
               <li style="font-size:var(--text-sm);color:var(--color-text-secondary)">Nekuřácký interiér</li>
             </ul>

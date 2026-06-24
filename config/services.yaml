@@ -34,3 +34,7 @@ services:
             $publicPrefix: '/uploads'
 
     App\Service\Image\ImageStorageInterface: '@App\Service\Image\LocalImageStorage'
+
+    App\Command\ImportRoomsCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

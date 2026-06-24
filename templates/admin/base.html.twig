@@ -57,6 +57,6 @@
     {% endfor %}
     {% block body %}{% endblock %}
   </main>
-  {% block admin_javascripts %}{% endblock %}
+  {% block admin_javascripts %}{{ importmap('admin') }}{% endblock %}
 </body>
 </html>

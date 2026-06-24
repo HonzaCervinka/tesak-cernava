@@ -39,7 +39,7 @@
     {% set route = app.request.attributes.get('_route') %}
     <div class="admin-sidebar__brand">Tesák-Čerňava</div>
     <nav>
-      <a class="admin-sidebar__link{{ route starts with 'app_admin_rooms' ? ' active' : '' }}" href="{{ path('app_dashboard') }}">Pokoje</a>
+      <a class="admin-sidebar__link{{ route starts with 'app_admin_rooms' ? ' active' : '' }}" href="{{ path('app_admin_rooms_index') }}">Pokoje</a>
     </nav>
     <div class="admin-sidebar__logout">
       <a href="{{ path('app_logout') }}">Odhlásit se</a>

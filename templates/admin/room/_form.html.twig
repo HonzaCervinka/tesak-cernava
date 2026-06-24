@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+  <div class="form-card">
+    {{ form_row(form.name) }}
+    {{ form_row(form.slug) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.features) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.priceFrom) }}
+    {{ form_row(form.priceUnit) }}
+    {{ form_row(form.position) }}
+    <div style="margin-top:1rem">
+      <button class="btn btn--primary">Uložit</button>
+      <a class="btn btn--ghost" href="{{ path('app_admin_rooms_index') }}">Zpět</a>
+    </div>
+  </div>
+{{ form_end(form) }}

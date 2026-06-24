@@ -1,0 +1,8 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Upravit pokoj{% endblock %}
+{% block page_title %}Upravit: {{ room.name }}{% endblock %}
+{% block body %}
+  {{ include('admin/room/_form.html.twig') }}
+  {# Gallery management injected in Task 9 #}
+  {% block gallery %}{% endblock %}
+{% endblock %}

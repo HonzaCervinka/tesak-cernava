@@ -164,5 +164,19 @@
     </button>
     <span class="lightbox__counter" id="lb-counter" aria-live="polite"></span>
   </div>
+
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Souhlas s cookies" hidden>
+    <div class="cookie-banner__inner">
+      <p class="cookie-banner__text">
+        Tento web používá nezbytné cookies pro svůj provoz a — s vaším souhlasem —
+        analytické cookies služby Google Analytics, které nám pomáhají web zlepšovat.
+        Více v <a href="{{ path('app_privacy') }}" class="cookie-banner__link">zásadách ochrany osobních údajů</a>.
+      </p>
+      <div class="cookie-banner__actions">
+        <button type="button" class="btn btn--ghost btn--sm" id="cookie-accept-necessary">Přijmout jen nezbytné</button>
+        <button type="button" class="btn btn--primary btn--sm" id="cookie-accept-all">Přijmout vše</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

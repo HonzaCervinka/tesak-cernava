@@ -46,17 +46,30 @@ final class RoomImageTest extends WebTestCase
         $manager->createImage(800, 600)->fill('aabbcc')->save($path);
         $upload = new UploadedFile($path, 'test.png', 'image/png', null, true);
 
-        $client->request(
-            'POST',
-            '/admin/rooms/'.$room->getId().'/images',
-            ['_token' => $csrfToken],
-            ['images' => [$upload]],
-        );
-        self::assertResponseRedirects('/admin/rooms/'.$room->getId().'/edit');
+        try {
+            $client->request(
+                'POST',
+                '/admin/rooms/'.$room->getId().'/images',
+                ['_token' => $csrfToken],
+                ['images' => [$upload]],
+            );
+            self::assertResponseRedirects('/admin/rooms/'.$room->getId().'/edit');
 
-        $em->clear();
-        $reloaded = $em->getRepository(Room::class)->find($room->getId());
-        self::assertCount(1, $reloaded->getImages());
-        @unlink($path);
+            $em->clear();
+            $reloaded = $em->getRepository(Room::class)->find($room->getId());
+            self::assertCount(1, $reloaded->getImages());
+        } finally {
+            @unlink($path);
+            $em->clear();
+            $leftover = $em->getRepository(Room::class)->find($room->getId());
+            if ($leftover) {
+                $em->remove($leftover);
+            }
+            $leftoverUser = $em->getRepository(User::class)->findOneBy(['email' => 'img-admin@example.com']);
+            if ($leftoverUser) {
+                $em->remove($leftoverUser);
+            }
+            $em->flush();
+        }
     }
 }

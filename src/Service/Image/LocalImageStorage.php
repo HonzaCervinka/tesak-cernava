@@ -27,7 +27,8 @@ final class LocalImageStorage implements ImageStorageInterface
 
     public function delete(string $webPath): void
     {
-        $relative = ltrim(str_replace($this->publicPrefix, '', $webPath), '/');
+        $stripped = str_starts_with($webPath, $this->publicPrefix) ? substr($webPath, \strlen($this->publicPrefix)) : $webPath;
+        $relative = ltrim($stripped, '/');
         $absolute = $this->uploadsDir.'/'.$relative;
         if ($this->fs->exists($absolute)) {
             $this->fs->remove($absolute);

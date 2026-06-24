@@ -70,7 +70,12 @@ final class ImportRoomsCommand extends Command
             $position = 0;
             if (is_dir($sourceDir)) {
                 foreach (glob($sourceDir.'/*.webp') ?: [] as $path) {
-                    $webPath = $this->storage->save(file_get_contents($path), 'rooms/'.$imageDir.'/'.basename($path));
+                    $contents = file_get_contents($path);
+                    if (false === $contents) {
+                        $io->warning(sprintf('Could not read file, skipping: %s', $path));
+                        continue;
+                    }
+                    $webPath = $this->storage->save($contents, 'rooms/'.$imageDir.'/'.basename($path));
                     $image = (new Image())
                         ->setFilename($webPath)
                         ->setThumbnail($webPath)

@@ -54,12 +54,21 @@ final class RoomControllerTest extends WebTestCase
             'room[price]' => '1234',
             'room[position]' => '5',
         ]);
-        $client->submit($form);
-        self::assertResponseRedirects('/admin/rooms');
+        try {
+            $client->submit($form);
+            self::assertResponseRedirects('/admin/rooms');
 
-        $em = static::getContainer()->get(EntityManagerInterface::class);
-        $room = $em->getRepository(Room::class)->findOneBy(['slug' => 'test-pokoj']);
-        self::assertNotNull($room);
-        self::assertSame('Test Pokoj', $room->getName());
+            $em = static::getContainer()->get(EntityManagerInterface::class);
+            $room = $em->getRepository(Room::class)->findOneBy(['slug' => 'test-pokoj']);
+            self::assertNotNull($room);
+            self::assertSame('Test Pokoj', $room->getName());
+        } finally {
+            $em = static::getContainer()->get(EntityManagerInterface::class);
+            $leftover = $em->getRepository(Room::class)->findOneBy(['slug' => 'test-pokoj']);
+            if ($leftover) {
+                $em->remove($leftover);
+                $em->flush();
+            }
+        }
     }
 }

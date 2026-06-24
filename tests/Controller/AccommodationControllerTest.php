@@ -24,13 +24,15 @@ final class AccommodationControllerTest extends WebTestCase
         $em->persist($image);
         $em->flush();
 
-        $crawler = $client->request('GET', '/ubytovani');
-        self::assertResponseIsSuccessful();
-        self::assertStringContainsString('Unikátní Pokoj XYZ', $client->getResponse()->getContent());
-        self::assertStringContainsString('1 234 Kč', $client->getResponse()->getContent());
-
-        $em->remove($image);
-        $em->remove($room);
-        $em->flush();
+        try {
+            $client->request('GET', '/ubytovani');
+            self::assertResponseIsSuccessful();
+            self::assertStringContainsString('Unikátní Pokoj XYZ', $client->getResponse()->getContent());
+            self::assertStringContainsString('1 234 Kč', $client->getResponse()->getContent());
+        } finally {
+            $em->remove($image);
+            $em->remove($room);
+            $em->flush();
+        }
     }
 }

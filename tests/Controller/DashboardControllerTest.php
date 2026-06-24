@@ -29,11 +29,13 @@ final class DashboardControllerTest extends WebTestCase
         $em->flush();
 
         $client->loginUser($user);
-        $client->request('GET', '/admin');
+        try {
+            $client->request('GET', '/admin');
 
-        self::assertResponseIsSuccessful();
-
-        $em->remove($user);
-        $em->flush();
+            self::assertResponseIsSuccessful();
+        } finally {
+            $em->remove($user);
+            $em->flush();
+        }
     }
 }

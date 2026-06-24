@@ -4,8 +4,10 @@ framework:
         csrf_protection:
             token_id: submit
 
+    # 'authenticate' and 'logout' use stateful (session) CSRF tokens because the
+    # admin login page does not boot Stimulus, so the stateless double-submit JS
+    # (csrf-protection controller) never runs. 'submit' stays stateless for the
+    # public forms.
     csrf_protection:
         stateless_token_ids:
             - submit
-            - authenticate
-            - logout

@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class ImportRoomsCommand extends Command
 {
     private const ROOMS = [
-        ['slug' => 'double-shared', 'name' => 'Dvoulůžkový pokoj', 'price' => 800, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 1,
+        ['slug' => 'double-shared', 'imageDir' => 'double-shared-bath', 'name' => 'Dvoulůžkový pokoj', 'price' => 800, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 1,
          'features' => ['2 lůžka (možnost přistýlky)', 'Sdílená koupelna, balkon', 'Výhled do přírody', 'Sdílená kuchyňka na chodbě']],
         ['slug' => 'family-large', 'name' => 'Rodinný pokoj', 'price' => 2100, 'from' => false, 'unit' => '/ noc', 'position' => 2,
          'features' => ['Vhodný pro rodiny s dětmi', 'Vlastní koupelna se sprchovým koutem', 'Postýlka do 2 let zdarma', 'Přístup na zahradu s hřištěm']],
@@ -65,11 +65,12 @@ final class ImportRoomsCommand extends Command
                 ->setPosition($data['position']);
             $this->em->persist($room);
 
-            $sourceDir = $this->projectDir.'/assets/images/rooms/'.$data['slug'];
+            $imageDir = $data['imageDir'] ?? $data['slug'];
+            $sourceDir = $this->projectDir.'/assets/images/rooms/'.$imageDir;
             $position = 0;
             if (is_dir($sourceDir)) {
                 foreach (glob($sourceDir.'/*.webp') ?: [] as $path) {
-                    $webPath = $this->storage->save(file_get_contents($path), 'rooms/'.$data['slug'].'/'.basename($path));
+                    $webPath = $this->storage->save(file_get_contents($path), 'rooms/'.$imageDir.'/'.basename($path));
                     $image = (new Image())
                         ->setFilename($webPath)
                         ->setThumbnail($webPath)

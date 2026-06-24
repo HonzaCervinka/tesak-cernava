@@ -30,6 +30,10 @@ final class ImportRoomsCommandTest extends KernelTestCase
         $countAfterFirst = \count($em->getRepository(Room::class)->findAll());
         self::assertSame(8, $countAfterFirst);
 
+        $doubleShared = $em->getRepository(Room::class)->findOneBy(['slug' => 'double-shared']);
+        self::assertNotNull($doubleShared, 'double-shared room must exist after import');
+        self::assertGreaterThan(0, $doubleShared->getImages()->count(), 'double-shared must have images (photos live in double-shared-bath dir)');
+
         $em->clear();
         $tester->execute([]);
         $tester->assertCommandIsSuccessful();

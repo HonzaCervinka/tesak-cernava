@@ -9,6 +9,7 @@ twig:
             phone: '%business.phone%'
             phone_display: '%business.phone_display%'
             linkedin: '%business.linkedin%'
+        ga_measurement_id: '%env(GA_MEASUREMENT_ID)%'
 
 when@test:
     twig:

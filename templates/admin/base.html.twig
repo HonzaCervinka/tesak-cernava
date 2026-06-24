@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{% block title %}Administrace{% endblock %} – Tesák-Čerňava</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #1f2d27; background: #f4f6f5; display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 230px; background: #1a2b22; color: #cdd8d1; display: flex; flex-direction: column; padding: 1.5rem 0; flex-shrink: 0; }
+    .admin-sidebar__brand { font-weight: 700; font-size: 1.1rem; color: #fff; padding: 0 1.5rem 1.5rem; }
+    .admin-sidebar__link { display: block; padding: .65rem 1.5rem; color: #cdd8d1; text-decoration: none; font-size: .9rem; }
+    .admin-sidebar__link:hover, .admin-sidebar__link.active { background: #2f5d45; color: #fff; }
+    .admin-sidebar__logout { margin-top: auto; padding: 0 1.5rem; }
+    .admin-sidebar__logout a { color: #9fb3a8; font-size: .8rem; text-decoration: none; }
+    .admin-main { flex: 1; padding: 2rem 2.5rem; max-width: 1100px; }
+    .admin-main__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .admin-main__header h1 { font-size: 1.5rem; }
+    .btn { display: inline-block; padding: .55rem .9rem; border-radius: 8px; font-size: .9rem; font-weight: 600; text-decoration: none; cursor: pointer; border: none; }
+    .btn--primary { background: #2f5d45; color: #fff; }
+    .btn--danger { background: #b02a25; color: #fff; }
+    .btn--ghost { background: #e6ebe8; color: #1f2d27; }
+    .flash { padding: .7rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: .9rem; }
+    .flash--success { background: #e7f4ec; color: #1f6b3f; }
+    .flash--error { background: #fdecea; color: #b02a25; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
+    th, td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid #eef1ef; font-size: .9rem; }
+    th { background: #f0f3f1; font-weight: 600; }
+    label { display: block; font-size: .8rem; font-weight: 600; margin: 1rem 0 .35rem; }
+    input[type=text], input[type=number], textarea, select { width: 100%; padding: .6rem .75rem; border: 1px solid #d4dbd6; border-radius: 8px; font-family: inherit; font-size: .9rem; }
+    .form-card { background: #fff; border-radius: 10px; padding: 1.5rem; }
+  </style>
+  {% block stylesheets %}{% endblock %}
+</head>
+<body>
+  <aside class="admin-sidebar">
+    {% set route = app.request.attributes.get('_route') %}
+    <div class="admin-sidebar__brand">Tesák-Čerňava</div>
+    <nav>
+      <a class="admin-sidebar__link{{ route starts with 'app_admin_rooms' ? ' active' : '' }}" href="{{ path('app_dashboard') }}">Pokoje</a>
+    </nav>
+    <div class="admin-sidebar__logout">
+      <a href="{{ path('app_logout') }}">Odhlásit se</a>
+    </div>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-main__header">
+      <h1>{% block page_title %}{% endblock %}</h1>
+      {% block page_actions %}{% endblock %}
+    </div>
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="flash flash--{{ label }}">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
+    {% block body %}{% endblock %}
+  </main>
+  {% block admin_javascripts %}{% endblock %}
+</body>
+</html>

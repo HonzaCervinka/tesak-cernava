@@ -13,6 +13,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  {# --- Google Consent Mode v2 (běží vždy, i bez GA) --- #}
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+    if (document.cookie.split('; ').indexOf('cookie_consent=all') !== -1) {
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    }
+  </script>
+  {% if ga_measurement_id is not empty %}
+    {# --- GA4 – načte se jen s vyplněným measurement ID --- #}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_measurement_id }}"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', '{{ ga_measurement_id }}');
+    </script>
+  {% endif %}
   {% block head_extra %}{% endblock %}
   {% block stylesheets %}{% endblock %}
   {% block javascripts %}{{ importmap('app') }}{% endblock %}
@@ -37,7 +60,7 @@
       </ul>
       <div class="nav__actions">
         <a href="tel:+420775727306" class="nav__phone" aria-label="Zavolejte nám">+420 775 727 306</a>
-        <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary btn--sm">Rezervovat</a>
+        <a href="{{ path('app_contact') }}" class="btn btn--primary btn--sm">Rezervovat</a>
       </div>
       <button class="nav__hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-drawer" aria-label="Otevřít menu">
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -62,7 +85,7 @@
       <a href="{{ path('app_area') }}" class="nav__panel-link{{ route == 'app_area' ? ' active' : '' }}">Okolí a aktivity</a>
       <a href="{{ path('app_contact') }}" class="nav__panel-link{{ route == 'app_contact' ? ' active' : '' }}">Kontakt</a>
       <div class="nav__panel-cta">
-        <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary btn--full">Rezervovat pobyt</a>
+        <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Rezervovat pobyt</a>
         <p style="text-align:center;margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);">
           <a href="tel:+420775727306" style="color:var(--color-text-secondary);font-weight:500;">+420 775 727 306</a>
         </p>
@@ -96,7 +119,7 @@
           <p class="footer__heading">Informace</p>
           <nav class="footer__nav" aria-label="Informační navigace">
             <a href="{{ path('app_contact') }}" class="footer__link">Kontakt</a>
-            <a href="{{ path('app_accommodation') }}#kalendar" class="footer__link">Rezervace</a>
+            <a href="{{ path('app_contact') }}" class="footer__link">Rezervace</a>
             <a href="{{ path('app_pricing') }}" class="footer__link">Ceník ubytování</a>
           </nav>
         </div>

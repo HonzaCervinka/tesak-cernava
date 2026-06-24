@@ -28,3 +28,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\Image\LocalImageStorage:
+        arguments:
+            $uploadsDir: '%kernel.project_dir%/public/uploads'
+            $publicPrefix: '/uploads'
+
+    App\Service\Image\ImageStorageInterface: '@App\Service\Image\LocalImageStorage'

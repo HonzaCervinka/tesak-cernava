@@ -4,5 +4,38 @@
 {% block body %}
   {{ include('admin/room/_form.html.twig') }}
   {# Gallery management injected in Task 9 #}
-  {% block gallery %}{% endblock %}
+  {% block gallery %}
+  <div class="form-card" style="margin-top:1.5rem">
+    <h2 style="font-size:1.1rem;margin-bottom:1rem">Galerie</h2>
+
+    <form method="post" action="{{ path('app_admin_rooms_images_upload', {id: room.id}) }}" enctype="multipart/form-data">
+      <input type="hidden" name="_token" value="{{ csrf_token('upload' ~ room.id) }}">
+      <div {{ stimulus_controller('symfony--ux-dropzone--dropzone') }}>
+        <input type="file" name="images[]" multiple accept="image/*" data-symfony--ux-dropzone--dropzone-target="input">
+      </div>
+      <button class="btn btn--primary" style="margin-top:.75rem">Nahrát fotky</button>
+    </form>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-top:1.25rem">
+      {% for image in room.images %}
+        <div style="border:1px solid #eef1ef;border-radius:8px;padding:.5rem;background:#fff">
+          <img src="{{ image.thumbnail }}" alt="{{ image.alt }}" style="width:100%;height:110px;object-fit:cover;border-radius:6px">
+          <div style="font-size:.75rem;margin:.4rem 0">{{ image.isMain ? '★ hlavní' : '' }}</div>
+          <div style="display:flex;gap:.3rem">
+            {% if not image.isMain %}
+            <form method="post" action="{{ path('app_admin_rooms_images_main', {id: room.id, imageId: image.id}) }}">
+              <input type="hidden" name="_token" value="{{ csrf_token('img-main' ~ image.id) }}">
+              <button class="btn btn--ghost" style="font-size:.7rem;padding:.3rem .5rem">Hlavní</button>
+            </form>
+            {% endif %}
+            <form method="post" action="{{ path('app_admin_rooms_images_delete', {id: room.id, imageId: image.id}) }}" onsubmit="return confirm('Smazat fotku?')">
+              <input type="hidden" name="_token" value="{{ csrf_token('img-delete' ~ image.id) }}">
+              <button class="btn btn--danger" style="font-size:.7rem;padding:.3rem .5rem">Smazat</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
 {% endblock %}

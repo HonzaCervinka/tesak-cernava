@@ -171,3 +171,45 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft'  && lbIndex > 0)                   { e.preventDefault(); showLbSlide(lbIndex - 1); }
   if (e.key === 'ArrowRight' && lbIndex < lbItems.length - 1)  { e.preventDefault(); showLbSlide(lbIndex + 1); }
 });
+
+/* ---- Cookie consent lišta ---- */
+(function () {
+  const banner = document.getElementById('cookie-banner');
+  if (!banner) return;
+
+  const COOKIE_NAME = 'cookie_consent';
+
+  function getConsent() {
+    const match = document.cookie.split('; ').find(c => c.startsWith(COOKIE_NAME + '='));
+    return match ? match.split('=')[1] : null;
+  }
+
+  function setConsent(value) {
+    const maxAge = 60 * 60 * 24 * 365; // 1 rok
+    document.cookie = `${COOKIE_NAME}=${value}; max-age=${maxAge}; path=/; SameSite=Lax`;
+  }
+
+  function hideBanner() {
+    banner.hidden = true;
+    banner.classList.remove('is-visible');
+  }
+
+  function showBanner() {
+    banner.hidden = false;
+    requestAnimationFrame(() => banner.classList.add('is-visible'));
+  }
+
+  if (!getConsent()) showBanner();
+
+  document.getElementById('cookie-accept-all')?.addEventListener('click', () => {
+    setConsent('all');
+    if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' });
+    hideBanner();
+  });
+
+  document.getElementById('cookie-accept-necessary')?.addEventListener('click', () => {
+    setConsent('necessary');
+    if (window.gtag) gtag('consent', 'update', { analytics_storage: 'denied' });
+    hideBanner();
+  });
+})();

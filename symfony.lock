@@ -270,6 +270,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-dropzone": {
+        "version": "v3.2.0"
+    },
     "symfony/ux-turbo": {
         "version": "3.0",
         "recipe": {

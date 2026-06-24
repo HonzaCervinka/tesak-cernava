@@ -1,108 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Zásady ochrany osobních údajů | Jan Červinka{% endblock %}
-
-{% block stylesheets %}
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px}
-:root{
-  --bg:#0B0B0A;--bg2:#141413;--text:#F0EBE0;--muted:rgba(240,235,224,0.42);
-  --accent:#DFFF00;--border:rgba(240,235,224,0.08);--borderm:rgba(240,235,224,0.16);
-  --ff:'Syne',sans-serif;--mono:'DM Mono',monospace;--max:780px;--pad:clamp(1.25rem,4vw,3rem)
-}
-@font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('/fonts/syne-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('/fonts/syne-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/dmmono-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/dmmono-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/dmmono-500-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/dmmono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-body{background:var(--bg);color:var(--text);font-family:var(--ff);line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-.page{padding:clamp(5rem,10vw,8rem) 0}
-.back{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,235,224,.42);display:inline-flex;align-items:center;gap:.4rem;margin-bottom:3rem;transition:color .2s}
-.back:hover{color:var(--text);text-decoration:none}
-h1{font-weight:800;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:-.04em;line-height:.95;text-transform:uppercase;margin-bottom:.5rem}
-.updated{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,235,224,.35);margin-bottom:3rem;display:block}
-h2{font-weight:800;font-size:1.15rem;letter-spacing:-.01em;text-transform:uppercase;margin:2.5rem 0 .75rem;padding-top:2.5rem;border-top:1px solid rgba(240,235,224,.08)}
-h2:first-of-type{border-top:none;padding-top:0}
-p{color:rgba(240,235,224,.65);font-size:.9rem;line-height:1.75;margin-bottom:.85rem}
-ul{color:rgba(240,235,224,.65);font-size:.9rem;line-height:1.75;padding-left:1.25rem;margin-bottom:.85rem}
-ul li{margin-bottom:.3rem}
-strong{color:var(--text);font-weight:700}
-.contact-box{background:#141413;border:1px solid rgba(240,235,224,.08);border-radius:2px;padding:1.5rem;margin-top:1rem}
-.contact-box p{margin:0;font-family:'DM Mono',monospace;font-size:.78rem}
-</style>
-{% endblock %}
+{% block title %}Zásady ochrany osobních údajů | Tesák-Čerňava{% endblock %}
+{% block description %}Zásady ochrany osobních údajů penzionu Tesák-Čerňava.{% endblock %}
 
 {% block body %}
-<div class="page">
-  <div class="wrap">
-    <a href="/" class="back">← Zpět na hlavní stránku</a>
-
-    <h1>Zásady ochrany<br>osobních údajů<span style="color:#DFFF00">.</span></h1>
-    <span class="updated">Poslední aktualizace: květen 2026</span>
-
-    <h2>Správce osobních údajů</h2>
-    <p>Správcem osobních údajů je:</p>
-    <div class="contact-box">
-      <p><strong>{{ business.name }}</strong><br>
-      IČO: {{ business.ico }}<br>
-      Sídlo: {{ business.city }}, Česká republika<br>
-      E-mail: <a href="mailto:{{ business.email }}">{{ business.email }}</a><br>
-      Tel: <a href="tel:{{ business.phone }}">{{ business.phone_display }}</a></p>
+  <header class="page-header">
+    <div class="container">
+      <div class="page-header__content">
+        <span class="page-header__eyebrow">Právní informace</span>
+        <h1 class="page-header__title">Zásady ochrany osobních údajů</h1>
+        <p class="page-header__lead">Poslední aktualizace: květen 2026</p>
+      </div>
     </div>
+  </header>
 
-    <h2>Jaké údaje zpracovávám</h2>
-    <p>Prostřednictvím kontaktního formuláře na tomto webu mohu zpracovávat tyto osobní údaje:</p>
-    <ul>
-      <li>Jméno a příjmení</li>
-      <li>E-mailová adresa</li>
-      <li>Telefonní číslo (nepovinné)</li>
-      <li>Název firmy nebo projektu (nepovinné)</li>
-      <li>Obsah zprávy (nepovinné)</li>
-      <li>Informace o poptávaném projektu (typ, rozpočet, termín)</li>
-    </ul>
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>Správce osobních údajů</h2>
+        <p>Správcem osobních údajů je:</p>
+        <div class="legal-content__box">
+          <p><strong>{{ business.name }}</strong><br>
+          IČO: {{ business.ico }}<br>
+          Sídlo: {{ business.city }}, Česká republika<br>
+          E-mail: <a href="mailto:{{ business.email }}">{{ business.email }}</a><br>
+          Tel: <a href="tel:{{ business.phone }}">{{ business.phone_display }}</a></p>
+        </div>
 
-    <h2>Účel a právní základ zpracování</h2>
-    <p>Osobní údaje zpracovávám výhradně za účelem <strong>odpovědi na vaši poptávku a přípravy nabídky</strong>. Jde o zpracování nezbytné pro provedení opatření před uzavřením smlouvy na vaši žádost (<strong>čl. 6 odst. 1 písm. b) GDPR</strong>).</p>
-    <p>Údaje nepoužívám k marketingovým účelům, neposílám obchodní sdělení bez vašeho výslovného souhlasu a nepředávám je třetím stranám za účelem profilování.</p>
+        <h2>Jaké údaje zpracovávám</h2>
+        <p>Prostřednictvím kontaktního formuláře na tomto webu mohu zpracovávat tyto osobní údaje:</p>
+        <ul>
+          <li>Jméno a příjmení</li>
+          <li>E-mailová adresa</li>
+          <li>Telefonní číslo (nepovinné)</li>
+          <li>Obsah zprávy (nepovinné)</li>
+        </ul>
 
-    <h2>Doba uchovávání</h2>
-    <p>Údaje uchovávám po dobu nezbytně nutnou k vyřízení poptávky, nejdéle <strong>3 roky</strong> od posledního kontaktu. Pokud z poptávky vznikne smluvní vztah, řídí se archivace příslušnými právními předpisy (zejm. zákon o účetnictví).</p>
+        <h2>Účel a právní základ zpracování</h2>
+        <p>Osobní údaje zpracovávám výhradně za účelem <strong>odpovědi na vaši poptávku a přípravy nabídky pobytu</strong>. Jde o zpracování nezbytné pro provedení opatření před uzavřením smlouvy na vaši žádost (<strong>čl. 6 odst. 1 písm. b) GDPR</strong>).</p>
+        <p>Údaje nepoužívám k marketingovým účelům, neposílám obchodní sdělení bez vašeho výslovného souhlasu a nepředávám je třetím stranám za účelem profilování.</p>
 
-    <h2>Příjemci osobních údajů</h2>
-    <p>Vaše údaje mohou být předány pouze těmto zpracovatelům, kteří zajišťují technický provoz:</p>
-    <ul>
-      <li><strong>Poskytovatel e-mailových služeb</strong> — pro doručení vaší zprávy</li>
-      <li><strong>Poskytovatel hostingu</strong> — pro provoz webového serveru</li>
-    </ul>
-    <p>Všichni zpracovatelé jsou vázáni mlčenlivostí a zpracovávají data pouze dle mých pokynů. Údaje nepředávám mimo EHP.</p>
+        <h2>Doba uchovávání</h2>
+        <p>Údaje uchovávám po dobu nezbytně nutnou k vyřízení poptávky, nejdéle <strong>3 roky</strong> od posledního kontaktu. Pokud z poptávky vznikne smluvní vztah, řídí se archivace příslušnými právními předpisy (zejm. zákon o účetnictví).</p>
 
-    <h2>Vaše práva</h2>
-    <p>Máte právo:</p>
-    <ul>
-      <li><strong>Přístupu</strong> — vyžádat si kopii osobních údajů, které o vás mám</li>
-      <li><strong>Opravy</strong> — nechat opravit nepřesné nebo neúplné údaje</li>
-      <li><strong>Výmazu</strong> — požádat o smazání údajů („právo být zapomenut")</li>
-      <li><strong>Omezení zpracování</strong> — za podmínek čl. 18 GDPR</li>
-      <li><strong>Přenositelnosti</strong> — obdržet údaje ve strojově čitelném formátu</li>
-      <li><strong>Námitky</strong> — vznést námitku proti zpracování na základě oprávněného zájmu</li>
-    </ul>
-    <p>Svá práva uplatňujte e-mailem na <a href="mailto:jan@cervinkaweb.cz">jan@cervinkaweb.cz</a>. Na žádost odpovím do 30 dní.</p>
-    <p>Máte také právo podat stížnost u dozorového orgánu — <strong>Úřadu pro ochranu osobních údajů</strong> (<a href="https://www.uoou.cz" target="_blank" rel="noopener">uoou.cz</a>).</p>
+        <h2>Příjemci osobních údajů</h2>
+        <p>Vaše údaje mohou být předány pouze těmto zpracovatelům, kteří zajišťují technický provoz:</p>
+        <ul>
+          <li><strong>Poskytovatel e-mailových služeb</strong> — pro doručení vaší zprávy</li>
+          <li><strong>Poskytovatel hostingu</strong> — pro provoz webového serveru</li>
+        </ul>
+        <p>Všichni zpracovatelé jsou vázáni mlčenlivostí a zpracovávají data pouze dle mých pokynů. Údaje nepředávám mimo EHP.</p>
 
-    <h2>Cookies a sledování</h2>
-    <p>Web používá <strong>nezbytné technické cookies</strong> pro svůj provoz a bezpečné odeslání formuláře (CSRF token). Tyto cookies nepodléhají souhlasu dle <strong>§ 89 zákona č. 127/2005 Sb.</strong></p>
-    <p>S vaším souhlasem web dále používá <strong>analytické cookies služby Google Analytics</strong> (Google Ireland Ltd.), které měří návštěvnost a pomáhají web zlepšovat. Tyto cookies se aktivují <strong>až po udělení souhlasu</strong> v cookie liště. Bez souhlasu se neukládají ani neodesílají žádná analytická data (Google Consent Mode).</p>
-    <p>Svůj souhlas můžete kdykoliv odvolat smazáním cookies ve vašem prohlížeči — při další návštěvě se cookie lišta zobrazí znovu a budete moci volbu změnit.</p>
+        <h2>Vaše práva</h2>
+        <p>Máte právo:</p>
+        <ul>
+          <li><strong>Přístupu</strong> — vyžádat si kopii osobních údajů, které o vás mám</li>
+          <li><strong>Opravy</strong> — nechat opravit nepřesné nebo neúplné údaje</li>
+          <li><strong>Výmazu</strong> — požádat o smazání údajů („právo být zapomenut")</li>
+          <li><strong>Omezení zpracování</strong> — za podmínek čl. 18 GDPR</li>
+          <li><strong>Přenositelnosti</strong> — obdržet údaje ve strojově čitelném formátu</li>
+          <li><strong>Námitky</strong> — vznést námitku proti zpracování na základě oprávněného zájmu</li>
+        </ul>
+        <p>Svá práva uplatňujte e-mailem na <a href="mailto:{{ business.email }}">{{ business.email }}</a>. Na žádost odpovím do 30 dní.</p>
+        <p>Máte také právo podat stížnost u dozorového orgánu — <strong>Úřadu pro ochranu osobních údajů</strong> (<a href="https://www.uoou.cz" target="_blank" rel="noopener">uoou.cz</a>).</p>
 
-    <h2>Změny zásad</h2>
-    <p>Tyto zásady mohu aktualizovat. Datum poslední změny je uvedeno v záhlaví. Při zásadních změnách vás informuji e-mailem, pokud jsme v kontaktu.</p>
-  </div>
-</div>
+        <h2>Cookies a sledování</h2>
+        <p>Web používá <strong>nezbytné technické cookies</strong> pro svůj provoz a bezpečné odeslání formuláře (CSRF token). Tyto cookies nepodléhají souhlasu dle <strong>§ 89 zákona č. 127/2005 Sb.</strong></p>
+        <p>S vaším souhlasem web dále používá <strong>analytické cookies služby Google Analytics</strong> (Google Ireland Ltd.), které měří návštěvnost a pomáhají web zlepšovat. Tyto cookies se aktivují <strong>až po udělení souhlasu</strong> v cookie liště. Bez souhlasu se neukládají ani neodesílají žádná analytická data (Google Consent Mode).</p>
+        <p>Svůj souhlas můžete kdykoliv odvolat smazáním cookies ve vašem prohlížeči — při další návštěvě se cookie lišta zobrazí znovu a budete moci volbu změnit.</p>
+
+        <h2>Změny zásad</h2>
+        <p>Tyto zásady mohu aktualizovat. Datum poslední změny je uvedeno v záhlaví. Při zásadních změnách vás informuji e-mailem, pokud jsme v kontaktu.</p>
+      </div>
+    </div>
+  </section>
 {% endblock %}

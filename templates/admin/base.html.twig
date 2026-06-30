@@ -25,6 +25,7 @@
     .flash { padding: .7rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: .9rem; }
     .flash--success { background: #e7f4ec; color: #1f6b3f; }
     .flash--error { background: #fdecea; color: #b02a25; }
+    .flash--warning { background: #fdf6e3; color: #8a6d1a; }
     table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
     th, td { text-align: left; padding: .75rem 1rem; border-bottom: 1px solid #eef1ef; font-size: .9rem; }
     th { background: #f0f3f1; font-weight: 600; }
@@ -40,6 +41,9 @@
     <div class="admin-sidebar__brand">Tesák-Čerňava</div>
     <nav>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_rooms' ? ' active' : '' }}" href="{{ path('app_admin_rooms_index') }}">Pokoje</a>
+      <a class="admin-sidebar__link{{ route starts with 'app_admin_reservations' ? ' active' : '' }}" href="{{ path('app_admin_reservations_index') }}">Rezervace</a>
+      <a class="admin-sidebar__link{{ route starts with 'app_admin_massages' ? ' active' : '' }}" href="{{ path('app_admin_massages_index') }}">Masáže</a>
+      <a class="admin-sidebar__link{{ route starts with 'app_admin_meals' ? ' active' : '' }}" href="{{ path('app_admin_meals_index') }}">Stravování</a>
     </nav>
     <div class="admin-sidebar__logout">
       <a href="{{ path('app_logout') }}">Odhlásit se</a>

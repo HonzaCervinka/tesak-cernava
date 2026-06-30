@@ -1,0 +1,6 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Upravit položku stravování{% endblock %}
+{% block page_title %}Upravit: {{ meal.name }}{% endblock %}
+{% block body %}
+  {{ include('admin/meal/_form.html.twig') }}
+{% endblock %}

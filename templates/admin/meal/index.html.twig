@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Stravování{% endblock %}
+{% block page_title %}Stravování{% endblock %}
+{% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_meals_new') }}">Nová položka</a>{% endblock %}
+
+{% block body %}
+  <table>
+    <thead><tr><th>Pořadí</th><th>Název</th><th>Cena</th><th>Typ</th><th></th></tr></thead>
+    <tbody>
+    {% for meal in meals %}
+      <tr>
+        <td>{{ meal.position }}</td>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.price|number_format(0, ',', ' ') }} Kč{{ meal.priceUnit }}</td>
+        <td>{{ meal.highlighted ? 'Karta' : 'Řádek' }}</td>
+        <td>
+          <a class="btn btn--ghost" href="{{ path('app_admin_meals_edit', {id: meal.id}) }}">Upravit</a>
+          <form method="post" action="{{ path('app_admin_meals_delete', {id: meal.id}) }}" style="display:inline" onsubmit="return confirm('Smazat položku?')">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ meal.id) }}">
+            <button class="btn btn--danger">Smazat</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Žádné položky.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

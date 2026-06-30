@@ -1,0 +1,33 @@
+{% import _self as f %}
+
+{% macro featureRow(entry) %}
+  <div data-collection-item style="display:flex;gap:.5rem;align-items:flex-end;margin-bottom:.5rem">
+    <div style="flex:1">{{ form_row(entry) }}</div>
+    <button type="button" class="btn btn--danger" data-action="form-collection#remove" style="font-size:.75rem;padding:.4rem .6rem">×</button>
+  </div>
+{% endmacro %}
+
+{{ form_start(form) }}
+  <div class="form-card">
+    {{ form_row(form.name) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.priceUnit) }}
+    {{ form_row(form.note) }}
+    {{ form_row(form.highlighted) }}
+    {{ form_row(form.position) }}
+
+    <h2 style="font-size:1.1rem;margin:1.25rem 0 .75rem">Odrážky (jen u karty)</h2>
+    {% set prototypeHtml %}{{ f.featureRow(form.features.vars.prototype) }}{% endset %}
+    <div {{ stimulus_controller('form-collection', { prototype: prototypeHtml }) }}>
+      <div data-form-collection-target="container">
+        {% for feature in form.features %}{{ f.featureRow(feature) }}{% endfor %}
+      </div>
+      <button type="button" class="btn btn--ghost" data-action="form-collection#add" style="margin-top:.4rem">+ přidat odrážku</button>
+    </div>
+
+    <div style="margin-top:1.25rem">
+      <button class="btn btn--primary">Uložit</button>
+      <a class="btn btn--ghost" href="{{ path('app_admin_meals_index') }}">Zpět</a>
+    </div>
+  </div>
+{{ form_end(form) }}

@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+  <div class="form-card">
+    {{ form_row(form.room) }}
+    {{ form_row(form.guestName) }}
+    <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <div style="flex:1;min-width:140px">{{ form_row(form.arrival) }}</div>
+      <div style="flex:1;min-width:140px">{{ form_row(form.departure) }}</div>
+    </div>
+    {{ form_row(form.guests) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.note) }}
+
+    <div style="margin-top:1.25rem">
+      <button class="btn btn--primary">Uložit</button>
+      <a class="btn btn--ghost" href="{{ path('app_admin_reservations_index') }}">Zpět</a>
+    </div>
+  </div>
+{{ form_end(form) }}

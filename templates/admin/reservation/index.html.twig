@@ -1,0 +1,92 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Rezervace{% endblock %}
+{% block page_title %}Rezervace{% endblock %}
+{% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_reservations_new') }}">Nová rezervace</a>{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .tl-nav { display:flex; align-items:center; gap:.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+  .tl-nav__range { font-weight:600; margin-left:.25rem; }
+  .tl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid #e2e8e4; border-radius:10px; background:#fff; }
+  .tl-grid {
+    display:grid;
+    grid-template-columns: var(--name-w) repeat({{ days|length }}, var(--day-w));
+    grid-template-rows: var(--head-h) repeat({{ rows|length }}, var(--row-h));
+    --name-w:120px; --day-w:46px; --row-h:54px; --head-h:48px;
+    min-width:max-content;
+  }
+  .tl-corner { position:sticky; left:0; top:0; z-index:6; background:#f0f3f1; border-right:1px solid #e2e8e4; border-bottom:1px solid #e2e8e4; }
+  .tl-day { position:sticky; top:0; z-index:3; background:#f0f3f1; border-bottom:1px solid #e2e8e4; border-right:1px solid #eef1ef;
+            display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:.72rem; line-height:1.2; color:#475a50; }
+  .tl-day small { color:#8a9a90; text-transform:uppercase; font-size:.62rem; }
+  .tl-day--weekend { background:#e8efe9; }
+  .tl-day--today { background:#dceede; color:#1f6b3f; font-weight:700; }
+  .tl-room { position:sticky; left:0; z-index:3; background:#fff; border-right:1px solid #e2e8e4; border-bottom:1px solid #eef1ef;
+             display:flex; flex-direction:column; justify-content:center; padding:0 .65rem; font-size:.82rem; font-weight:600; }
+  .tl-room small { font-weight:400; color:#8a9a90; font-size:.7rem; }
+  .tl-cell { border-right:1px solid #f1f4f2; border-bottom:1px solid #f1f4f2; text-decoration:none; }
+  .tl-cell--weekend { background:#f7faf8; }
+  .tl-cell--today { background:#f0f8f2; }
+  .tl-cell:hover { background:#eef6f0; }
+  .tl-bar {
+    z-index:2; margin:6px 2px; padding:.3rem .5rem; border-radius:8px;
+    background:#2f5d45; color:#fff; font-size:.74rem; line-height:1.15;
+    text-decoration:none; overflow:hidden; display:flex; flex-direction:column; justify-content:center;
+    box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .tl-bar small { opacity:.85; font-size:.66rem; }
+  .tl-bar--cont-left { border-top-left-radius:0; border-bottom-left-radius:0; margin-left:0; }
+  .tl-bar--cont-right { border-top-right-radius:0; border-bottom-right-radius:0; margin-right:0; }
+  .tl-bar:hover { background:#3a7155; }
+</style>
+{% endblock %}
+
+{% block body %}
+  {% set today_str = today|date('Y-m-d') %}
+  <div class="tl-nav">
+    <a class="btn btn--ghost" href="{{ path('app_admin_reservations_index', {from: prevFrom}) }}">‹ Předchozí</a>
+    <a class="btn btn--ghost" href="{{ path('app_admin_reservations_index', {from: todayFrom}) }}">Dnes</a>
+    <a class="btn btn--ghost" href="{{ path('app_admin_reservations_index', {from: nextFrom}) }}">Další ›</a>
+    <span class="tl-nav__range">{{ days|first|date('j. n.') }} – {{ days|last|date('j. n. Y') }}</span>
+  </div>
+
+  <div class="tl-wrap">
+    <div class="tl-grid">
+      <div class="tl-corner" style="grid-row:1;grid-column:1"></div>
+      {% for day in days %}
+        {% set wknd = day|date('N') > 5 %}
+        {% set istoday = day|date('Y-m-d') == today_str %}
+        <div class="tl-day{{ wknd ? ' tl-day--weekend' }}{{ istoday ? ' tl-day--today' }}" style="grid-row:1;grid-column:{{ loop.index + 1 }}">
+          <span>{{ day|date('j.') }}</span>
+          <small>{{ ['po','út','st','čt','pá','so','ne'][day|date('N') - 1] }}</small>
+        </div>
+      {% endfor %}
+
+      {% for row in rows %}
+        {% set r = loop.index + 1 %}
+        <div class="tl-room" style="grid-row:{{ r }};grid-column:1">
+          {{ row.room.name }}
+          {% if row.room.capacity > 0 %}<small>kap. {{ row.room.capacity }}</small>{% endif %}
+        </div>
+        {% for day in days %}
+          {% set wknd = day|date('N') > 5 %}
+          {% set istoday = day|date('Y-m-d') == today_str %}
+          <a class="tl-cell{{ wknd ? ' tl-cell--weekend' }}{{ istoday ? ' tl-cell--today' }}"
+             style="grid-row:{{ r }};grid-column:{{ loop.index + 1 }}"
+             href="{{ path('app_admin_reservations_new', {room: row.room.id, arrival: day|date('Y-m-d')}) }}"
+             aria-label="Nová rezervace {{ row.room.name }} {{ day|date('j. n.') }}"></a>
+        {% endfor %}
+        {% for bar in row.bars %}
+          <a class="tl-bar{{ bar.continuesLeft ? ' tl-bar--cont-left' }}{{ bar.continuesRight ? ' tl-bar--cont-right' }}"
+             style="grid-row:{{ r }};grid-column:{{ bar.colStart + 1 }} / span {{ bar.span }}"
+             href="{{ path('app_admin_reservations_edit', {id: bar.id}) }}">
+            <span>{{ bar.guestName }}</span>
+            {% if bar.guests %}<small>{{ bar.guests }} os.</small>{% endif %}
+          </a>
+        {% endfor %}
+      {% else %}
+        <div style="grid-column:1 / -1;padding:1rem;color:#8a9a90">Žádné pokoje. Nejdřív přidejte pokoj.</div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

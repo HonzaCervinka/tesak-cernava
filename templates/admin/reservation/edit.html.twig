@@ -1,0 +1,12 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Upravit rezervaci{% endblock %}
+{% block page_title %}Upravit: {{ reservation.guestName }}{% endblock %}
+{% block page_actions %}
+  <form method="post" action="{{ path('app_admin_reservations_delete', {id: reservation.id}) }}" onsubmit="return confirm('Smazat rezervaci?')">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
+    <button class="btn btn--danger">Smazat</button>
+  </form>
+{% endblock %}
+{% block body %}
+  {{ include('admin/reservation/_form.html.twig') }}
+{% endblock %}

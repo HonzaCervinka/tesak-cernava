@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Uživatelé{% endblock %}
+{% block page_title %}Uživatelé{% endblock %}
+{% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_users_new') }}">Nový uživatel</a>{% endblock %}
+
+{% block body %}
+  <table>
+    <thead><tr><th>E-mail</th><th>Role</th><th></th></tr></thead>
+    <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.email }}</td>
+        <td>{{ 'ROLE_ADMIN' in user.roles ? 'Administrátor' : 'Uživatel' }}</td>
+        <td>
+          <a class="btn btn--ghost" href="{{ path('app_admin_users_edit', {id: user.id}) }}">Upravit</a>
+          {% if user.id != app.user.id %}
+            <form method="post" action="{{ path('app_admin_users_delete', {id: user.id}) }}" style="display:inline" onsubmit="return confirm('Smazat uživatele?')">
+              <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+              <button class="btn btn--danger">Smazat</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Žádní uživatelé.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

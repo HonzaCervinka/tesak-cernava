@@ -1,0 +1,6 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Upravit uživatele{% endblock %}
+{% block page_title %}Upravit: {{ user.email }}{% endblock %}
+{% block body %}
+  {{ include('admin/user/_form.html.twig') }}
+{% endblock %}

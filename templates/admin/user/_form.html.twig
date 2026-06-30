@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+  <div class="form-card">
+    {{ form_row(form.email) }}
+    {{ form_row(form.role) }}
+    {{ form_row(form.plainPassword) }}
+
+    <div style="margin-top:1.25rem">
+      <button class="btn btn--primary">Uložit</button>
+      <a class="btn btn--ghost" href="{{ path('app_admin_users_index') }}">Zpět</a>
+    </div>
+  </div>
+{{ form_end(form) }}

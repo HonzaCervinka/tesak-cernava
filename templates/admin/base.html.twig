@@ -44,6 +44,9 @@
       <a class="admin-sidebar__link{{ route starts with 'app_admin_reservations' ? ' active' : '' }}" href="{{ path('app_admin_reservations_index') }}">Rezervace</a>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_massages' ? ' active' : '' }}" href="{{ path('app_admin_massages_index') }}">Masáže</a>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_meals' ? ' active' : '' }}" href="{{ path('app_admin_meals_index') }}">Stravování</a>
+      {% if is_granted('ROLE_ADMIN') %}
+        <a class="admin-sidebar__link{{ route starts with 'app_admin_users' ? ' active' : '' }}" href="{{ path('app_admin_users_index') }}">Uživatelé</a>
+      {% endif %}
     </nav>
     <div class="admin-sidebar__logout">
       <a href="{{ path('app_logout') }}">Odhlásit se</a>

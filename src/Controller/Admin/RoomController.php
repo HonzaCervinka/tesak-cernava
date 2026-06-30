@@ -73,6 +73,20 @@ final class RoomController extends AbstractController
         return $this->redirectToRoute('app_admin_rooms_index');
     }
 
+    #[Route('/{id}/toggle-homepage', name: 'app_admin_rooms_toggle_homepage', methods: ['POST'])]
+    public function toggleHomepage(Request $request, Room $room, EntityManagerInterface $em): Response
+    {
+        if (!$this->isCsrfTokenValid('homepage'.$room->getId(), (string) $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $room->setShowOnHomepage(!$room->isShowOnHomepage());
+        $em->flush();
+        $this->addFlash('success', $room->isShowOnHomepage() ? 'Pokoj zobrazen na hlavní stránce.' : 'Pokoj skryt z hlavní stránky.');
+
+        return $this->redirectToRoute('app_admin_rooms_index');
+    }
+
     #[Route('/{id}/images', name: 'app_admin_rooms_images_upload', methods: ['POST'])]
     public function uploadImages(Request $request, Room $room, ImageProcessor $processor, EntityManagerInterface $em): Response
     {
@@ -84,6 +98,10 @@ final class RoomController extends AbstractController
         $makeMain = $room->getImages()->isEmpty();
         foreach ($request->files->all()['images'] ?? [] as $file) {
             if (null === $file) {
+                continue;
+            }
+            if (!$file->isValid()) {
+                $this->addFlash('error', sprintf('Soubor „%s" se nepodařilo nahrát: %s', $file->getClientOriginalName(), $file->getErrorMessage()));
                 continue;
             }
             $image = $processor->process($file, 'rooms/'.$room->getSlug());
@@ -117,25 +135,52 @@ final class RoomController extends AbstractController
                 break;
             }
         }
+        $this->renumber($room);
         $em->flush();
         $this->addFlash('success', 'Fotka smazána.');
 
         return $this->redirectToRoute('app_admin_rooms_edit', ['id' => $room->getId()]);
     }
 
-    #[Route('/{id}/images/{imageId}/main', name: 'app_admin_rooms_images_main', methods: ['POST'])]
-    public function setMainImage(Request $request, Room $room, int $imageId, EntityManagerInterface $em): Response
+    #[Route('/{id}/images/reorder', name: 'app_admin_rooms_images_reorder', methods: ['POST'])]
+    public function reorderImages(Request $request, Room $room, EntityManagerInterface $em): Response
     {
-        if (!$this->isCsrfTokenValid('img-main'.$imageId, (string) $request->request->get('_token'))) {
+        $payload = json_decode((string) $request->getContent(), true);
+        if (!\is_array($payload) || !$this->isCsrfTokenValid('reorder'.$room->getId(), (string) ($payload['_token'] ?? ''))) {
             throw $this->createAccessDeniedException();
         }
 
-        foreach ($room->getImages() as $image) {
-            $image->setIsMain($image->getId() === $imageId);
+        $order = array_map('intval', (array) ($payload['order'] ?? []));
+        $rank = array_flip($order);
+        $images = $room->getImages()->toArray();
+        // Sort by requested order; IDs missing from $order go last, keeping relative order.
+        usort($images, static function (Image $a, Image $b) use ($rank): int {
+            $ra = $rank[$a->getId()] ?? PHP_INT_MAX;
+            $rb = $rank[$b->getId()] ?? PHP_INT_MAX;
+
+            return $ra <=> $rb;
+        });
+
+        $mainId = null;
+        foreach (array_values($images) as $i => $image) {
+            $image->setPosition($i);
+            $image->setIsMain(0 === $i);
+            if (0 === $i) {
+                $mainId = $image->getId();
+            }
         }
         $em->flush();
-        $this->addFlash('success', 'Hlavní fotka nastavena.');
 
-        return $this->redirectToRoute('app_admin_rooms_edit', ['id' => $room->getId()]);
+        return $this->json(['ok' => true, 'mainId' => $mainId]);
+    }
+
+    private function renumber(Room $room): void
+    {
+        $i = 0;
+        foreach ($room->getImages() as $image) {
+            $image->setPosition($i);
+            $image->setIsMain(0 === $i);
+            ++$i;
+        }
     }
 }

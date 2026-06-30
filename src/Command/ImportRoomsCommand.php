@@ -17,21 +17,21 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class ImportRoomsCommand extends Command
 {
     private const ROOMS = [
-        ['slug' => 'double-shared', 'imageDir' => 'double-shared-bath', 'name' => 'Dvoulůžkový pokoj', 'price' => 800, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 1,
+        ['slug' => 'double-shared', 'imageDir' => 'double-shared-bath', 'name' => 'Dvoulůžkový pokoj', 'price' => 800, 'from' => true, 'unit' => '/ noc', 'home' => true, 'single' => 1100, 'position' => 1,
          'features' => ['2 lůžka (možnost přistýlky)', 'Sdílená koupelna, balkon', 'Výhled do přírody', 'Sdílená kuchyňka na chodbě']],
-        ['slug' => 'family-large', 'name' => 'Rodinný pokoj', 'price' => 2100, 'from' => false, 'unit' => '/ noc', 'position' => 2,
+        ['slug' => 'family-large', 'name' => 'Rodinný pokoj', 'price' => 2100, 'from' => true, 'unit' => '/ noc', 'home' => true, 'single' => 2400, 'position' => 2,
          'features' => ['Vhodný pro rodiny s dětmi', 'Vlastní koupelna se sprchovým koutem', 'Postýlka do 2 let zdarma', 'Přístup na zahradu s hřištěm']],
-        ['slug' => 'apartment-ground', 'name' => 'Velký apartmán', 'price' => 590, 'from' => true, 'unit' => '/ osoba / noc', 'position' => 3,
+        ['slug' => 'apartment-ground', 'name' => 'Velký apartmán', 'price' => 590, 'from' => true, 'unit' => '/ osoba / noc', 'home' => false, 'single' => 780, 'position' => 3,
          'features' => ['Až 9 osob', 'Vlastní kuchyňka i koupelna', 'Ideální pro rodiny a malé skupiny', 'Přízemí s vlastním vstupem']],
-        ['slug' => 'single', 'name' => 'Jednolůžkové obsazení', 'price' => 650, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 4,
+        ['slug' => 'single', 'name' => 'Jednolůžkové obsazení', 'price' => 650, 'from' => true, 'unit' => '/ noc', 'home' => false, 'single' => 950, 'position' => 4,
          'features' => ['Ubytování pro 1 osobu', 'Koupelna, ručníky, WC', 'Balkon s výhledem do přírody']],
-        ['slug' => 'double-ensuite', 'name' => 'Pokoj s manželskou postelí', 'price' => 1100, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 5,
+        ['slug' => 'double-ensuite', 'name' => 'Pokoj s manželskou postelí', 'price' => 1100, 'from' => true, 'unit' => '/ noc', 'home' => false, 'single' => 1400, 'position' => 5,
          'features' => ['Manželská postel, TV', 'Vlastní koupelna, balkon', 'Společná kuchyňka']],
-        ['slug' => 'bunk-4bed', 'name' => 'Čtyřlůžkový pokoj s palandou', 'price' => 1890, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 6,
+        ['slug' => 'bunk-4bed', 'name' => 'Čtyřlůžkový pokoj s palandou', 'price' => 1890, 'from' => true, 'unit' => '/ noc', 'home' => false, 'single' => 2190, 'position' => 6,
          'features' => ['Palanda + 2 lůžka (až 4 osoby)', 'Vlastní koupelna, balkon', 'Společná kuchyňka']],
-        ['slug' => 'family-double', 'name' => 'Rodinný dvoupokoj', 'price' => 2490, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 7,
+        ['slug' => 'family-double', 'name' => 'Rodinný dvoupokoj', 'price' => 2490, 'from' => true, 'unit' => '/ noc', 'home' => false, 'single' => 2690, 'position' => 7,
          'features' => ['Manž. postel + palanda + 2 lůžka, TV', 'Vlastní koupelna, balkon', 'Dva propojené pokoje']],
-        ['slug' => 'apartment-2bedroom', 'name' => 'Apartmán 2 ložnice', 'price' => 3990, 'from' => false, 'unit' => '/ noc (2+ noci)', 'position' => 8,
+        ['slug' => 'apartment-2bedroom', 'name' => 'Apartmán 2 ložnice', 'price' => 3990, 'from' => true, 'unit' => '/ noc', 'home' => true, 'single' => 7980, 'position' => 8,
          'features' => ['Až 11 osob, 2× manž. postel, palanda', 'TV, kuchyňský kout, koupelna, balkon', '2× rozkládací gauč']],
     ];
 
@@ -62,6 +62,8 @@ final class ImportRoomsCommand extends Command
                 ->setPrice($data['price'])
                 ->setPriceFrom($data['from'])
                 ->setPriceUnit($data['unit'])
+                ->setPriceSingleNight($data['single'] ?? null)
+                ->setShowOnHomepage($data['home'] ?? false)
                 ->setPosition($data['position']);
             $this->em->persist($room);
 

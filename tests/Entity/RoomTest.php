@@ -28,4 +28,16 @@ final class RoomTest extends TestCase
     {
         self::assertSame([], (new Room())->getFeatures());
     }
+
+    public function testCapacityDefaultsToZeroAndIsSettable(): void
+    {
+        $room = new Room();
+        self::assertSame(0, $room->getCapacity());
+        self::assertSame(4, $room->setCapacity(4)->getCapacity());
+    }
+
+    public function testReservationsCollectionStartsEmpty(): void
+    {
+        self::assertCount(0, (new Room())->getReservations());
+    }
 }

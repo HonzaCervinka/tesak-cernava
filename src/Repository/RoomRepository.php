@@ -25,4 +25,15 @@ class RoomRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /** @return Room[] */
+    public function findForHomepage(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.showOnHomepage = true')
+            ->orderBy('r.position', 'ASC')
+            ->addOrderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

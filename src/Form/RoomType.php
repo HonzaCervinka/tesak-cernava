@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +18,6 @@ final class RoomType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Název'])
             ->add('slug', TextType::class, ['label' => 'Slug (klíč galerie)'])
-            ->add('description', TextareaType::class, ['label' => 'Popis', 'required' => false])
             ->add('features', CollectionType::class, [
                 'label' => 'Vlastnosti',
                 'entry_type' => TextType::class,
@@ -32,7 +30,10 @@ final class RoomType extends AbstractType
             ->add('price', IntegerType::class, ['label' => 'Cena (Kč)', 'required' => false])
             ->add('priceFrom', CheckboxType::class, ['label' => 'Cena "od"', 'required' => false])
             ->add('priceUnit', TextType::class, ['label' => 'Jednotka ceny', 'required' => false])
-            ->add('position', IntegerType::class, ['label' => 'Pořadí']);
+            ->add('priceSingleNight', IntegerType::class, ['label' => 'Cena za 1 noc (Kč)', 'required' => false])
+            ->add('capacity', IntegerType::class, ['label' => 'Kapacita (počet osob)'])
+            ->add('position', IntegerType::class, ['label' => 'Pořadí'])
+            ->add('showOnHomepage', CheckboxType::class, ['label' => 'Zobrazit na hlavní stránce', 'required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

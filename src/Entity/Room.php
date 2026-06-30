@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
@@ -23,9 +22,6 @@ class Room
     #[ORM\Column(length: 180, unique: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
-
     /** @var list<string> */
     #[ORM\Column]
     private array $features = [];
@@ -39,13 +35,26 @@ class Room
     #[ORM\Column(length: 60, nullable: true)]
     private ?string $priceUnit = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $priceSingleNight = null;
+
+    #[ORM\Column]
+    private int $capacity = 0;
+
     #[ORM\Column]
     private int $position = 0;
+
+    #[ORM\Column]
+    private bool $showOnHomepage = false;
 
     /** @var Collection<int, Image> */
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'room', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $images;
+
+    /** @var Collection<int, Reservation> */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'room')]
+    private Collection $reservations;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -56,6 +65,7 @@ class Room
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     #[ORM\PrePersist]
@@ -96,18 +106,6 @@ class Room
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -162,6 +160,42 @@ class Room
         return $this;
     }
 
+    public function getPriceSingleNight(): ?int
+    {
+        return $this->priceSingleNight;
+    }
+
+    public function setPriceSingleNight(?int $priceSingleNight): static
+    {
+        $this->priceSingleNight = $priceSingleNight;
+
+        return $this;
+    }
+
+    /** True when pricing is per person (unit mentions "osoba"). */
+    public function isPerPerson(): bool
+    {
+        return null !== $this->priceUnit && str_contains($this->priceUnit, 'osoba');
+    }
+
+    public function getCapacity(): int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): static
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    /** @return Collection<int, Reservation> */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
     public function getPosition(): int
     {
         return $this->position;
@@ -170,6 +204,18 @@ class Room
     public function setPosition(int $position): static
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function isShowOnHomepage(): bool
+    {
+        return $this->showOnHomepage;
+    }
+
+    public function setShowOnHomepage(bool $showOnHomepage): static
+    {
+        $this->showOnHomepage = $showOnHomepage;
 
         return $this;
     }

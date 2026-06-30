@@ -45,7 +45,7 @@
           <h1 class="hero__title">U nás jako doma, uprostřed přírody</h1>
           <p class="hero__lead">Horský penzion v přírodní rezervaci Tesák. Ideální pro školy v přírodě, rodinné pobyty i wellness. Bukové lesy, křižovatka turistických tras, domácí strava.</p>
           <div class="btn-group">
-            <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary">Rezervovat pobyt</a>
+            <a href="{{ path('app_contact') }}" class="btn btn--primary">Rezervovat pobyt</a>
             <a href="{{ path('app_accommodation') }}" class="btn btn--outline-white">Zjistit více</a>
           </div>
         </div>
@@ -175,104 +175,36 @@
           <p>Kapacita 51 lůžek + přistýlky. Od dvoulůžkových pokojů po apartmán pro 9 osob.</p>
         </div>
         <div class="grid-3">
-          <article class="room-card" aria-label="Velký rodinný pokoj">
+          {% for room in rooms %}
+          {% set main = room.mainImage %}
+          <article class="room-card" aria-label="{{ room.name }}">
             <div class="room-card__image">
-              <img src="{{ asset('images/rooms/family-large/p1055223-hdr.webp') }}"
-                alt="Velký rodinný pokoj v penzionu Tesák-Čerňava" loading="lazy" width="800" height="600">
+              <img src="{{ main ? main.thumbnail : asset('images/rooms/' ~ room.slug ~ '/placeholder.webp') }}"
+                alt="{{ main and main.alt ? main.alt : room.name ~ ' v penzionu Tesák-Čerňava' }}" loading="lazy" width="800" height="600">
             </div>
             <div class="room-card__body">
-              <span class="room-card__label">Rodinné ubytování</span>
-              <h3 class="room-card__title">Velký rodinný pokoj</h3>
+              <h3 class="room-card__title">{{ room.name }}</h3>
               <ul class="room-card__features">
+                {% for feature in room.features %}
                 <li class="room-card__feature">
                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Manželská postel + palanda
+                  {{ feature }}
                 </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní koupelna, balkon
-                </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sdílená kuchyňka na chodbě
-                </li>
+                {% endfor %}
               </ul>
+              {% if room.priceLabel %}
               <div class="room-card__divider"></div>
               <div class="room-card__pricing">
-                <span class="room-card__price">2 100 Kč</span>
-                <span class="room-card__price-unit">/noc</span>
+                <span class="room-card__price">{{ room.priceLabel }}</span>
+                {% if room.priceUnit %}<span class="room-card__price-unit">{{ room.priceUnit }}</span>{% endif %}
               </div>
-              <p class="room-card__discount">2 400 Kč za jednu noc</p>
+              {% endif %}
               <div class="room-card__cta">
-                <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary btn--full">Poptat pokoj</a>
+                <a href="{{ path('app_contact') }}" class="btn btn--primary btn--full">Poptat pokoj</a>
               </div>
             </div>
           </article>
-          <article class="room-card" aria-label="Dvoulůžkový pokoj">
-            <div class="room-card__image">
-              <img src="{{ asset('images/rooms/double-shared-bath/img_3232---kopie.webp') }}"
-                alt="Dvoulůžkový pokoj v penzionu Tesák-Čerňava" loading="lazy" width="800" height="600">
-            </div>
-            <div class="room-card__body">
-              <span class="room-card__label">Standardní ubytování</span>
-              <h3 class="room-card__title">Dvoulůžkový pokoj</h3>
-              <ul class="room-card__features">
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  2 samostatná lůžka
-                </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sdílená koupelna, balkon
-                </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Sdílená kuchyňka na chodbě
-                </li>
-              </ul>
-              <div class="room-card__divider"></div>
-              <div class="room-card__pricing">
-                <span class="room-card__price">800 Kč</span>
-                <span class="room-card__price-unit">/noc</span>
-              </div>
-              <p class="room-card__discount">1 100 Kč za jednu noc</p>
-              <div class="room-card__cta">
-                <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary btn--full">Poptat pokoj</a>
-              </div>
-            </div>
-          </article>
-          <article class="room-card" aria-label="Apartmán – 2 ložnice">
-            <div class="room-card__image">
-              <img src="{{ asset('images/rooms/apartment-2bedroom/p1055271-hdr.webp') }}"
-                alt="Prostorný apartmán se dvěma ložnicemi v penzionu Tesák-Čerňava" loading="lazy" width="800" height="600">
-            </div>
-            <div class="room-card__body">
-              <span class="room-card__label">Skupinové ubytování</span>
-              <h3 class="room-card__title">Apartmán – 2 ložnice</h3>
-              <ul class="room-card__features">
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Až 11 osob – 2 manž. postele, palanda, 2 gauče
-                </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  Vlastní kuchyňka, koupelna, balkon, TV
-                </li>
-                <li class="room-card__feature">
-                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                  2 propojené ložnice
-                </li>
-              </ul>
-              <div class="room-card__divider"></div>
-              <div class="room-card__pricing">
-                <span class="room-card__price">3 990 Kč</span>
-                <span class="room-card__price-unit">/noc</span>
-              </div>
-              <div class="room-card__cta">
-                <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary btn--full">Poptat pokoj</a>
-              </div>
-            </div>
-          </article>
+          {% endfor %}
         </div>
         <p class="text-center mt-8">
           <a href="{{ path('app_accommodation') }}" class="btn btn--outline">Zobrazit všechna ubytování</a>
@@ -380,7 +312,7 @@
         <h2 id="cta-heading">Těšíme se na Vaši návštěvu</h2>
         <p>Rezervujte termín nebo nám napište — odpovíme do 24 hodin.</p>
         <div class="btn-group" style="justify-content:center">
-          <a href="{{ path('app_accommodation') }}#kalendar" class="btn btn--primary">Rezervovat pobyt</a>
+          <a href="{{ path('app_contact') }}" class="btn btn--primary">Rezervovat pobyt</a>
           <a href="{{ path('app_groups') }}" class="btn btn--outline-white">Školy v přírodě</a>
         </div>
       </div>

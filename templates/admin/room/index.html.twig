@@ -5,7 +5,7 @@
 
 {% block body %}
   <table>
-    <thead><tr><th>Pořadí</th><th>Název</th><th>Cena</th><th>Fotek</th><th></th></tr></thead>
+    <thead><tr><th>Pořadí</th><th>Název</th><th>Cena</th><th>Fotek</th><th>Na homepage</th><th></th></tr></thead>
     <tbody>
     {% for room in rooms %}
       <tr>
@@ -13,6 +13,12 @@
         <td>{{ room.name }}</td>
         <td>{{ room.priceLabel ?? '—' }} {{ room.priceUnit }}</td>
         <td>{{ room.images|length }}</td>
+        <td>
+          <form method="post" action="{{ path('app_admin_rooms_toggle_homepage', {id: room.id}) }}" style="display:inline">
+            <input type="hidden" name="_token" value="{{ csrf_token('homepage' ~ room.id) }}">
+            <input type="checkbox" onchange="this.form.submit()" {{ room.showOnHomepage ? 'checked' : '' }} aria-label="Zobrazit {{ room.name }} na hlavní stránce">
+          </form>
+        </td>
         <td>
           <a class="btn btn--ghost" href="{{ path('app_admin_rooms_edit', {id: room.id}) }}">Upravit</a>
           <form method="post" action="{{ path('app_admin_rooms_delete', {id: room.id}) }}" style="display:inline" onsubmit="return confirm('Smazat pokoj?')">
@@ -22,7 +28,7 @@
         </td>
       </tr>
     {% else %}
-      <tr><td colspan="5">Žádné pokoje.</td></tr>
+      <tr><td colspan="6">Žádné pokoje.</td></tr>
     {% endfor %}
     </tbody>
   </table>

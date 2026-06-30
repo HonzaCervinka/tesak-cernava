@@ -1,10 +1,13 @@
 {{ form_start(form) }}
   <div class="form-card">
+    <div style="background:#f3f7f3;border:1px solid #d8e6d8;border-radius:8px;padding:.85rem 1rem;margin-bottom:1.25rem">
+      {{ form_row(form.showOnHomepage) }}
+    </div>
     {{ form_row(form.name) }}
     {{ form_row(form.slug) }}
-    {{ form_row(form.description) }}
     {{ form_row(form.features) }}
     {{ form_row(form.price) }}
+    {{ form_row(form.priceSingleNight) }}
     {{ form_row(form.priceFrom) }}
     {{ form_row(form.priceUnit) }}
     {{ form_row(form.position) }}

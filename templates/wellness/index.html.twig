@@ -71,80 +71,16 @@
         </div>
 
         <div class="wellness-list">
+          {% for m in massages %}
           <div class="wellness-item">
-            <span class="wellness-item__name">Klasická masáž</span>
+            <span class="wellness-item__name">{{ m.name }}{% if m.note %} <small style="font-weight:400;color:var(--color-text-muted)">{{ m.note }}</small>{% endif %}</span>
             <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
+              {% for p in m.prices %}
+              <div class="wellness-item__price"><strong>{{ p.price|number_format(0, ',', ' ') }} Kč</strong><span>{{ p.minutes }} min</span></div>
+              {% endfor %}
             </div>
           </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Zábal z nahřátých obilných zrn <small style="font-weight:400;color:var(--color-text-muted)">(předehřátí před masáží)</small></span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>250 Kč</strong><span>20 min</span></div>
-              <div class="wellness-item__price"><strong>450 Kč</strong><span>40 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Horké kameny</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>700 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>1 400 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Baňkování</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>300 Kč</strong><span>20 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Reflexní masáž plosky nohou</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Masáže dětí a těhotných žen</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>800 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Sportovní masáž</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>500 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>1 000 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Akupresurní odblokování krční páteře</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Měkké stabilizační techniky</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Energetická masáž Reiki</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>600 Kč</strong><span>30 min</span></div>
-              <div class="wellness-item__price"><strong>1 200 Kč</strong><span>60 min</span></div>
-            </div>
-          </div>
-          <div class="wellness-item">
-            <span class="wellness-item__name">Jógovo-rehabilitační cvičení</span>
-            <div class="wellness-item__prices">
-              <div class="wellness-item__price"><strong>400 Kč</strong><span>30 min</span></div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
 
         <div style="margin-top:var(--space-8);padding:var(--space-4) var(--space-6);background:var(--color-info-bg);border:1px solid var(--color-info-border);border-radius:var(--radius-lg)">

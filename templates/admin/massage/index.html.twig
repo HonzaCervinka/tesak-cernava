@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Masáže{% endblock %}
+{% block page_title %}Masáže{% endblock %}
+{% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_massages_new') }}">Nová masáž</a>{% endblock %}
+
+{% block body %}
+  <table>
+    <thead><tr><th>Pořadí</th><th>Název</th><th>Počet cen</th><th></th></tr></thead>
+    <tbody>
+    {% for massage in massages %}
+      <tr>
+        <td>{{ massage.position }}</td>
+        <td>{{ massage.name }}{% if massage.note %} <small style="color:#6b7280">{{ massage.note }}</small>{% endif %}</td>
+        <td>{{ massage.prices|length }}</td>
+        <td>
+          <a class="btn btn--ghost" href="{{ path('app_admin_massages_edit', {id: massage.id}) }}">Upravit</a>
+          <form method="post" action="{{ path('app_admin_massages_delete', {id: massage.id}) }}" style="display:inline" onsubmit="return confirm('Smazat masáž?')">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ massage.id) }}">
+            <button class="btn btn--danger">Smazat</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">Žádné masáže.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

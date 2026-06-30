@@ -1,0 +1,6 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Upravit masáž{% endblock %}
+{% block page_title %}Upravit: {{ massage.name }}{% endblock %}
+{% block body %}
+  {{ include('admin/massage/_form.html.twig') }}
+{% endblock %}

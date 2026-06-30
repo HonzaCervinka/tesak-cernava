@@ -1,0 +1,31 @@
+{% import _self as f %}
+
+{% macro priceRow(entry) %}
+  <div data-collection-item style="display:flex;gap:.75rem;align-items:flex-end;margin-bottom:.6rem;border:1px solid #eef1ef;border-radius:8px;padding:.6rem .75rem;background:#fff">
+    <div>{{ form_row(entry.price) }}</div>
+    <div>{{ form_row(entry.minutes) }}</div>
+    <button type="button" class="btn btn--danger" data-action="form-collection#remove" style="font-size:.75rem;padding:.4rem .6rem">× odebrat</button>
+  </div>
+{% endmacro %}
+
+{{ form_start(form) }}
+  <div class="form-card">
+    {{ form_row(form.name) }}
+    {{ form_row(form.note) }}
+    {{ form_row(form.position) }}
+
+    <h2 style="font-size:1.1rem;margin:1.25rem 0 .75rem">Ceny</h2>
+    {% set prototypeHtml %}{{ f.priceRow(form.prices.vars.prototype) }}{% endset %}
+    <div {{ stimulus_controller('form-collection', { prototype: prototypeHtml }) }}>
+      <div data-form-collection-target="container">
+        {% for price in form.prices %}{{ f.priceRow(price) }}{% endfor %}
+      </div>
+      <button type="button" class="btn btn--ghost" data-action="form-collection#add" style="margin-top:.4rem">+ přidat cenu</button>
+    </div>
+
+    <div style="margin-top:1.25rem">
+      <button class="btn btn--primary">Uložit</button>
+      <a class="btn btn--ghost" href="{{ path('app_admin_massages_index') }}">Zpět</a>
+    </div>
+  </div>
+{{ form_end(form) }}

@@ -6,6 +6,10 @@ services:
     build:
       context: .
       target: frankenphp_prod
+    volumes:
+      # Persist uploaded images across rebuilds (public/uploads is gitignored
+      # and would otherwise be wiped on every `make up-prod --build`).
+      - ./public/uploads:/app/public/uploads
     environment:
       APP_SECRET: ${APP_SECRET}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
@@ -22,6 +26,23 @@ services:
     networks:
       - default
       - main_network
+
+  # Adminer for one-off DB administration on production.
+  # Port is bound to 127.0.0.1 only — NOT exposed to the internet.
+  # Reach it through an SSH tunnel:
+  #   ssh -L 8081:127.0.0.1:8081 user@prod-server
+  # then open http://localhost:8081
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${ADMINER_PORT:-8081}:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    depends_on:
+      - database
+    networks:
+      - default
 
 networks:
   main_network:

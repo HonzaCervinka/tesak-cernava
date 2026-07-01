@@ -4,6 +4,7 @@
 {% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_rooms_new') }}">Nový pokoj</a>{% endblock %}
 
 {% block body %}
+  <div class="admin-main__table">
   <table>
     <thead><tr><th>Pořadí</th><th>Název</th><th>Cena</th><th>Fotek</th><th>Na homepage</th><th></th></tr></thead>
     <tbody>
@@ -32,4 +33,5 @@
     {% endfor %}
     </tbody>
   </table>
+  </div>
 {% endblock %}

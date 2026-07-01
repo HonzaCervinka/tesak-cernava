@@ -32,7 +32,8 @@
     label { display: block; font-size: .8rem; font-weight: 600; margin: 1rem 0 .35rem; }
     input[type=text], input[type=number], textarea, select { width: 100%; padding: .6rem .75rem; border: 1px solid #d4dbd6; border-radius: 8px; font-family: inherit; font-size: .9rem; }
     .form-card { background: #fff; border-radius: 10px; padding: 1.5rem; }
-    .admin-main__table { overflow-x: auto; }
+    .admin-main__table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .admin-main__table table { min-width: 560px; }
     @media (max-width: 768px) {
       body { flex-direction: column; }
       .admin-sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; padding: .75rem 1rem; gap: .25rem .5rem; }

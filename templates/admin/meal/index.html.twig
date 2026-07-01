@@ -4,6 +4,7 @@
 {% block page_actions %}<a class="btn btn--primary" href="{{ path('app_admin_meals_new') }}">Nová položka</a>{% endblock %}
 
 {% block body %}
+  <div class="admin-main__table">
   <table>
     <thead><tr><th>Pořadí</th><th>Název</th><th>Cena</th><th>Typ</th><th></th></tr></thead>
     <tbody>
@@ -26,4 +27,5 @@
     {% endfor %}
     </tbody>
   </table>
+  </div>
 {% endblock %}

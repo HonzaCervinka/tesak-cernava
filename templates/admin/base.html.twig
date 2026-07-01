@@ -32,6 +32,16 @@
     label { display: block; font-size: .8rem; font-weight: 600; margin: 1rem 0 .35rem; }
     input[type=text], input[type=number], textarea, select { width: 100%; padding: .6rem .75rem; border: 1px solid #d4dbd6; border-radius: 8px; font-family: inherit; font-size: .9rem; }
     .form-card { background: #fff; border-radius: 10px; padding: 1.5rem; }
+    .admin-main__table { overflow-x: auto; }
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .admin-sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; padding: .75rem 1rem; gap: .25rem .5rem; }
+      .admin-sidebar__brand { padding: 0; margin-right: auto; }
+      .admin-sidebar nav { display: flex; flex-wrap: wrap; gap: .25rem; width: 100%; }
+      .admin-sidebar__link { padding: .5rem .75rem; border-radius: 6px; font-size: .85rem; }
+      .admin-sidebar__logout { margin-top: 0; padding: 0; }
+      .admin-main { padding: 1.25rem 1rem; max-width: 100%; }
+    }
   </style>
   {% block stylesheets %}{% endblock %}
 </head>

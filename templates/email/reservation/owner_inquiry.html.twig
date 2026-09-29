@@ -1,0 +1,8 @@
+{% extends 'email/reservation/_layout.html.twig' %}
+{% block content %}
+<h2>Nová rezervace ke schválení</h2>
+<p class="muted">Z webu přišla poptávka. Termín je v kalendáři předběžně blokovaný, dokud ji nepotvrdíte nebo nezamítnete.</p>
+{% endblock %}
+{% block after %}
+<p><a href="{{ url('app_dashboard') }}" class="accent"><strong>Otevřít přehled v administraci</strong></a></p>
+{% endblock %}

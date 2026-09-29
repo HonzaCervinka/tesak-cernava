@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: sans-serif; color: #1a1f1a; font-size: 15px; line-height: 1.6; max-width: 600px; margin: 0 auto; padding: 2rem 1rem; }
+  h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: .5rem; }
+  .muted { color: #666; font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  th { text-align: left; width: 40%; color: #666; font-weight: normal; padding: .4rem 0; border-bottom: 1px solid #eee; font-size: .85rem; }
+  td { padding: .4rem 0; border-bottom: 1px solid #eee; }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; color: #999; font-size: .8rem; }
+  .accent { color: #22603c; }
+</style>
+</head>
+<body>
+{% block content %}{% endblock %}
+
+{% set r = reservation %}
+<table>
+  <tr><th>Pokoj</th><td>{{ r.room.name }}</td></tr>
+  <tr><th>Příjezd</th><td>{{ r.arrival|date('j. n. Y') }} (od 14:00)</td></tr>
+  <tr><th>Odjezd</th><td>{{ r.departure|date('j. n. Y') }} (do 10:00)</td></tr>
+  <tr><th>Počet nocí</th><td>{{ r.nights }}</td></tr>
+  {% if r.guests %}<tr><th>Počet osob</th><td>{{ r.guests }}</td></tr>{% endif %}
+  <tr><th>Jméno</th><td>{{ r.guestName }}</td></tr>
+  {% if r.phone %}<tr><th>Telefon</th><td>{{ r.phone }}</td></tr>{% endif %}
+  {% if r.email %}<tr><th>E-mail</th><td>{{ r.email }}</td></tr>{% endif %}
+  {% if r.note %}<tr><th>Poznámka</th><td style="white-space:pre-wrap">{{ r.note }}</td></tr>{% endif %}
+</table>
+
+{% block after %}
+<p>Máte-li dotaz, kontaktujte nás na <a href="mailto:{{ business.email }}" class="accent">{{ business.email }}</a> nebo na tel. <strong>{{ business.phone_display }}</strong>.</p>
+{% endblock %}
+
+<div class="footer">Penzion Tesák-Čerňava · Chvalčov · Hostýnské vrchy</div>
+</body>
+</html>

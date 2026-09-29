@@ -1,5 +1,6 @@
 {{ form_start(form) }}
   <div class="form-card">
+    {% if form.status is defined %}{{ form_row(form.status) }}{% endif %}
     {{ form_row(form.room) }}
     {{ form_row(form.guestName) }}
     <div style="display:flex;gap:1rem;flex-wrap:wrap">

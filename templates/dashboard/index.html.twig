@@ -1,10 +1,81 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Administrace{% endblock %}
-{% block page_title %}Administrace{% endblock %}
+{% block title %}Přehled{% endblock %}
+{% block page_title %}Přehled{% endblock %}
+
+{% block stylesheets %}
+<style>
+  .dash-section { margin-bottom: 2rem; }
+  .dash-section h2 { font-size: 1.1rem; margin-bottom: .75rem; }
+  .dash-count { display: inline-block; min-width: 1.5rem; padding: 0 .45rem; border-radius: 999px; background: #c98a1b; color: #fff; font-size: .8rem; text-align: center; vertical-align: 2px; }
+  .dash-empty { color: #8a9a90; }
+  .dash-actions { white-space: nowrap; }
+  .dash-actions form { display: inline; }
+  .dash-note { color: #475a50; font-size: .82rem; }
+</style>
+{% endblock %}
 
 {% block body %}
-  <div class="form-card">
-    <p>Vítejte v administraci. Vlevo v menu vyberte sekci.</p>
-  </div>
+  <section class="dash-section">
+    <h2>Ke schválení {% if pending|length %}<span class="dash-count">{{ pending|length }}</span>{% endif %}</h2>
+    {% if pending is empty %}
+      <p class="dash-empty">Žádné rezervace nečekají na schválení.</p>
+    {% else %}
+      <div class="admin-main__table">
+      <table>
+        <thead><tr><th>Host</th><th>Pokoj</th><th>Termín</th><th>Osob</th><th>Kontakt</th><th>Přijato</th><th></th></tr></thead>
+        <tbody>
+        {% for res in pending %}
+          <tr>
+            <td>
+              <a href="{{ path('app_admin_reservations_edit', {id: res.id}) }}">{{ res.guestName }}</a>
+              {% if res.note %}<div class="dash-note">{{ res.note|length > 80 ? res.note|slice(0, 80) ~ '…' : res.note }}</div>{% endif %}
+            </td>
+            <td>{{ res.room.name }}</td>
+            <td>{{ res.arrival|date('j. n.') }} – {{ res.departure|date('j. n. Y') }}<br><small>{{ res.nights }} {{ res.nights == 1 ? 'noc' : (res.nights < 5 ? 'noci' : 'nocí') }}</small></td>
+            <td>{{ res.guests ?? '–' }}</td>
+            <td>{{ res.phone }}{% if res.phone and res.email %}<br>{% endif %}{{ res.email }}</td>
+            <td>{{ res.createdAt|date('j. n. H:i') }}</td>
+            <td class="dash-actions">
+              <form method="post" action="{{ path('app_admin_reservations_confirm', {id: res.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('status' ~ res.id) }}">
+                <button class="btn btn--primary">Potvrdit</button>
+              </form>
+              <form method="post" action="{{ path('app_admin_reservations_reject', {id: res.id}) }}" onsubmit="return confirm('Zamítnout rezervaci?')">
+                <input type="hidden" name="_token" value="{{ csrf_token('status' ~ res.id) }}">
+                <button class="btn btn--danger">Zamítnout</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    {% endif %}
+  </section>
+
+  <section class="dash-section">
+    <h2>Příjezdy v příštích {{ upcomingDays }} dnech</h2>
+    {% if arrivals is empty %}
+      <p class="dash-empty">Žádné potvrzené příjezdy.</p>
+    {% else %}
+      <div class="admin-main__table">
+      <table>
+        <thead><tr><th>Příjezd</th><th>Host</th><th>Pokoj</th><th>Nocí</th><th>Osob</th><th>Telefon</th></tr></thead>
+        <tbody>
+        {% for res in arrivals %}
+          <tr>
+            <td>{% if res.arrival|date('Y-m-d') == today|date('Y-m-d') %}<strong>Dnes</strong>{% else %}{{ res.arrival|date('j. n.') }}{% endif %}</td>
+            <td><a href="{{ path('app_admin_reservations_edit', {id: res.id}) }}">{{ res.guestName }}</a></td>
+            <td>{{ res.room.name }}</td>
+            <td>{{ res.nights }}</td>
+            <td>{{ res.guests ?? '–' }}</td>
+            <td>{{ res.phone ?? '–' }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    {% endif %}
+  </section>
 {% endblock %}

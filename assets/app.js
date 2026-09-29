@@ -1,4 +1,5 @@
 import './styles/app.css';
+import './booking.js';
 
 /* ---- Navigace – hamburger ---- */
 const hamburger = document.getElementById('nav-hamburger');
@@ -25,6 +26,8 @@ function closeDrawer() {
 hamburger?.addEventListener('click', openDrawer);
 panelClose?.addEventListener('click', closeDrawer);
 overlay?.addEventListener('click', closeDrawer);
+// Odkaz na kotvu na stejné stránce (např. Rezervovat na /ubytovani) nepřenačte stránku – menu zavřít ručně.
+drawer?.querySelectorAll('a[href*="#"]').forEach(a => a.addEventListener('click', closeDrawer));
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
 });

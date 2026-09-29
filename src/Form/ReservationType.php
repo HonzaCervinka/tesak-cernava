@@ -4,11 +4,13 @@ namespace App\Form;
 
 use App\Entity\Reservation;
 use App\Entity\Room;
+use App\Enum\ReservationStatus;
 use App\Repository\RoomRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -42,10 +44,22 @@ final class ReservationType extends AbstractType
             ->add('phone', TelType::class, ['label' => 'Telefon', 'required' => false])
             ->add('email', EmailType::class, ['label' => 'E-mail', 'required' => false])
             ->add('note', TextareaType::class, ['label' => 'Poznámka', 'required' => false]);
+
+        if ($options['include_status']) {
+            $builder->add('status', EnumType::class, [
+                'label' => 'Stav',
+                'class' => ReservationStatus::class,
+                'choice_label' => static fn (ReservationStatus $s) => $s->label(),
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Reservation::class]);
+        $resolver->setDefaults([
+            'data_class' => Reservation::class,
+            'include_status' => false,
+        ]);
+        $resolver->setAllowedTypes('include_status', 'bool');
     }
 }

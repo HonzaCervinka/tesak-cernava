@@ -51,6 +51,7 @@
     {% set route = app.request.attributes.get('_route') %}
     <div class="admin-sidebar__brand">Tesák-Čerňava</div>
     <nav>
+      <a class="admin-sidebar__link{{ route == 'app_dashboard' ? ' active' : '' }}" href="{{ path('app_dashboard') }}">Přehled</a>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_rooms' ? ' active' : '' }}" href="{{ path('app_admin_rooms_index') }}">Pokoje</a>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_reservations' ? ' active' : '' }}" href="{{ path('app_admin_reservations_index') }}">Rezervace</a>
       <a class="admin-sidebar__link{{ route starts with 'app_admin_massages' ? ' active' : '' }}" href="{{ path('app_admin_massages_index') }}">Masáže</a>

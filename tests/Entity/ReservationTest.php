@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Reservation;
+use App\Enum\ReservationStatus;
 use PHPUnit\Framework\TestCase;
 
 final class ReservationTest extends TestCase
@@ -56,5 +57,15 @@ final class ReservationTest extends TestCase
         $r = $this->reservation('2026-06-03', '2026-06-06');
 
         self::assertSame(3, $r->getNights());
+    }
+
+    public function testNewReservationIsConfirmedByDefault(): void
+    {
+        self::assertSame(ReservationStatus::Confirmed, (new Reservation())->getStatus());
+    }
+
+    public function testOnlyPendingAndConfirmedBlockTheRoom(): void
+    {
+        self::assertSame([ReservationStatus::Pending, ReservationStatus::Confirmed], ReservationStatus::blocking());
     }
 }

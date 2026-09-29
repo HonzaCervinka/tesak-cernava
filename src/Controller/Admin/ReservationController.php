@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
 use App\Entity\Room;
+use App\Enum\ReservationStatus;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
 use App\Repository\RoomRepository;
+use App\Service\Reservation\ReservationMailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,14 +78,19 @@ final class ReservationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_reservations_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Reservation $reservation, ReservationRepository $reservations, EntityManagerInterface $em): Response
+    public function edit(Request $request, Reservation $reservation, ReservationRepository $reservations, EntityManagerInterface $em, ReservationMailer $mailer): Response
     {
-        $form = $this->createForm(ReservationType::class, $reservation);
+        $previousStatus = $reservation->getStatus();
+        $form = $this->createForm(ReservationType::class, $reservation, ['include_status' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            $this->addFlash('success', 'Rezervace uložena.');
+            if ($previousStatus !== $reservation->getStatus()) {
+                $this->announceStatusChange($reservation, $previousStatus, $mailer);
+            } else {
+                $this->addFlash('success', 'Rezervace uložena.');
+            }
             $this->warnOnConflicts($reservation, $reservations);
 
             return $this->redirectToRoute('app_admin_reservations_index');
@@ -93,6 +100,18 @@ final class ReservationController extends AbstractController
             'form' => $form,
             'reservation' => $reservation,
         ], new Response(null, $form->isSubmitted() ? 422 : 200));
+    }
+
+    #[Route('/{id}/confirm', name: 'app_admin_reservations_confirm', methods: ['POST'])]
+    public function confirm(Request $request, Reservation $reservation, ReservationRepository $reservations, EntityManagerInterface $em, ReservationMailer $mailer): Response
+    {
+        return $this->decide($request, $reservation, ReservationStatus::Confirmed, $reservations, $em, $mailer);
+    }
+
+    #[Route('/{id}/reject', name: 'app_admin_reservations_reject', methods: ['POST'])]
+    public function reject(Request $request, Reservation $reservation, ReservationRepository $reservations, EntityManagerInterface $em, ReservationMailer $mailer): Response
+    {
+        return $this->decide($request, $reservation, ReservationStatus::Rejected, $reservations, $em, $mailer);
     }
 
     #[Route('/{id}/delete', name: 'app_admin_reservations_delete', methods: ['POST'])]
@@ -105,6 +124,31 @@ final class ReservationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_reservations_index');
+    }
+
+    /** Dashboard buttons: settle a pending inquiry. */
+    private function decide(Request $request, Reservation $reservation, ReservationStatus $decision, ReservationRepository $reservations, EntityManagerInterface $em, ReservationMailer $mailer): Response
+    {
+        if ($reservation->isPending() && $this->isCsrfTokenValid('status'.$reservation->getId(), (string) $request->request->get('_token'))) {
+            $previousStatus = $reservation->getStatus();
+            $reservation->setStatus($decision);
+            $em->flush();
+            $this->announceStatusChange($reservation, $previousStatus, $mailer);
+            $this->warnOnConflicts($reservation, $reservations);
+        }
+
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    private function announceStatusChange(Reservation $reservation, ReservationStatus $previousStatus, ReservationMailer $mailer): void
+    {
+        $emailed = $mailer->sendStatusChange($reservation, $previousStatus);
+        $this->addFlash('success', sprintf(
+            'Rezervace %s je teď %s%s.',
+            $reservation->getGuestName(),
+            mb_strtolower($reservation->getStatus()->label()),
+            $emailed ? ', host dostal e-mail' : '',
+        ));
     }
 
     private function windowStart(?string $from): \DateTimeImmutable
@@ -141,6 +185,9 @@ final class ReservationController extends AbstractController
     private function warnOnConflicts(Reservation $reservation, ReservationRepository $reservations): void
     {
         $room = $reservation->getRoom();
+        if (!$reservation->getStatus()->blocksRoom()) {
+            return;
+        }
         if (null === $room || null === $reservation->getArrival() || null === $reservation->getDeparture()) {
             return;
         }
@@ -161,7 +208,7 @@ final class ReservationController extends AbstractController
         }
     }
 
-    /** @return array{id:int,guestName:?string,guests:?int,colStart:int,span:int,continuesLeft:bool,continuesRight:bool}|null */
+    /** @return array{id:int,guestName:?string,guests:?int,pending:bool,colStart:int,span:int,continuesLeft:bool,continuesRight:bool}|null */
     private function toBar(Reservation $res, \DateTimeImmutable $from): ?array
     {
         $startIdx = $this->dayIndex($from, $res->getArrival());
@@ -178,6 +225,7 @@ final class ReservationController extends AbstractController
             'id' => $res->getId(),
             'guestName' => $res->getGuestName(),
             'guests' => $res->getGuests(),
+            'pending' => $res->isPending(),
             'colStart' => $visibleStart + 1,
             'span' => $span,
             'continuesLeft' => $startIdx < 0,

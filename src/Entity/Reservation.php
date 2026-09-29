@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ReservationStatus;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -49,6 +50,10 @@ class Reservation
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $note = null;
+
+    // Admin-created reservations are confirmed right away; the public form sets Pending.
+    #[ORM\Column(length: 20, enumType: ReservationStatus::class, options: ['default' => 'confirmed'])]
+    private ReservationStatus $status = ReservationStatus::Confirmed;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -189,6 +194,23 @@ class Reservation
         $this->note = $note;
 
         return $this;
+    }
+
+    public function getStatus(): ReservationStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(ReservationStatus $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isPending(): bool
+    {
+        return ReservationStatus::Pending === $this->status;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

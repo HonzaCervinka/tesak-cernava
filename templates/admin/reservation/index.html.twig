@@ -38,6 +38,11 @@
   .tl-bar--cont-left { border-top-left-radius:0; border-bottom-left-radius:0; margin-left:0; }
   .tl-bar--cont-right { border-top-right-radius:0; border-bottom-right-radius:0; margin-right:0; }
   .tl-bar:hover { background:#3a7155; }
+  .tl-bar--pending { background:repeating-linear-gradient(135deg,#c98a1b 0 8px,#b87c14 8px 16px); }
+  .tl-bar--pending:hover { background:#b87c14; }
+  .tl-legend { display:flex; gap:1rem; margin-top:.75rem; font-size:.8rem; color:#475a50; }
+  .tl-legend span::before { content:''; display:inline-block; width:.8rem; height:.8rem; border-radius:3px; margin-right:.35rem; vertical-align:-1px; background:#2f5d45; }
+  .tl-legend .tl-legend__pending::before { background:#c98a1b; }
 </style>
 {% endblock %}
 
@@ -77,10 +82,10 @@
              aria-label="Nová rezervace {{ row.room.name }} {{ day|date('j. n.') }}"></a>
         {% endfor %}
         {% for bar in row.bars %}
-          <a class="tl-bar{{ bar.continuesLeft ? ' tl-bar--cont-left' }}{{ bar.continuesRight ? ' tl-bar--cont-right' }}"
+          <a class="tl-bar{{ bar.pending ? ' tl-bar--pending' }}{{ bar.continuesLeft ? ' tl-bar--cont-left' }}{{ bar.continuesRight ? ' tl-bar--cont-right' }}"
              style="grid-row:{{ r }};grid-column:{{ bar.colStart + 1 }} / span {{ bar.span }}"
              href="{{ path('app_admin_reservations_edit', {id: bar.id}) }}">
-            <span>{{ bar.guestName }}</span>
+            <span>{{ bar.guestName }}{{ bar.pending ? ' (ke schválení)' }}</span>
             {% if bar.guests %}<small>{{ bar.guests }} os.</small>{% endif %}
           </a>
         {% endfor %}
@@ -89,4 +94,5 @@
       {% endfor %}
     </div>
   </div>
+  <div class="tl-legend"><span>Potvrzená</span><span class="tl-legend__pending">Ke schválení</span></div>
 {% endblock %}

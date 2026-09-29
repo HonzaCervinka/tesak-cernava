@@ -445,12 +445,15 @@ video.hero__bg {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(9,29,19,.50) 0%, rgba(9,29,19,.78) 100%);
+  z-index: 2; /* nad videem (z-index 1), jinak text leží na nezatmaveném videu */
+  background:
+    linear-gradient(to right, rgba(9,29,19,.60) 0%, rgba(9,29,19,.32) 55%, rgba(9,29,19,.05) 100%),
+    linear-gradient(to bottom, rgba(9,29,19,.12) 0%, rgba(9,29,19,.45) 100%);
 }
 
 .hero__content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   padding-block: var(--space-20);
   max-width: 700px;
 }
@@ -469,18 +472,22 @@ video.hero__bg {
 .hero__lead {
   font-size: var(--text-md);
   line-height: 1.55;
-  color: var(--color-text-on-dark-muted);
+  color: rgba(255,255,255,.92);
   margin-bottom: var(--space-8);
   max-width: 520px;
-  text-shadow: 0 1px 6px rgba(0,0,0,.5);
+  text-shadow: 0 1px 8px rgba(0,0,0,.6);
 }
+.hero .eyebrow--light { color: var(--color-primary-100); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.hero .btn--outline-white { background: rgba(9,29,19,.35); border-color: rgba(250,248,245,.85); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.hero .btn--outline-white:hover { background: rgba(9,29,19,.55); }
 
 .hero__scroll {
   position: absolute;
   bottom: var(--space-8);
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(250,248,245,.45);
+  z-index: 3;
+  color: rgba(250,248,245,.7);
   transition: opacity var(--transition-base);
   animation: bounce 2s ease-in-out infinite;
 }
@@ -1272,3 +1279,133 @@ video.hero__bg {
   margin-block: var(--space-4) var(--space-6);
 }
 .legal-content__box p { margin: 0; color: var(--color-text-primary); }
+
+/* ----------------------------------------------------------------
+   REZERVACE – časová osa obsazenosti (/ubytovani#rezervace)
+   Buňka = den; levá horní polovina = noc před dnem, pravá dolní = noc od dne.
+   ---------------------------------------------------------------- */
+.booking {
+  --booking-free: var(--color-surface-card);
+  --booking-busy: #D6CFC7;
+  --booking-past: var(--color-surface-muted);
+  --booking-sel: var(--color-primary-500);
+  --booking-preview: var(--color-primary-200);
+  scroll-margin-top: var(--space-16);
+}
+.booking.is-loading .booking__grid { opacity: .55; pointer-events: none; }
+
+.booking__toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.booking__nav { display: flex; align-items: center; gap: var(--space-2); }
+.booking__nav .btn:disabled { opacity: .4; cursor: default; }
+.booking__range { font-weight: 600; margin-left: var(--space-2); }
+.booking__legend { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); font-size: var(--text-sm); color: var(--color-text-secondary); }
+.booking__legend li { display: flex; align-items: center; gap: var(--space-2); }
+.booking__swatch { width: 16px; height: 16px; border-radius: var(--radius-sm); border: 1px solid var(--color-border-default); }
+.booking__swatch--free { background: var(--booking-free); }
+.booking__swatch--busy { background: var(--booking-busy); }
+.booking__swatch--half { background: linear-gradient(to bottom right, var(--booking-busy) 50%, var(--booking-free) 50%); }
+.booking__swatch--sel { background: var(--booking-sel); border-color: var(--booking-sel); }
+
+.booking__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+.booking__grid {
+  --name-w: 200px;
+  display: grid;
+  grid-template-columns: var(--name-w) repeat(var(--booking-days, 14), minmax(40px, 1fr));
+  min-width: max-content;
+  transition: opacity var(--transition-fast);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.booking__corner,
+.booking__room {
+  position: sticky; left: 0; z-index: 2;
+  background: var(--color-surface-card);
+  border-right: 1px solid var(--color-border-default);
+}
+.booking__corner {
+  display: flex; align-items: flex-end;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm); color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.booking__day {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  padding: var(--space-2) 0;
+  line-height: 1.15;
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+}
+.booking__day strong { font-size: var(--text-base); color: var(--color-text-primary); }
+.booking__day small { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .04em; }
+.booking__day--weekend { background: var(--color-surface-muted); }
+.booking__day--today strong { color: #fff; background: var(--color-primary-600); border-radius: var(--radius-full); padding: 0 .4em; }
+.booking__month { font-size: var(--text-xs); font-weight: 600; color: var(--color-primary-600); text-transform: uppercase; }
+
+.booking__room {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 52px;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border-default);
+  font-size: var(--text-sm); font-weight: 600; line-height: 1.25;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.booking__room small { font-weight: 400; color: var(--color-text-muted); font-size: var(--text-xs); }
+.booking__room.is-active { background: var(--color-primary-50); box-shadow: inset 4px 0 0 var(--color-primary-500); }
+
+.booking__cell {
+  --am: var(--booking-free);
+  --pm: var(--booking-free);
+  min-height: 52px;
+  border: 0;
+  border-right: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+  background: linear-gradient(to bottom right, var(--am) calc(50% - .5px), var(--pm) calc(50% + .5px));
+  cursor: pointer;
+  padding: 0;
+  touch-action: manipulation;
+}
+.booking__cell[data-am="busy"]    { --am: var(--booking-busy); }
+.booking__cell[data-pm="busy"]    { --pm: var(--booking-busy); }
+.booking__cell[data-am="past"]    { --am: var(--booking-past); }
+.booking__cell[data-pm="past"]    { --pm: var(--booking-past); }
+.booking__cell[data-am="preview"] { --am: var(--booking-preview); }
+.booking__cell[data-pm="preview"] { --pm: var(--booking-preview); }
+.booking__cell[data-am="sel"]     { --am: var(--booking-sel); }
+.booking__cell[data-pm="sel"]     { --pm: var(--booking-sel); }
+.booking__cell:disabled { cursor: not-allowed; }
+.booking__cell:not(:disabled):hover { box-shadow: inset 0 0 0 2px var(--color-primary-400); }
+.booking__cell:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: -2px; }
+
+.booking__hint { margin-top: var(--space-3); min-height: 1.5em; font-size: var(--text-sm); color: var(--color-text-secondary); }
+.booking__hint.is-warning { color: var(--color-warning-text); font-weight: 600; }
+
+.booking__panel {
+  margin-top: var(--space-6);
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+.booking__summary-head { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); flex-wrap: wrap; padding-bottom: var(--space-5); border-bottom: 1px solid var(--color-border-default); }
+.booking__summary { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-8); }
+.booking__summary dt { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-muted); }
+.booking__summary dd { font-weight: 600; font-size: var(--text-base); }
+.booking__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.booking__submit { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
+.booking__submit span { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+@media (max-width: 639px) {
+  .booking__grid { --name-w: 112px; grid-template-columns: var(--name-w) repeat(var(--booking-days, 7), minmax(36px, 1fr)); }
+  .booking__room { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
+  .booking__room small { display: none; }
+  .booking__panel { padding: var(--space-4); }
+  .booking__legend { gap: var(--space-2) var(--space-4); }
+}

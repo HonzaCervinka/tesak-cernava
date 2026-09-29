@@ -42,7 +42,7 @@
                 <th scope="row" style="font-weight:600">{{ room.name }}</th>
                 <td>{{ room.features|join(', ') }}</td>
                 <td class="price-cell">{{ room.price|number_format(0, ',', ' ') }}{{ suffix }}</td>
-                <td class="price-cell">{{ room.priceSingleNight ? room.priceSingleNight|number_format(0, ',', ' ') ~ suffix : '—' }}</td>
+                <td class="price-cell">{{ room.priceSingleNight ? room.priceSingleNight|number_format(0, ',', ' ') ~ suffix : '–' }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="alert alert--info mt-6">
-          <strong>V ceně každého pokoje:</strong> povlečení, ručníky, WC. <strong>Přezůvky s sebou.</strong> Malý pes do 4 kg: 190 Kč/noc. Postýlka pro děti do 2 let: zdarma. Ceny se mohou změnit.
+          <strong>V ceně každého pokoje:</strong> povlečení a ručníky. <strong>Přezůvky s sebou.</strong> Malý pes do 4 kg: 190 Kč/noc. Postýlka pro děti do 2 let: zdarma. Ceny se mohou změnit.
         </div>
       </div>
     </section>

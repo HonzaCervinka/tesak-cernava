@@ -15,14 +15,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class ImportMealsCommand extends Command
 {
     private const MEALS = [
-        ['name' => 'Snídaně — dítě do 12 let', 'price' => 130],
-        ['name' => 'Snídaně — dospělý', 'price' => 160],
+        ['name' => 'Snídaně – dítě do 12 let', 'price' => 130],
+        ['name' => 'Snídaně – dospělý', 'price' => 160],
         [
             'name' => 'Skupiny dětí',
             'price' => 748,
             'unit' => '/dítě/den',
             'highlighted' => true,
-            'note' => 'Pondělí–pátek: 2 990 Kč / dítě',
+            'note' => 'Pondělí–pátek (4 noci): 2 990 Kč / dítě',
             'features' => [
                 '3× denně teplé jídlo',
                 '2× denně svačina',

@@ -26,7 +26,7 @@
   {% if data.message %}<tr><th>Zpráva</th><td style="white-space:pre-wrap">{{ data.message }}</td></tr>{% endif %}
 </table>
 
-<p>Máte-li dotaz, kontaktujte nás na <a href="mailto:tesakcernava@seznam.cz" class="accent">tesakcernava@seznam.cz</a> nebo na tel. <strong>+420 725 963 166</strong>.</p>
+<p>Máte-li dotaz, kontaktujte nás na <a href="mailto:{{ business.email }}" class="accent">{{ business.email }}</a> nebo na tel. <strong>{{ business.phone_display }}</strong>.</p>
 
 <div class="footer">Penzion Tesák-Čerňava · Chvalčov · Hostýnské vrchy</div>
 </body>

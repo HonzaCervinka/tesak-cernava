@@ -5,6 +5,9 @@
  */
 
 const WEEKDAYS = ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'];
+const MONTHS = ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'];
+const CHUNK_DAYS = 60;     // jeden dotaz na /api/availability (API dovolí nejvýš 62)
+const HORIZON_DAYS = 365;  // jak daleko dopředu osa sahá
 
 /* Datumy držíme jako 'YYYY-MM-DD' – porovnávají se jako řetězce a nemají problém s časovým pásmem. */
 function iso(date) {
@@ -53,8 +56,8 @@ function initBooking(root) {
   const guestsInput = form.querySelector('[name="guests"]');
 
   const state = {
-    from: today,
-    days: 14,
+    from: today,    // první den osy
+    days: 0,        // kolik dní je načteno a vykresleno
     busy: {},       // roomId → [[arrival, departure], ...]
     sel: null,      // { roomId, arrival, departure|null }
     hover: null,    // { roomId, date } – náhled prodloužení pod myší
@@ -63,6 +66,9 @@ function initBooking(root) {
     focusRoom: null,
   };
   let cells = [];   // { el, roomId, date }
+  const cellsByRoom = new Map(rooms.map(r => [r.id, []]));
+  let lastMonth = null; // { key, el, start, span } – měsíc na konci osy, prodlouží se při donačtení
+  let loading = false;
 
   /* ---- Obsazenost ---- */
   function nightBusy(roomId, date) {
@@ -117,61 +123,85 @@ function initBooking(root) {
     return nightBusy(roomId, date) ? 'busy' : 'free';
   }
 
-  /* ---- Vykreslení mřížky (při změně okna) ---- */
-  function build() {
-    const dates = Array.from({ length: state.days }, (_, i) => addDays(state.from, i));
-    grid.style.setProperty('--booking-days', state.days);
-    grid.innerHTML = '';
-    cells = [];
+  /* ---- Vykreslení mřížky ----
+   * Řádky: 1 = měsíce, 2 = dny, 3+ = pokoje. Sloupce: 1 = název pokoje, 2+ = dny.
+   * Pozice jsou explicitní, takže další dny jde přidat na konec bez překreslení celé osy.
+   */
+  function place(el, row, col, span = 1) {
+    el.style.gridRow = String(row);
+    el.style.gridColumn = span > 1 ? `${col} / span ${span}` : String(col);
+    grid.append(el);
+  }
 
+  function buildRooms() {
+    grid.innerHTML = '';
     const corner = document.createElement('div');
     corner.className = 'booking__corner';
     corner.textContent = 'Pokoj';
+    corner.style.gridRow = '1 / span 2';
+    corner.style.gridColumn = '1';
     grid.append(corner);
 
-    dates.forEach((date, i) => {
-      const d = parse(date);
-      const head = document.createElement('div');
-      const wd = d.getUTCDay();
-      head.className = 'booking__day'
-        + (wd === 0 || wd === 6 ? ' booking__day--weekend' : '')
-        + (date === today ? ' booking__day--today' : '');
-      const month = (i === 0 || d.getUTCDate() === 1)
-        ? `<span class="booking__month">${d.toLocaleString('cs-CZ', { month: 'short', timeZone: 'UTC' })}</span>` : '';
-      head.innerHTML = `${month}<strong>${d.getUTCDate()}</strong><small>${WEEKDAYS[wd]}</small>`;
-      grid.append(head);
-    });
-
-    rooms.forEach(room => {
+    rooms.forEach((room, r) => {
       const name = document.createElement('div');
       name.className = 'booking__room';
       name.dataset.roomId = room.id;
       name.innerHTML = `<span class="booking__room-name"></span>`
         + (room.price ? `<small>${room.priceFrom ? 'od ' : ''}${money(room.price)} ${room.priceUnit || ''}</small>` : '');
       name.querySelector('.booking__room-name').textContent = room.name;
-      grid.append(name);
+      place(name, r + 3, 1);
+    });
+  }
 
-      dates.forEach(date => {
+  function appendDays(count) {
+    for (let i = 0; i < count; i++) {
+      const idx = state.days + i;
+      const date = addDays(state.from, idx);
+      const d = parse(date);
+      const col = idx + 2;
+
+      const monthKey = date.slice(0, 7);
+      if (lastMonth && lastMonth.key === monthKey) {
+        lastMonth.span++;
+        lastMonth.el.style.gridColumn = `${lastMonth.start} / span ${lastMonth.span}`;
+      } else {
+        const el = document.createElement('div');
+        el.className = 'booking__month-cell';
+        el.innerHTML = `<span>${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}</span>`;
+        place(el, 1, col);
+        lastMonth = { key: monthKey, el, start: col, span: 1 };
+      }
+
+      const wd = d.getUTCDay();
+      const head = document.createElement('div');
+      head.className = 'booking__day'
+        + (wd === 0 || wd === 6 ? ' booking__day--weekend' : '')
+        + (date === today ? ' booking__day--today' : '');
+      head.innerHTML = `<strong>${d.getUTCDate()}</strong><small>${WEEKDAYS[wd]}</small>`;
+      place(head, 2, col);
+
+      rooms.forEach((room, r) => {
         const el = document.createElement('button');
         el.type = 'button';
         el.className = 'booking__cell';
         el.dataset.roomId = room.id;
         el.dataset.date = date;
-        grid.append(el);
-        cells.push({ el, roomId: room.id, date });
+        place(el, r + 3, col);
+        const cell = { el, roomId: room.id, date };
+        cells.push(cell);
+        cellsByRoom.get(room.id).push(cell);
       });
-    });
-
-    range.textContent = `${fmt(dates[0])} – ${fmt(dates[dates.length - 1], true)}`;
-    prevBtn.disabled = state.from <= today;
-    paint();
+    }
+    state.days += count;
   }
 
-  /* ---- Obarvení buněk (při každé změně výběru / hoveru) ---- */
-  function paint() {
+  /* ---- Obarvení buněk (při každé změně výběru / hoveru) ----
+   * onlyRoomId: při hoveru a táhnutí se mění jen jeden řádek, ostatní se nepřepočítávají.
+   */
+  function paint(onlyRoomId = null) {
     state.view = computeView();
     const activeId = state.drag?.roomId ?? state.sel?.roomId ?? null;
-    cells.forEach(({ el, roomId, date }) => {
+    (onlyRoomId === null ? cells : cellsByRoom.get(onlyRoomId)).forEach(({ el, roomId, date }) => {
       const am = nightState(roomId, addDays(date, -1));
       const pm = nightState(roomId, date);
       el.dataset.am = am;
@@ -195,17 +225,22 @@ function initBooking(root) {
     updateHint();
   }
 
+  const touch = window.matchMedia('(hover: none)').matches;
+  const click = touch ? 'klepněte' : 'klikněte';
+
   function updateHint() {
     if (hint.classList.contains('is-warning')) return;
     const sel = state.sel;
     if (!sel) {
-      hint.textContent = 'Klikněte v řádku pokoje na den příjezdu a pak na den odjezdu, nebo termín přetáhněte myší.';
+      hint.textContent = touch
+        ? 'Klepněte v řádku pokoje na den příjezdu a pak na den odjezdu.'
+        : 'Klikněte v řádku pokoje na den příjezdu a pak na den odjezdu, nebo termín přetáhněte myší.';
     } else if (!sel.departure) {
-      hint.textContent = `${roomById(sel.roomId).name}, příjezd ${fmt(sel.arrival)}. Teď klikněte na den odjezdu.`;
+      hint.textContent = `${roomById(sel.roomId).name}, příjezd ${fmt(sel.arrival)}. Teď ${click} na den odjezdu.`;
     } else {
       const n = nightsBetween(sel.arrival, sel.departure);
       hint.textContent = `${roomById(sel.roomId).name}, ${fmt(sel.arrival)} – ${fmt(sel.departure, true)} (${n} ${plural(n, 'noc', 'noci', 'nocí')}). `
-        + 'Kliknutím na jiný den v řádku termín prodloužíte nebo zkrátíte. Údaje vyplňte níže.';
+        + `${touch ? 'Klepnutím' : 'Kliknutím'} na jiný den v řádku termín prodloužíte nebo zkrátíte. Údaje vyplňte níže.`;
     }
   }
 
@@ -281,7 +316,7 @@ function initBooking(root) {
     const range = clampRange(drag.roomId, drag.anchor, cell.dataset.date);
     if (String(range) !== String(drag.range)) {
       drag.range = range;
-      paint();
+      paint(drag.roomId);
     }
   });
   document.addEventListener('pointerup', () => {
@@ -313,10 +348,10 @@ function initBooking(root) {
     const cell = e.target.closest('.booking__cell');
     if (!cell) return;
     state.hover = { roomId: Number(cell.dataset.roomId), date: cell.dataset.date };
-    paint();
+    paint(state.sel.roomId);
   });
   grid.addEventListener('mouseleave', () => {
-    if (state.hover) { state.hover = null; paint(); }
+    if (state.hover && state.sel) { state.hover = null; paint(state.sel.roomId); }
   });
 
   /* ---- Formulář ---- */
@@ -412,11 +447,11 @@ function initBooking(root) {
         success.hidden = false;
         success.focus();
         state.sel = null;
-        await load();
+        await reload();
       } else if (res.status === 409) {
         state.sel = null;
         closePanel();
-        await load();
+        await reload();
         flashHint(body.error, 8000);
         scroller.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else if (res.status === 422) {
@@ -431,47 +466,85 @@ function initBooking(root) {
     }
   });
 
-  /* ---- Načtení obsazenosti a posun okna ---- */
-  async function load() {
+  /* ---- Načtení obsazenosti a posouvání osy ---- */
+  async function fetchBusy(from, days) {
+    const res = await fetch(`${root.dataset.availabilityUrl}?from=${from}&days=${days}`, { headers: { Accept: 'application/json' } });
+    if (!res.ok) throw new Error();
+    const body = await res.json();
+    today = body.today;
+    return body.busy;
+  }
+
+  // Rezervace přes hranici dvou dotazů přijde dvakrát – ulož ji jen jednou.
+  function mergeBusy(target, busy) {
+    Object.entries(busy).forEach(([roomId, ranges]) => {
+      const list = target[roomId] ??= [];
+      ranges.forEach(r => { if (!list.some(x => x[0] === r[0] && x[1] === r[1])) list.push(r); });
+    });
+  }
+
+  async function loadMore() {
+    if (loading || state.days >= HORIZON_DAYS) return;
+    loading = true;
     root.classList.add('is-loading');
     try {
-      const res = await fetch(`${root.dataset.availabilityUrl}?from=${state.from}&days=${state.days}`, { headers: { Accept: 'application/json' } });
-      const body = await res.json();
-      today = body.today;
-      state.from = body.from;
-      state.busy = body.busy;
+      const count = Math.min(CHUNK_DAYS, HORIZON_DAYS - state.days);
+      mergeBusy(state.busy, await fetchBusy(addDays(state.from, state.days), count));
+      appendDays(count);
+      paint();
     } catch {
       flashHint('Obsazenost se nepodařilo načíst. Zkuste obnovit stránku.');
     } finally {
+      loading = false;
       root.classList.remove('is-loading');
-      build();
+      updateScrollState();
     }
   }
 
-  function fitDays() {
-    const narrow = window.innerWidth < 640;
-    const nameWidth = narrow ? 112 : 200;
-    const cellMin = narrow ? 38 : 46;
-    return Math.max(7, Math.min(28, Math.floor((scroller.clientWidth - nameWidth) / cellMin)));
+  // Po odeslání poptávky: znovu načíst obsazenost celé vykreslené osy.
+  async function reload() {
+    const busy = {};
+    try {
+      for (let i = 0; i < state.days; i += CHUNK_DAYS) {
+        mergeBusy(busy, await fetchBusy(addDays(state.from, i), Math.min(CHUNK_DAYS, state.days - i)));
+      }
+      state.busy = busy;
+    } catch {
+      flashHint('Obsazenost se nepodařilo načíst. Zkuste obnovit stránku.');
+    }
+    paint();
   }
 
-  function shift(days) {
-    const next = addDays(state.from, days);
-    state.from = next < today ? today : next;
-    load();
+  function metrics() {
+    const first = cells[0]?.el.getBoundingClientRect().width || 46;
+    const nameW = grid.querySelector('.booking__room')?.getBoundingClientRect().width || 0;
+    return { cellW: first, visibleDays: Math.max(1, Math.floor((scroller.clientWidth - nameW) / first)) };
   }
-  prevBtn.addEventListener('click', () => shift(-state.days));
-  nextBtn.addEventListener('click', () => shift(state.days));
-  todayBtn.addEventListener('click', () => { state.from = today; load(); });
 
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      const days = fitDays();
-      if (days !== state.days) { state.days = days; load(); }
-    }, 200);
-  });
+  function updateScrollState() {
+    if (!state.days) return;
+    const { cellW, visibleDays } = metrics();
+    const firstIdx = Math.min(state.days - 1, Math.round(scroller.scrollLeft / cellW));
+    const lastIdx = Math.min(state.days - 1, firstIdx + visibleDays - 1);
+    range.textContent = `${fmt(addDays(state.from, firstIdx))} – ${fmt(addDays(state.from, lastIdx), true)}`;
+    prevBtn.disabled = scroller.scrollLeft <= 1;
+    const atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1;
+    nextBtn.disabled = atEnd && state.days >= HORIZON_DAYS;
+    // Blízko konce načti další dny, ať posouvání nenarazí na zeď.
+    if (scroller.scrollLeft + scroller.clientWidth > scroller.scrollWidth - 14 * cellW) loadMore();
+  }
+
+  let scrollFrame = 0;
+  scroller.addEventListener('scroll', () => {
+    cancelAnimationFrame(scrollFrame);
+    scrollFrame = requestAnimationFrame(updateScrollState);
+  }, { passive: true });
+  window.addEventListener('resize', () => updateScrollState());
+
+  const weekScroll = () => 7 * metrics().cellW;
+  prevBtn.addEventListener('click', () => scroller.scrollBy({ left: -weekScroll(), behavior: 'smooth' }));
+  nextBtn.addEventListener('click', () => scroller.scrollBy({ left: weekScroll(), behavior: 'smooth' }));
+  todayBtn.addEventListener('click', () => scroller.scrollTo({ left: 0, behavior: 'smooth' }));
 
   /* Tlačítka „Rezervovat“ na kartách pokojů – sjedou na osu a zvýrazní řádek pokoje. */
   document.querySelectorAll('[data-book-room]').forEach(btn => {
@@ -489,8 +562,8 @@ function initBooking(root) {
   const linkedRoom = Number(new URLSearchParams(location.search).get('pokoj'));
   if (rooms.some(r => r.id === linkedRoom)) state.focusRoom = linkedRoom;
 
-  state.days = fitDays();
-  load();
+  buildRooms();
+  loadMore();
 }
 
 const bookingRoot = document.getElementById('rezervace');

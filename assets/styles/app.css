@@ -1309,6 +1309,7 @@ video.hero__bg {
 .booking__scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain; /* vodorovné posouvání osy nespustí na mobilu „zpět“ v prohlížeči */
   background: var(--color-surface-card);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-xl);
@@ -1316,8 +1317,10 @@ video.hero__bg {
 }
 .booking__grid {
   --name-w: 200px;
+  --cell-w: 46px;
   display: grid;
-  grid-template-columns: var(--name-w) repeat(var(--booking-days, 14), minmax(40px, 1fr));
+  grid-template-columns: var(--name-w);
+  grid-auto-columns: var(--cell-w);
   min-width: max-content;
   transition: opacity var(--transition-fast);
   -webkit-user-select: none;
@@ -1335,6 +1338,18 @@ video.hero__bg {
   font-size: var(--text-sm); color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-border-default);
 }
+.booking__month-cell {
+  padding: var(--space-2) 0 0;
+  border-left: 1px solid var(--color-border-default);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+  white-space: nowrap;
+}
+/* Název měsíce zůstává vidět, dokud je měsíc na ose (sticky vůči posuvné oblasti, hned za sloupcem pokojů). */
+.booking__month-cell span { position: sticky; left: calc(var(--name-w) + var(--space-2)); display: inline-block; padding-inline: var(--space-2); }
 .booking__day {
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
   padding: var(--space-2) 0;
@@ -1346,7 +1361,6 @@ video.hero__bg {
 .booking__day small { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .04em; }
 .booking__day--weekend { background: var(--color-surface-muted); }
 .booking__day--today strong { color: #fff; background: var(--color-primary-600); border-radius: var(--radius-full); padding: 0 .4em; }
-.booking__month { font-size: var(--text-xs); font-weight: 600; color: var(--color-primary-600); text-transform: uppercase; }
 
 .booking__room {
   display: flex; flex-direction: column; justify-content: center;
@@ -1402,8 +1416,13 @@ video.hero__bg {
 .booking__submit { display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
 .booking__submit span { font-size: var(--text-sm); color: var(--color-text-muted); }
 
+/* Na dotykových zařízeních se osa posouvá prstem, šipky nejsou potřeba. */
+@media (hover: none) {
+  .booking__arrow { display: none; }
+}
+
 @media (max-width: 639px) {
-  .booking__grid { --name-w: 112px; grid-template-columns: var(--name-w) repeat(var(--booking-days, 7), minmax(36px, 1fr)); }
+  .booking__grid { --name-w: 112px; --cell-w: 40px; }
   .booking__room { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
   .booking__room small { display: none; }
   .booking__panel { padding: var(--space-4); }
